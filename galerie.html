@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerie Zia Kürtös – Chimney cakes, cuisson à la broche et événements en Suisse</title>
+<meta name="description" content="Découvrez la galerie de Zia Kürtös : photos de kürtős artisanaux, cuisson à la broche, saveurs et présences au Montreux Jazz, Montreux Noël et festivals en Suisse.">
+<meta property="og:title" content="Galerie Zia Kürtös – Chimney cakes et événements gourmands">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ziakurtos.com/galerie.html">
+<link rel="canonical" href="https://ziakurtos.com/galerie.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{--creme:#FFF6E8;--beige:#EAD7B7;--dore:#D89B28;--caramel:#B66A2C;--brun:#4A2B1A;--sapin:#173F35;--rouge:#A6422A;--rouge2:#7F2F20;--blanc:#FFFBF3;--texte:#2C1810;--gris:#6B4435}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--brun);color:var(--texte);overflow-x:hidden}
+h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.15}
+h1{font-size:clamp(2.4rem,5.5vw,4.8rem);font-weight:900}
+h2{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700}
+p{line-height:1.78}em{font-style:italic}
+
+.btn{display:inline-block;padding:.88rem 2.1rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.07em;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:all .28s ease;border:2px solid transparent}
+.btn-primary{background:var(--rouge);color:var(--blanc);border-color:var(--rouge)}
+.btn-primary:hover{background:var(--rouge2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(166,66,42,.3)}
+.btn-ghost{background:transparent;color:var(--blanc);border-color:rgba(255,246,232,.4)}
+.btn-ghost:hover{background:rgba(255,246,232,.1);transform:translateY(-3px)}
+
+.announcement{background:var(--dore);color:var(--brun);text-align:center;padding:.6rem 2rem;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:none}
+.announcement.visible{display:block}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(74,43,26,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(216,155,40,.15);transition:box-shadow .3s,padding .3s}
+nav.scrolled{box-shadow:0 4px 28px rgba(0,0,0,.3);padding:.7rem 5%}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--blanc);text-decoration:none}
+.nav-logo span{color:var(--dore)}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{text-decoration:none;color:rgba(255,246,232,.65);font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;position:relative;transition:color .2s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--dore);transition:width .25s;border-radius:1px}
+.nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--blanc)}
+.nav-links a:hover::after,.nav-links a[aria-current="page"]::after{width:100%}
+.nav-cta-btn{padding:.6rem 1.5rem;font-size:.75rem}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.burger span{width:24px;height:2px;background:var(--blanc);border-radius:2px;display:block}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--brun);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:2rem;padding:2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--blanc);text-decoration:none}
+.mobile-menu a:hover{color:var(--dore)}
+.mobile-menu-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;color:var(--blanc)}
+
+.page-hero{min-height:60vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:calc(72px + 3rem) 8% 4rem;position:relative;overflow:hidden}
+.hero-noise{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.4;pointer-events:none}
+.hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(216,155,40,.12) 0%,transparent 65%);top:-10%;right:5%;pointer-events:none}
+.ph-label{display:inline-flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--dore);margin-bottom:2rem;padding:.35rem 1rem;border:1px solid rgba(216,155,40,.3);border-radius:2px}
+.ph-dot{width:5px;height:5px;background:var(--dore);border-radius:50%;animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.page-hero h1{color:var(--blanc);position:relative;z-index:1}
+.page-hero h1 em{color:var(--dore)}
+.page-hero-sub{color:rgba(255,246,232,.55);font-size:1rem;max-width:520px;margin-top:1.2rem;line-height:1.75;position:relative;z-index:1}
+
+/* gallery section */
+.gallery-section{background:var(--brun);padding:0 5% 6rem}
+
+/* filter bar */
+.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;padding:1.5rem 0;position:sticky;top:72px;background:var(--brun);z-index:10;border-bottom:1px solid rgba(255,246,232,.06);margin-bottom:2.5rem}
+.filter-btn{font-family:'DM Sans',sans-serif;padding:.45rem 1.3rem;border-radius:2px;border:1.5px solid rgba(255,246,232,.15);background:transparent;color:rgba(255,246,232,.5);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .2s}
+.filter-btn.active,.filter-btn:hover{background:var(--dore);border-color:var(--dore);color:var(--brun)}
+
+/* masonry (rendered by main.js) */
+.masonry{columns:4;column-gap:1rem;max-width:1400px;margin:0 auto}
+.masonry-item{break-inside:avoid;margin-bottom:1rem;position:relative;cursor:pointer;overflow:hidden;border-radius:3px;transition:transform .3s;display:block}
+.masonry-item:hover{transform:scale(1.02)}
+.masonry-item:focus-visible{outline:2px solid var(--dore);outline-offset:3px}
+.masonry-item.polaroid{background:var(--blanc);padding:.8rem .8rem 2.5rem;box-shadow:0 4px 20px rgba(0,0,0,.35)}
+.masonry-item.polaroid:hover{transform:scale(1.02) rotate(.5deg)}
+.item-img{background:rgba(255,246,232,.06);border:1px solid rgba(255,246,232,.08);border-radius:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;position:relative;overflow:hidden;transition:border-color .3s}
+.masonry-item:hover .item-img{border-color:rgba(216,155,40,.3)}
+.item-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ar-sq{aspect-ratio:1}.ar-tall{aspect-ratio:3/4}.ar-xtall{aspect-ratio:2/3}.ar-wide{aspect-ratio:4/3}.ar-xwide{aspect-ratio:16/9}
+.item-overlay{position:absolute;inset:0;background:rgba(74,43,26,0);transition:background .3s;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem;border-radius:2px}
+.masonry-item:hover .item-overlay{background:rgba(74,43,26,.55)}
+.item-label{color:var(--blanc);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:0;transform:translateY(6px);transition:all .3s}
+.masonry-item:hover .item-label{opacity:1;transform:translateY(0)}
+.item-cat{display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--dore);color:var(--brun);padding:.18rem .6rem;border-radius:2px;margin-bottom:.3rem;opacity:0;transition:all .3s .05s}
+.masonry-item:hover .item-cat{opacity:1}
+.polaroid-caption{font-size:.72rem;color:var(--gris);text-align:center;font-style:italic;padding-top:.3rem}
+.ph-text{font-size:.58rem;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,246,232,.2);font-weight:500;text-align:center;padding:0 .8rem}
+.img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:rgba(255,246,232,.2);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;text-align:center;padding:1rem}
+
+/* gallery count */
+.gallery-count{font-size:.75rem;color:rgba(255,246,232,.35);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem}
+#visibleCount{color:var(--dore);font-weight:700}
+
+/* empty state */
+.empty-state{text-align:center;padding:4rem 2rem;color:rgba(255,246,232,.4)}
+.empty-state p{margin-bottom:1.5rem;font-size:.95rem;line-height:1.75}
+
+/* lightbox */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(10,4,2,.92);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.lightbox.open{display:flex}
+.lb-inner{position:relative;max-width:800px;width:90%;max-height:85vh}
+.lb-img-frame{background:rgba(255,246,232,.05);border-radius:3px;border:1px solid rgba(216,155,40,.2);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;overflow:hidden}
+.lb-img-frame img{width:100%;height:100%;object-fit:contain}
+.lb-caption{color:rgba(255,246,232,.6);font-size:.82rem;margin-top:.8rem;text-align:center;font-style:italic}
+.lb-counter{color:rgba(255,246,232,.35);font-size:.72rem;text-align:center;margin-top:.3rem}
+.lb-close{position:absolute;top:-48px;right:0;background:none;border:none;color:rgba(255,246,232,.6);cursor:pointer;transition:color .2s;padding:.4rem}
+.lb-close:hover{color:var(--blanc)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,246,232,.08);border:1px solid rgba(255,246,232,.15);color:rgba(255,246,232,.7);cursor:pointer;width:44px;height:44px;border-radius:2px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.lb-nav:hover{background:rgba(255,246,232,.15);color:var(--blanc)}
+.lb-prev{right:calc(100% + 1rem)}
+.lb-next{left:calc(100% + 1rem)}
+
+/* stats strip */
+.stats-strip{background:rgba(255,246,232,.04);border-top:1px solid rgba(255,246,232,.06);border-bottom:1px solid rgba(255,246,232,.06);padding:2.5rem 5%}
+.stats-inner{max-width:800px;margin:0 auto;display:flex;justify-content:center;gap:5rem;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-val{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--dore)}
+.stat-label{font-size:.7rem;color:rgba(255,246,232,.4);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
+
+/* cta */
+.cta-section{background:var(--rouge);padding:6rem 5%;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,246,232,.025) 0,rgba(255,246,232,.025) 1px,transparent 0,transparent 18px)}
+.cta-section>*{position:relative;z-index:1}
+.cta-section h2{color:var(--blanc);max-width:600px;margin:0 auto 1rem}
+.cta-section p{color:rgba(255,246,232,.7);max-width:420px;margin:0 auto 2.5rem}
+.cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+
+footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2.5fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--blanc);text-decoration:none;display:block;margin-bottom:.9rem}
+.footer-logo span{color:var(--dore)}
+.footer-brand p{font-size:.84rem;line-height:1.7;max-width:290px}
+.footer-socials{display:flex;gap:.8rem;margin-top:1.5rem}
+.footer-socials a{width:38px;height:38px;border-radius:2px;border:1px solid rgba(255,246,232,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,246,232,.4);text-decoration:none;transition:all .2s}
+.footer-socials a:hover{border-color:var(--dore);color:var(--dore)}
+[data-tiktok]{display:none}
+.footer-col h4{font-family:'DM Sans',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dore);margin-bottom:1.2rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.footer-col ul a{text-decoration:none;color:rgba(255,246,232,.45);font-size:.84rem;transition:color .2s}
+.footer-col ul a:hover{color:var(--blanc)}
+.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,246,232,.07);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:.75rem;flex-wrap:wrap;gap:.8rem}
+.footer-credit a{color:rgba(255,246,232,.4);text-decoration:none;transition:color .2s}
+.footer-credit a:hover{color:var(--dore)}
+
+@media(prefers-reduced-motion:reduce){.masonry-item,.masonry-item.polaroid{transition:none}.item-label,.item-cat,.item-overlay{transition:none;opacity:1;transform:none}}
+@media(max-width:1100px){.masonry{columns:3}}
+@media(max-width:760px){.masonry{columns:2}.lb-prev{right:auto;bottom:-52px;left:calc(50% - 56px)}.lb-next{left:auto;bottom:-52px;right:calc(50% - 56px)}.lb-nav{top:auto;transform:none}.lb-inner{max-height:70vh}.stats-inner{gap:3rem}.footer-inner{grid-template-columns:1fr 1fr}.nav-links,.nav-cta-wrap{display:none}.burger{display:flex}}
+@media(max-width:480px){.masonry{columns:1}.footer-inner{grid-template-columns:1fr}.footer-bottom{flex-direction:column;text-align:center}}
+</style>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"Organization","@id":"https://ziakurtos.com/#org","name":"Zia Kürtös","url":"https://ziakurtos.com"},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Accueil","item":"https://ziakurtos.com/"},
+    {"@type":"ListItem","position":2,"name":"Galerie","item":"https://ziakurtos.com/galerie.html"}
+  ]}
+]}
+</script>
+</head>
+<body>
+
+<div id="announcement" class="announcement" role="alert" aria-live="polite"></div>
+
+<nav id="navbar" role="navigation" aria-label="Navigation principale">
+  <a href="index.html" class="nav-logo">Zia <span>Kürtös</span></a>
+  <ul class="nav-links">
+    <li><a href="a-propos.html">À propos</a></li>
+    <li><a href="nos-kurtos.html">Nos Kürtös</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="galerie.html" aria-current="page">Galerie</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <div class="nav-cta-wrap">
+    <a href="contact.html" id="navCta" class="btn btn-primary nav-cta-btn" data-cta-contact>Inviter Zia Kürtös</a>
+  </div>
+  <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true">
+  <button class="mobile-menu-close" aria-label="Fermer">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="index.html">Accueil</a>
+  <a href="a-propos.html">À propos</a>
+  <a href="nos-kurtos.html">Nos Kürtös</a>
+  <a href="evenements.html">Événements</a>
+  <a href="galerie.html">Galerie</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html" class="btn btn-primary" data-cta-contact>Inviter Zia Kürtös</a>
+</div>
+
+<header class="page-hero" role="banner">
+  <div class="hero-noise" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="ph-label"><span class="ph-dot" aria-hidden="true"></span>Photos &amp; ambiances</div>
+  <h1>La gourmandise <em>en images</em></h1>
+  <p class="page-hero-sub">Cuisson à la broche, saveurs caramélisées, stands de festival et marchés de Noël — l'univers de Zia Kürtös en photos.</p>
+</header>
+
+<main>
+<section class="gallery-section" aria-labelledby="gallery-title">
+  <h2 id="gallery-title" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Galerie photo Zia Kürtös — kürtős artisanaux, cuisson et événements</h2>
+
+  <!-- Filtres — gérés par main.js via data-filter-gallery -->
+  <div class="filter-bar" role="group" aria-label="Filtrer la galerie">
+    <button class="filter-btn active" data-filter-gallery="all" aria-pressed="true">Toutes</button>
+    <button class="filter-btn" data-filter-gallery="cuisson" aria-pressed="false">Cuisson</button>
+    <button class="filter-btn" data-filter-gallery="saveurs" aria-pressed="false">Saveurs</button>
+    <button class="filter-btn" data-filter-gallery="stand" aria-pressed="false">Stand</button>
+    <button class="filter-btn" data-filter-gallery="événements" aria-pressed="false">Événements</button>
+    <button class="filter-btn" data-filter-gallery="hiver" aria-pressed="false">Hiver</button>
+  </div>
+
+  <p class="gallery-count"><span id="visibleCount">0</span> photo(s)</p>
+
+  <!-- ★ Galerie injectée par main.js → renderGalleryPage() ★ -->
+  <div class="masonry" id="galleryGrid" role="list"></div>
+</section>
+
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-val">4+</div><div class="stat-label">Grands événements</div></div>
+    <div class="stat-item"><div class="stat-val">13+</div><div class="stat-label">Saveurs</div></div>
+    <div class="stat-item"><div class="stat-val">100%</div><div class="stat-label">Fait sur place</div></div>
+  </div>
+</div>
+
+<section class="cta-section" aria-labelledby="cta-title">
+  <h2 id="cta-title">Envie de retrouver le stand en vrai&nbsp;?</h2>
+  <p>Consultez nos prochaines présences ou invitez Zia Kürtös directement à votre événement.</p>
+  <div class="cta-btns">
+    <a href="evenements.html" class="btn btn-ghost">Voir nos présences festivals &amp; marchés</a>
+    <a href="contact.html" class="btn" style="background:var(--brun);color:var(--blanc);border:2px solid var(--brun)" data-cta-contact>Inviter Zia Kürtös</a>
+  </div>
+</section>
+</main>
+
+<!-- ★ Lightbox — IDs requis par main.js ★ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse d'image">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose" aria-label="Fermer la visionneuse">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Image précédente">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4 L6 8 L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="lb-img-frame" id="lbFrame"></div>
+    <p class="lb-caption" id="lbCaption"></p>
+    <p class="lb-counter" id="lbCounter"></p>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Image suivante">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4 L10 8 L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Zia <span>Kürtös</span></a>
+      <p>Galerie de kürtős artisanaux, cuisson à la broche et présences sur les festivals et marchés de Suisse romande.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Zia Kürtös" data-instagram><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.facebook.com/zia.kurtos/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Zia Kürtös" data-facebook><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="TikTok Zia Kürtös" data-tiktok><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+        <a href="mailto:info@ziakurtos.com" aria-label="Email Zia Kürtös" data-email><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+        <li><a href="nos-kurtos.html">Nos Kürtös</a></li>
+        <li><a href="evenements.html">Événements</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@ziakurtos.com" data-email>info@ziakurtos.com</a></li>
+        <li><a href="contact.html" data-cta-contact>Inviter Zia Kürtös</a></li>
+        <li><a href="evenements.html">Voir les événements</a></li>
+        <li><a href="nos-kurtos.html">Nos saveurs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 Zia Kürtös — Tous droits réservés — Galerie chimney cake Suisse romande</span>
+    <span class="footer-credit" id="footerCredit">
+      <a href="https://www.instagram.com/web.onit/" target="_blank" rel="noopener noreferrer">Site créé par Web On It !</a>
+    </span>
+  </div>
+</footer>
+
+<script src="assets/js/zia-data.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
