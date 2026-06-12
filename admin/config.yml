@@ -1,304 +1,266 @@
 backend:
-name: "git-gateway"
-branch: "main"
+name: git-gateway
+branch: main
 
-locale: "fr"
+locale: fr
 
-media_folder: "assets/images/uploads"
-public_folder: "/assets/images/uploads"
+media_folder: assets/images/uploads
+public_folder: /assets/images/uploads
 
 editor:
 preview: false
 
 collections:
 
-* name: "evenements"
-  label: "Événements"
-  label_singular: "Événement"
-  folder: "content/evenements"
+* name: evenements
+  label: Evenements
+  label_singular: Evenement
+  folder: content/evenements
   create: true
   delete: true
-  extension: "yml"
-  format: "yaml"
+  extension: yml
+  format: yaml
   slug: "{{slug}}"
-  identifier_field: "title"
-  summary: "{{title}} — {{city}} ({{start_date}})"
+  identifier_field: title
+  summary: "{{title}} - {{city}} - {{start_date}}"
   fields:
 
-  * label: "Nom de l'événement"
-    name: "title"
-    widget: "string"
-  * label: "Date de début"
-    name: "start_date"
-    widget: "date"
-    format: "YYYY-MM-DD"
-  * label: "Date de fin"
-    name: "end_date"
-    widget: "date"
-    format: "YYYY-MM-DD"
-  * label: "Ville"
-    name: "city"
-    widget: "string"
-  * label: "Lieu / lieu-dit"
-    name: "place"
-    widget: "string"
+  * label: Nom de l evenement
+    name: title
+    widget: string
+  * label: Date de debut
+    name: start_date
+    widget: date
+    format: YYYY-MM-DD
+  * label: Date de fin
+    name: end_date
+    widget: date
+    format: YYYY-MM-DD
+  * label: Ville
+    name: city
+    widget: string
+  * label: Lieu
+    name: place
+    widget: string
     required: false
-  * label: "Catégorie"
-    name: "category"
-    widget: "select"
+  * label: Categorie
+    name: category
+    widget: select
     options:
 
-    * label: "Festival"
-      value: "festival"
-    * label: "Marché"
-      value: "marché"
-    * label: "Marché de Noël"
-      value: "marché de Noël"
-    * label: "Food festival"
-      value: "food festival"
-    * label: "Événement privé"
-      value: "événement privé"
-    * label: "Fête communale"
-      value: "fête communale"
-    * label: "Autre"
-      value: "autre"
-  * label: "Saison"
-    name: "season"
-    widget: "select"
+    * festival
+    * marche
+    * marche de Noel
+    * food festival
+    * evenement prive
+    * fete communale
+    * autre
+  * label: Saison
+    name: season
+    widget: select
     options:
 
-    * label: "Printemps"
-      value: "printemps"
-    * label: "Été"
-      value: "été"
-    * label: "Automne"
-      value: "automne"
-    * label: "Hiver"
-      value: "hiver"
-    * label: "Annuel"
-      value: "annuel"
-  * label: "Description"
-    name: "description"
-    widget: "text"
-  * label: "Texte du lien"
-    name: "link_label"
-    widget: "string"
+    * printemps
+    * ete
+    * automne
+    * hiver
+    * annuel
+  * label: Description
+    name: description
+    widget: text
+  * label: Texte du lien
+    name: link_label
+    widget: string
     required: false
-    hint: "Ex : Voir le programme"
-  * label: "URL du lien"
-    name: "link_url"
-    widget: "string"
+  * label: URL du lien
+    name: link_url
+    widget: string
     required: false
-  * label: "Photo"
-    name: "image"
-    widget: "image"
+  * label: Photo
+    name: image
+    widget: image
     required: false
-    hint: "Image au format WebP recommandée."
-  * label: "Visible sur le site"
-    name: "visible"
-    widget: "boolean"
+  * label: Visible sur le site
+    name: visible
+    widget: boolean
     default: true
-  * label: "Mis en avant"
-    name: "featured"
-    widget: "boolean"
+  * label: Mis en avant
+    name: featured
+    widget: boolean
     default: false
-  * label: "Ordre d'affichage"
-    name: "order"
-    widget: "number"
+  * label: Ordre d affichage
+    name: order
+    widget: number
     default: 99
 
-* name: "saveurs"
-  label: "Saveurs"
-  label_singular: "Saveur"
-  folder: "content/saveurs"
+* name: saveurs
+  label: Saveurs
+  label_singular: Saveur
+  folder: content/saveurs
   create: true
   delete: true
-  extension: "yml"
-  format: "yaml"
+  extension: yml
+  format: yaml
   slug: "{{slug}}"
-  identifier_field: "title"
-  summary: "{{title}} ({{category}})"
+  identifier_field: title
+  summary: "{{title}} - {{category}}"
   fields:
 
-  * label: "Nom de la saveur"
-    name: "title"
-    widget: "string"
-  * label: "Catégorie"
-    name: "category"
-    widget: "select"
+  * label: Nom de la saveur
+    name: title
+    widget: string
+  * label: Categorie
+    name: category
+    widget: select
     options:
 
-    * label: "Sucré"
-      value: "sucré"
-    * label: "Tartinage"
-      value: "tartinage"
-    * label: "Signature"
-      value: "signature"
-    * label: "Salé"
-      value: "salé"
-    * label: "Saisonnier"
-      value: "saisonnier"
-    * label: "À venir"
-      value: "à venir"
-  * label: "Description courte"
-    name: "description"
-    widget: "text"
-  * label: "Badge"
-    name: "badge"
-    widget: "select"
+    * sucre
+    * tartinage
+    * signature
+    * sale
+    * saisonnier
+    * a venir
+  * label: Description courte
+    name: description
+    widget: text
+  * label: Badge
+    name: badge
+    widget: select
     options:
 
-    * label: "Classique"
-      value: "classique"
-    * label: "Signature"
-      value: "signature"
-    * label: "Gourmand"
-      value: "gourmand"
-    * label: "Saisonnier"
-      value: "saisonnier"
-    * label: "Salé"
-      value: "salé"
-    * label: "Réconfortant"
-      value: "réconfortant"
-  * label: "Saveur permanente"
-    name: "permanent"
-    widget: "boolean"
+    * classique
+    * signature
+    * gourmand
+    * saisonnier
+    * sale
+    * reconfortant
+  * label: Saveur permanente
+    name: permanent
+    widget: boolean
     default: true
-  * label: "Prochainement"
-    name: "upcoming"
-    widget: "boolean"
+  * label: Prochainement
+    name: upcoming
+    widget: boolean
     default: false
-  * label: "Visible sur le site"
-    name: "visible"
-    widget: "boolean"
+  * label: Visible sur le site
+    name: visible
+    widget: boolean
     default: true
-  * label: "Photo"
-    name: "image"
-    widget: "image"
+  * label: Photo
+    name: image
+    widget: image
     required: false
-    hint: "Image WebP recommandée."
-  * label: "Ordre d'affichage"
-    name: "order"
-    widget: "number"
+  * label: Ordre d affichage
+    name: order
+    widget: number
     default: 99
 
-* name: "galerie"
-  label: "Galerie photos"
-  label_singular: "Photo"
-  folder: "content/galerie"
+* name: galerie
+  label: Galerie photos
+  label_singular: Photo
+  folder: content/galerie
   create: true
   delete: true
-  extension: "yml"
-  format: "yaml"
+  extension: yml
+  format: yaml
   slug: "{{slug}}"
-  identifier_field: "title"
-  summary: "{{title}} ({{category}})"
+  identifier_field: title
+  summary: "{{title}} - {{category}}"
   fields:
 
-  * label: "Titre"
-    name: "title"
-    widget: "string"
-  * label: "Photo"
-    name: "image"
-    widget: "image"
-  * label: "Texte alternatif SEO"
-    name: "alt"
-    widget: "string"
-  * label: "Légende affichée"
-    name: "caption"
-    widget: "string"
+  * label: Titre
+    name: title
+    widget: string
+  * label: Photo
+    name: image
+    widget: image
+  * label: Texte alternatif SEO
+    name: alt
+    widget: string
+  * label: Legende affichee
+    name: caption
+    widget: string
     required: false
-  * label: "Catégorie"
-    name: "category"
-    widget: "select"
+  * label: Categorie
+    name: category
+    widget: select
     options:
 
-    * label: "Cuisson"
-      value: "cuisson"
-    * label: "Saveurs"
-      value: "saveurs"
-    * label: "Stand"
-      value: "stand"
-    * label: "Événements"
-      value: "événements"
-    * label: "Été"
-      value: "été"
-    * label: "Hiver"
-      value: "hiver"
-    * label: "Montreux Jazz"
-      value: "Montreux Jazz"
-    * label: "Montreux Noël"
-      value: "Montreux Noël"
-    * label: "Autres"
-      value: "autres"
-  * label: "Visible sur le site"
-    name: "visible"
-    widget: "boolean"
+    * cuisson
+    * saveurs
+    * stand
+    * evenements
+    * ete
+    * hiver
+    * Montreux Jazz
+    * Montreux Noel
+    * autres
+  * label: Visible sur le site
+    name: visible
+    widget: boolean
     default: true
-  * label: "Photo mise en avant"
-    name: "featured"
-    widget: "boolean"
+  * label: Photo mise en avant
+    name: featured
+    widget: boolean
     default: false
-  * label: "Ordre d'affichage"
-    name: "order"
-    widget: "number"
+  * label: Ordre d affichage
+    name: order
+    widget: number
     default: 99
-  * label: "Date de la photo"
-    name: "date"
-    widget: "date"
-    format: "YYYY-MM-DD"
+  * label: Date de la photo
+    name: date
+    widget: date
+    format: YYYY-MM-DD
     required: false
 
-* name: "settings"
-  label: "Réglages du site"
+* name: settings
+  label: Reglages du site
   files:
 
-  * label: "Réglages généraux"
-    name: "site"
-    file: "content/settings/site.yml"
-    format: "yaml"
+  * label: Reglages generaux
+    name: site
+    file: content/settings/site.yml
+    format: yaml
     fields:
 
-    * label: "Email de contact"
-      name: "email"
-      widget: "string"
-    * label: "URL Instagram"
-      name: "instagram_url"
-      widget: "string"
-    * label: "URL Facebook"
-      name: "facebook_url"
-      widget: "string"
-    * label: "URL TikTok"
-      name: "tiktok_url"
-      widget: "string"
+    * label: Email de contact
+      name: email
+      widget: string
+    * label: URL Instagram
+      name: instagram_url
+      widget: string
+    * label: URL Facebook
+      name: facebook_url
+      widget: string
+    * label: URL TikTok
+      name: tiktok_url
+      widget: string
       required: false
-    * label: "Thème actif"
-      name: "active_theme"
-      widget: "select"
-      default: "summer"
+    * label: Theme actif
+      name: active_theme
+      widget: select
+      default: summer
       options:
 
-      * label: "Été"
-        value: "summer"
-      * label: "Hiver"
-        value: "winter"
-    * label: "Texte du bouton principal"
-      name: "main_cta_label"
-      widget: "string"
-      default: "Découvrir nos kürtös artisanaux"
-    * label: "Texte du bouton de contact"
-      name: "contact_cta_label"
-      widget: "string"
-      default: "Inviter Zia Kürtös"
-    * label: "Texte d'annonce"
-      name: "announcement_text"
-      widget: "string"
+      * summer
+      * winter
+    * label: Texte du bouton principal
+      name: main_cta_label
+      widget: string
+      default: Decouvrir nos kurtos artisanaux
+    * label: Texte du bouton de contact
+      name: contact_cta_label
+      widget: string
+      default: Inviter Zia Kurtos
+    * label: Texte annonce
+      name: announcement_text
+      widget: string
       required: false
-    * label: "Mention du créateur du site"
-      name: "footer_credit_text"
-      widget: "string"
-      default: "Site créé par Web On It !"
-    * label: "Lien du créateur"
-      name: "footer_credit_url"
-      widget: "string"
-      default: "https://www.instagram.com/web.onit/"
+    * label: Mention du createur du site
+      name: footer_credit_text
+      widget: string
+      default: Site cree par Web On It
+    * label: Lien du createur
+      name: footer_credit_url
+      widget: string
+      default: https://www.instagram.com/web.onit/
