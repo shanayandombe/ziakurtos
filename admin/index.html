@@ -9,6 +9,11 @@
   <!-- Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
+  <!-- Decap CMS manual init -->
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
+
   <!-- Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
@@ -20,5 +25,24 @@
   </style>
 </head>
 <body>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function(user) {
+        if (!user) {
+          window.netlifyIdentity.on("login", function() {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+
+    window.addEventListener("load", function() {
+      if (window.CMS) {
+        window.CMS.init({
+          config: "/admin/config.yml"
+        });
+      }
+    });
+  </script>
 </body>
 </html>
