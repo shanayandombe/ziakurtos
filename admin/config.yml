@@ -1,172 +1,368 @@
 # ─────────────────────────────────────────────────────────────────────────────
-#  Zia Kürtös — Decap CMS Configuration
-#  Fichier : admin/config.yml
-#  Doc     : https://decapcms.org/docs/configuration-options/
+
+# Zia Kürtös — Decap CMS Configuration
+
+# Fichier : admin/config.yml
+
 # ─────────────────────────────────────────────────────────────────────────────
 
 backend:
-  name: git-gateway
-  branch: main
+name: "git-gateway"
+branch: "main"
 
-locale: fr
+locale: "fr"
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
-# Désactiver l'éditeur éditorial (plus simple pour une cliente non technique)
 editor:
-  preview: false
+preview: false
 
 collections:
 
-  # ── ÉVÉNEMENTS ──────────────────────────────────────────────────────────────
-  - name: "evenements"
-    label: "Événements"
-    label_singular: "Événement"
-    folder: "content/evenements"
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    identifier_field: title
-    summary: "{{title}} — {{city}} ({{start_date}})"
-    fields:
-      - { label: "Nom de l'événement",    name: title,       widget: string }
-      - { label: "Date de début",         name: start_date,  widget: date,   format: "YYYY-MM-DD" }
-      - { label: "Date de fin",           name: end_date,    widget: date,   format: "YYYY-MM-DD" }
-      - { label: "Ville",                 name: city,        widget: string }
-      - { label: "Lieu / lieu-dit",       name: place,       widget: string, required: false }
-      - label: "Catégorie"
-        name: category
-        widget: select
-        options:
-          - { label: "Festival",            value: festival }
-          - { label: "Marché",              value: marché }
-          - { label: "Marché de Noël",      value: "marché de Noël" }
-          - { label: "Food festival",       value: "food festival" }
-          - { label: "Événement privé",     value: "événement privé" }
-          - { label: "Fête communale",      value: "fête communale" }
-          - { label: "Autre",               value: autre }
-      - label: "Saison"
-        name: season
-        widget: select
-        options:
-          - { label: "Printemps", value: printemps }
-          - { label: "Été",       value: été }
-          - { label: "Automne",   value: automne }
-          - { label: "Hiver",     value: hiver }
-          - { label: "Annuel",    value: annuel }
-      - { label: "Description",           name: description, widget: text }
-      - { label: "Texte du lien",         name: link_label,  widget: string,  required: false, hint: "Ex : Voir le programme" }
-      - { label: "URL du lien",           name: link_url,    widget: string,  required: false }
-      - label: "Photo"
-        name: image
-        widget: image
-        required: false
-        hint: "Image au format WebP recommandée. Si vide, un visuel placeholder sera utilisé."
-      - { label: "Visible sur le site",   name: visible,     widget: boolean, default: true }
-      - { label: "Mis en avant",          name: featured,    widget: boolean, default: false, hint: "Afficher en priorité sur la home et la page événements" }
-      - { label: "Ordre d'affichage",     name: order,       widget: number,  default: 99, hint: "1 = premier affiché" }
+# ── ÉVÉNEMENTS ──────────────────────────────────────────────────────────────
 
-  # ── SAVEURS ──────────────────────────────────────────────────────────────────
-  - name: "saveurs"
-    label: "Saveurs"
-    label_singular: "Saveur"
-    folder: "content/saveurs"
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    identifier_field: title
-    summary: "{{title}} ({{category}})"
-    fields:
-      - { label: "Nom de la saveur",  name: title,       widget: string }
-      - label: "Catégorie"
-        name: category
-        widget: select
-        options:
-          - { label: "Sucré",       value: sucré }
-          - { label: "Tartinage",   value: tartinage }
-          - { label: "Signature",   value: signature }
-          - { label: "Salé",        value: salé }
-          - { label: "Saisonnier",  value: saisonnier }
-          - { label: "À venir",     value: "à venir" }
-      - { label: "Description courte",  name: description, widget: text }
-      - label: "Badge"
-        name: badge
-        widget: select
-        options:
-          - { label: "Classique",     value: classique }
-          - { label: "Signature",     value: signature }
-          - { label: "Gourmand",      value: gourmand }
-          - { label: "Saisonnier",    value: saisonnier }
-          - { label: "Salé",          value: salé }
-          - { label: "Réconfortant",  value: réconfortant }
-      - { label: "Saveur permanente",   name: permanent,   widget: boolean, default: true }
-      - { label: "Prochainement",       name: upcoming,    widget: boolean, default: false, hint: "Cocher si la saveur n'est pas encore disponible" }
-      - { label: "Visible sur le site", name: visible,     widget: boolean, default: true }
-      - label: "Photo"
-        name: image
-        widget: image
-        required: false
-        hint: "Image WebP recommandée."
-      - { label: "Ordre d'affichage",   name: order,       widget: number,  default: 99 }
+* name: "evenements"
+  label: "Événements"
+  label_singular: "Événement"
+  folder: "content/evenements"
+  create: true
+  delete: true
+  extension: "yml"
+  format: "yaml"
+  slug: "{{slug}}"
+  identifier_field: "title"
+  summary: "{{title}} — {{city}} ({{start_date}})"
+  fields:
 
-  # ── GALERIE ──────────────────────────────────────────────────────────────────
-  - name: "galerie"
-    label: "Galerie photos"
-    label_singular: "Photo"
-    folder: "content/galerie"
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    identifier_field: title
-    summary: "{{title}} ({{category}})"
-    fields:
-      - { label: "Titre (usage interne)", name: title,    widget: string }
-      - label: "Photo"
-        name: image
-        widget: image
-        hint: "Merci d'ajouter de préférence une image au format WebP, optimisée pour le web."
-      - { label: "Texte alternatif (SEO)", name: alt,     widget: string, hint: "Décrivez l'image pour le référencement. Ex : Kürtős sucre cannelle festival Suisse" }
-      - { label: "Légende affichée",       name: caption,  widget: string, required: false }
-      - label: "Catégorie"
-        name: category
-        widget: select
-        options:
-          - { label: "Cuisson",          value: cuisson }
-          - { label: "Saveurs",          value: saveurs }
-          - { label: "Stand",            value: stand }
-          - { label: "Événements",       value: événements }
-          - { label: "Été / foodtruck",  value: été }
-          - { label: "Hiver",            value: hiver }
-          - { label: "Montreux Jazz",    value: "Montreux Jazz" }
-          - { label: "Montreux Noël",    value: "Montreux Noël" }
-          - { label: "Autres",           value: autres }
-      - { label: "Visible sur le site",    name: visible,   widget: boolean, default: true }
-      - { label: "Photo mise en avant",    name: featured,  widget: boolean, default: false, hint: "Les photos mises en avant apparaissent dans la section Instagram de la home." }
-      - { label: "Ordre d'affichage",      name: order,     widget: number,  default: 99, hint: "1 = premier affiché" }
-      - { label: "Date de la photo",       name: date,      widget: date,    format: "YYYY-MM-DD", required: false }
+  * label: "Nom de l'événement"
+    name: "title"
+    widget: "string"
 
-  # ── RÉGLAGES GÉNÉRAUX ────────────────────────────────────────────────────────
-  - name: "settings"
-    label: "Réglages du site"
-    files:
-      - label: "Réglages généraux"
-        name: site
-        file: "content/settings/site.yml"
-        fields:
-          - { label: "Email de contact",         name: email,              widget: string }
-          - { label: "URL Instagram",            name: instagram_url,      widget: string }
-          - { label: "URL Facebook",             name: facebook_url,       widget: string }
-          - { label: "URL TikTok",               name: tiktok_url,         widget: string, required: false, hint: "Laisser vide pour ne pas afficher TikTok" }
-          - label: "Thème actif"
-            name: active_theme
-            widget: select
-            options:
-              - { label: "Été — lumineux, jaune pastel, foodtruck", value: summer }
-              - { label: "Hiver — chaud, rouge brique, marché de Noël", value: winter }
-            default: summer
-          - { label: "Texte du bouton principal",   name: main_cta_label,     widget: string, default: "Découvrir nos kürtös artisanaux" }
-          - { label: "Texte du bouton de contact",  name: contact_cta_label,  widget: string, default: "Inviter Zia Kürtös" }
-          - { label: "Texte d'annonce (bandeau)",   name: announcement_text,  widget: string, required: false, hint: "Laisser vide pour masquer le bandeau d'annonce" }
-          - { label: "Mention du créateur du site", name: footer_credit_text, widget: string, default: "Site créé par Web On It !" }
-          - { label: "Lien du créateur",            name: footer_credit_url,  widget: string, default: "https://www.instagram.com/web.onit/" }
+  * label: "Date de début"
+    name: "start_date"
+    widget: "date"
+    format: "YYYY-MM-DD"
+
+  * label: "Date de fin"
+    name: "end_date"
+    widget: "date"
+    format: "YYYY-MM-DD"
+
+  * label: "Ville"
+    name: "city"
+    widget: "string"
+
+  * label: "Lieu / lieu-dit"
+    name: "place"
+    widget: "string"
+    required: false
+
+  * label: "Catégorie"
+    name: "category"
+    widget: "select"
+    options:
+
+    * label: "Festival"
+      value: "festival"
+    * label: "Marché"
+      value: "marché"
+    * label: "Marché de Noël"
+      value: "marché de Noël"
+    * label: "Food festival"
+      value: "food festival"
+    * label: "Événement privé"
+      value: "événement privé"
+    * label: "Fête communale"
+      value: "fête communale"
+    * label: "Autre"
+      value: "autre"
+
+  * label: "Saison"
+    name: "season"
+    widget: "select"
+    options:
+
+    * label: "Printemps"
+      value: "printemps"
+    * label: "Été"
+      value: "été"
+    * label: "Automne"
+      value: "automne"
+    * label: "Hiver"
+      value: "hiver"
+    * label: "Annuel"
+      value: "annuel"
+
+  * label: "Description"
+    name: "description"
+    widget: "text"
+
+  * label: "Texte du lien"
+    name: "link_label"
+    widget: "string"
+    required: false
+    hint: "Ex : Voir le programme"
+
+  * label: "URL du lien"
+    name: "link_url"
+    widget: "string"
+    required: false
+
+  * label: "Photo"
+    name: "image"
+    widget: "image"
+    required: false
+    hint: "Image au format WebP recommandée. Si vide, un visuel placeholder sera utilisé."
+
+  * label: "Visible sur le site"
+    name: "visible"
+    widget: "boolean"
+    default: true
+
+  * label: "Mis en avant"
+    name: "featured"
+    widget: "boolean"
+    default: false
+    hint: "Afficher en priorité sur la home et la page événements."
+
+  * label: "Ordre d'affichage"
+    name: "order"
+    widget: "number"
+    default: 99
+    hint: "1 = premier affiché"
+
+# ── SAVEURS ──────────────────────────────────────────────────────────────────
+
+* name: "saveurs"
+  label: "Saveurs"
+  label_singular: "Saveur"
+  folder: "content/saveurs"
+  create: true
+  delete: true
+  extension: "yml"
+  format: "yaml"
+  slug: "{{slug}}"
+  identifier_field: "title"
+  summary: "{{title}} ({{category}})"
+  fields:
+
+  * label: "Nom de la saveur"
+    name: "title"
+    widget: "string"
+
+  * label: "Catégorie"
+    name: "category"
+    widget: "select"
+    options:
+
+    * label: "Sucré"
+      value: "sucré"
+    * label: "Tartinage"
+      value: "tartinage"
+    * label: "Signature"
+      value: "signature"
+    * label: "Salé"
+      value: "salé"
+    * label: "Saisonnier"
+      value: "saisonnier"
+    * label: "À venir"
+      value: "à venir"
+
+  * label: "Description courte"
+    name: "description"
+    widget: "text"
+
+  * label: "Badge"
+    name: "badge"
+    widget: "select"
+    options:
+
+    * label: "Classique"
+      value: "classique"
+    * label: "Signature"
+      value: "signature"
+    * label: "Gourmand"
+      value: "gourmand"
+    * label: "Saisonnier"
+      value: "saisonnier"
+    * label: "Salé"
+      value: "salé"
+    * label: "Réconfortant"
+      value: "réconfortant"
+
+  * label: "Saveur permanente"
+    name: "permanent"
+    widget: "boolean"
+    default: true
+
+  * label: "Prochainement"
+    name: "upcoming"
+    widget: "boolean"
+    default: false
+    hint: "Cocher si la saveur n'est pas encore disponible."
+
+  * label: "Visible sur le site"
+    name: "visible"
+    widget: "boolean"
+    default: true
+
+  * label: "Photo"
+    name: "image"
+    widget: "image"
+    required: false
+    hint: "Image WebP recommandée."
+
+  * label: "Ordre d'affichage"
+    name: "order"
+    widget: "number"
+    default: 99
+
+# ── GALERIE ──────────────────────────────────────────────────────────────────
+
+* name: "galerie"
+  label: "Galerie photos"
+  label_singular: "Photo"
+  folder: "content/galerie"
+  create: true
+  delete: true
+  extension: "yml"
+  format: "yaml"
+  slug: "{{slug}}"
+  identifier_field: "title"
+  summary: "{{title}} ({{category}})"
+  fields:
+
+  * label: "Titre (usage interne)"
+    name: "title"
+    widget: "string"
+
+  * label: "Photo"
+    name: "image"
+    widget: "image"
+    hint: "Merci d'ajouter de préférence une image au format WebP, optimisée pour le web."
+
+  * label: "Texte alternatif (SEO)"
+    name: "alt"
+    widget: "string"
+    hint: "Décrivez l'image pour le référencement. Ex : Kürtös sucre cannelle festival Suisse."
+
+  * label: "Légende affichée"
+    name: "caption"
+    widget: "string"
+    required: false
+
+  * label: "Catégorie"
+    name: "category"
+    widget: "select"
+    options:
+
+    * label: "Cuisson"
+      value: "cuisson"
+    * label: "Saveurs"
+      value: "saveurs"
+    * label: "Stand"
+      value: "stand"
+    * label: "Événements"
+      value: "événements"
+    * label: "Été / foodtruck"
+      value: "été"
+    * label: "Hiver"
+      value: "hiver"
+    * label: "Montreux Jazz"
+      value: "Montreux Jazz"
+    * label: "Montreux Noël"
+      value: "Montreux Noël"
+    * label: "Autres"
+      value: "autres"
+
+  * label: "Visible sur le site"
+    name: "visible"
+    widget: "boolean"
+    default: true
+
+  * label: "Photo mise en avant"
+    name: "featured"
+    widget: "boolean"
+    default: false
+    hint: "Les photos mises en avant apparaissent dans la section Instagram de la home."
+
+  * label: "Ordre d'affichage"
+    name: "order"
+    widget: "number"
+    default: 99
+    hint: "1 = premier affiché."
+
+  * label: "Date de la photo"
+    name: "date"
+    widget: "date"
+    format: "YYYY-MM-DD"
+    required: false
+
+# ── RÉGLAGES GÉNÉRAUX ────────────────────────────────────────────────────────
+
+* name: "settings"
+  label: "Réglages du site"
+  files:
+
+  * label: "Réglages généraux"
+    name: "site"
+    file: "content/settings/site.yml"
+    format: "yaml"
+    fields:
+
+    * label: "Email de contact"
+      name: "email"
+      widget: "string"
+
+    * label: "URL Instagram"
+      name: "instagram_url"
+      widget: "string"
+
+    * label: "URL Facebook"
+      name: "facebook_url"
+      widget: "string"
+
+    * label: "URL TikTok"
+      name: "tiktok_url"
+      widget: "string"
+      required: false
+      hint: "Laisser vide pour ne pas afficher TikTok."
+
+    * label: "Thème actif"
+      name: "active_theme"
+      widget: "select"
+      default: "summer"
+      options:
+
+      * label: "Été — lumineux, jaune pastel, foodtruck"
+        value: "summer"
+      * label: "Hiver — chaud, rouge brique, marché de Noël"
+        value: "winter"
+
+    * label: "Texte du bouton principal"
+      name: "main_cta_label"
+      widget: "string"
+      default: "Découvrir nos kürtös artisanaux"
+
+    * label: "Texte du bouton de contact"
+      name: "contact_cta_label"
+      widget: "string"
+      default: "Inviter Zia Kürtös"
+
+    * label: "Texte d'annonce (bandeau)"
+      name: "announcement_text"
+      widget: "string"
+      required: false
+      hint: "Laisser vide pour masquer le bandeau d'annonce."
+
+    * label: "Mention du créateur du site"
+      name: "footer_credit_text"
+      widget: "string"
+      default: "Site créé par Web On It !"
+
+    * label: "Lien du créateur"
+      name: "footer_credit_url"
+      widget: "string"
+      default: "https://www.instagram.com/web.onit/"
+
