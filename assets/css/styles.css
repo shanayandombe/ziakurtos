@@ -1415,3 +1415,302 @@ body.theme-summer .badge-a-venir,
 body.theme-summer .badge-avenir {
   display: none !important;
 }
+/* ════════════════════════════════════════════════════════════════════════════
+AJUSTEMENTS FINAUX — Zia Kürtös
+Home / Nos Kürtös / Événements / Galerie
+À garder tout en bas de styles.css
+════════════════════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────────────────────
+HOME — bouton galerie + Instagram
+──────────────────────────────────────────────────────────────────────────── */
+
+html[data-theme="summer"] .gallery-actions,
+body.theme-summer .gallery-actions {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+align-items: center;
+margin-top: 2rem;
+}
+
+html[data-theme="summer"] .gallery-actions .btn-primary,
+body.theme-summer .gallery-actions .btn-primary {
+background: #17213D !important;
+border-color: #17213D !important;
+color: #FFFFFB !important;
+}
+
+html[data-theme="summer"] .gallery-actions .btn-primary:hover,
+body.theme-summer .gallery-actions .btn-primary:hover {
+background: #0F172D !important;
+border-color: #0F172D !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+NOS KÜRTÖS — section Nos créations en bleu foncé
+──────────────────────────────────────────────────────────────────────────── */
+
+html[data-theme="summer"] .saveurs-section,
+body.theme-summer .saveurs-section {
+background:
+radial-gradient(circle at 85% 10%, rgba(247,221,122,.10) 0%, transparent 34%),
+radial-gradient(circle at 12% 90%, rgba(227,170,242,.12) 0%, transparent 32%),
+linear-gradient(135deg, #17213D 0%, #1D2A4F 62%, #17213D 100%) !important;
+color: #FFFFFB !important;
+}
+
+html[data-theme="summer"] .saveurs-section .s-label,
+body.theme-summer .saveurs-section .s-label {
+color: #F7DD7A !important;
+}
+
+html[data-theme="summer"] .saveurs-section .s-title,
+html[data-theme="summer"] .saveurs-section h2,
+body.theme-summer .saveurs-section .s-title,
+body.theme-summer .saveurs-section h2 {
+color: #FFFFFB !important;
+}
+
+html[data-theme="summer"] .saveurs-section p,
+body.theme-summer .saveurs-section p {
+color: rgba(255,255,251,.78) !important;
+}
+
+html[data-theme="summer"] .saveurs-section .saveurs-note,
+body.theme-summer .saveurs-section .saveurs-note {
+color: rgba(255,255,251,.64) !important;
+}
+
+html[data-theme="summer"] .saveurs-section .saveurs-note a,
+body.theme-summer .saveurs-section .saveurs-note a {
+color: #F7DD7A !important;
+}
+
+html[data-theme="summer"] .saveurs-section .filter-btn,
+body.theme-summer .saveurs-section .filter-btn {
+border-color: rgba(255,255,251,.42) !important;
+color: rgba(255,255,251,.86) !important;
+background: transparent !important;
+}
+
+html[data-theme="summer"] .saveurs-section .filter-btn.active,
+html[data-theme="summer"] .saveurs-section .filter-btn:hover,
+body.theme-summer .saveurs-section .filter-btn.active,
+body.theme-summer .saveurs-section .filter-btn:hover {
+background: #F7DD7A !important;
+border-color: #F7DD7A !important;
+color: #17213D !important;
+}
+
+html[data-theme="summer"] .saveurs-section .saveur-card,
+body.theme-summer .saveurs-section .saveur-card {
+background: rgba(255,255,251,.09) !important;
+border-color: rgba(255,255,251,.20) !important;
+color: #FFFFFB !important;
+box-shadow: 0 12px 30px rgba(0,0,0,.16) !important;
+}
+
+html[data-theme="summer"] .saveurs-section .saveur-card:hover,
+body.theme-summer .saveurs-section .saveur-card:hover {
+border-color: rgba(247,221,122,.72) !important;
+box-shadow: 0 18px 42px rgba(0,0,0,.24) !important;
+}
+
+html[data-theme="summer"] .saveurs-section .saveur-card h3,
+body.theme-summer .saveurs-section .saveur-card h3 {
+color: #FFFFFB !important;
+}
+
+html[data-theme="summer"] .saveurs-section .saveur-card p,
+body.theme-summer .saveurs-section .saveur-card p {
+color: rgba(255,255,251,.78) !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+NOS KÜRTÖS — CTA final clair
+──────────────────────────────────────────────────────────────────────────── */
+
+html[data-theme="summer"] .kurtos-cta-light,
+body.theme-summer .kurtos-cta-light {
+background: #FFFFFB !important;
+color: #17213D !important;
+}
+
+html[data-theme="summer"] .kurtos-cta-light::before,
+body.theme-summer .kurtos-cta-light::before {
+background: repeating-linear-gradient(
+45deg,
+rgba(92,121,184,.035) 0,
+rgba(92,121,184,.035) 1px,
+transparent 0,
+transparent 18px
+) !important;
+}
+
+html[data-theme="summer"] .kurtos-cta-light h2,
+body.theme-summer .kurtos-cta-light h2 {
+color: #17213D !important;
+}
+
+html[data-theme="summer"] .kurtos-cta-light p,
+body.theme-summer .kurtos-cta-light p {
+color: #4A5D8F !important;
+}
+
+html[data-theme="summer"] .kurtos-cta-light .btn-ghost,
+body.theme-summer .kurtos-cta-light .btn-ghost {
+color: #17213D !important;
+border-color: #17213D !important;
+background: transparent !important;
+}
+
+html[data-theme="summer"] .kurtos-cta-light .btn-ghost:hover,
+body.theme-summer .kurtos-cta-light .btn-ghost:hover {
+background: #17213D !important;
+color: #FFFFFB !important;
+}
+
+html[data-theme="summer"] .kurtos-cta-light .btn:not(.btn-ghost),
+body.theme-summer .kurtos-cta-light .btn:not(.btn-ghost) {
+background: #17213D !important;
+border-color: #17213D !important;
+color: #FFFFFB !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+ÉVÉNEMENTS — Pour les organisateurs en fond clair
+──────────────────────────────────────────────────────────────────────────── */
+
+html[data-theme="summer"] .organisateurs,
+body.theme-summer .organisateurs {
+background: #FFFFFB !important;
+color: #17213D !important;
+}
+
+html[data-theme="summer"] .organisateurs .s-label,
+body.theme-summer .organisateurs .s-label {
+color: #B46AD8 !important;
+}
+
+html[data-theme="summer"] .organisateurs h2,
+body.theme-summer .organisateurs h2 {
+color: #17213D !important;
+}
+
+html[data-theme="summer"] .organisateurs p,
+body.theme-summer .organisateurs p {
+color: #4A5D8F !important;
+}
+
+html[data-theme="summer"] .organisateurs em,
+body.theme-summer .organisateurs em {
+color: #5C79B8 !important;
+}
+
+html[data-theme="summer"] .organisateurs .org-benefit,
+body.theme-summer .organisateurs .org-benefit {
+background: #FFFFFB !important;
+border-color: rgba(92,121,184,.18) !important;
+color: #17213D !important;
+box-shadow: 0 12px 30px rgba(23,33,61,.06) !important;
+}
+
+html[data-theme="summer"] .organisateurs .org-benefit:hover,
+body.theme-summer .organisateurs .org-benefit:hover {
+border-color: #F7DD7A !important;
+transform: translateX(5px);
+}
+
+html[data-theme="summer"] .organisateurs .org-benefit strong,
+body.theme-summer .organisateurs .org-benefit strong {
+color: #17213D !important;
+}
+
+html[data-theme="summer"] .organisateurs .org-benefit p,
+body.theme-summer .organisateurs .org-benefit p {
+color: #4A5D8F !important;
+}
+
+html[data-theme="summer"] .organisateurs .org-benefit-icon svg circle,
+html[data-theme="summer"] .organisateurs .org-benefit-icon svg path,
+body.theme-summer .organisateurs .org-benefit-icon svg circle,
+body.theme-summer .organisateurs .org-benefit-icon svg path {
+stroke: #F7DD7A !important;
+}
+
+html[data-theme="summer"] .organisateurs .org-visual,
+body.theme-summer .organisateurs .org-visual {
+background: #FEFEE2 !important;
+border-color: rgba(92,121,184,.18) !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+GALERIE — bloc galerie + filtres en fond clair
+──────────────────────────────────────────────────────────────────────────── */
+
+html[data-theme="summer"] .gallery-section,
+body.theme-summer .gallery-section {
+background: #FFFFFB !important;
+color: #17213D !important;
+}
+
+html[data-theme="summer"] .gallery-section .filter-bar,
+body.theme-summer .gallery-section .filter-bar {
+background: #FFFFFB !important;
+border-bottom: 1px solid rgba(92,121,184,.16) !important;
+}
+
+html[data-theme="summer"] .gallery-section .filter-btn,
+body.theme-summer .gallery-section .filter-btn {
+border-color: rgba(92,121,184,.22) !important;
+color: #4A5D8F !important;
+background: transparent !important;
+}
+
+html[data-theme="summer"] .gallery-section .filter-btn.active,
+html[data-theme="summer"] .gallery-section .filter-btn:hover,
+body.theme-summer .gallery-section .filter-btn.active,
+body.theme-summer .gallery-section .filter-btn:hover {
+background: #F7DD7A !important;
+border-color: #F7DD7A !important;
+color: #17213D !important;
+}
+
+html[data-theme="summer"] .gallery-section .gallery-count,
+body.theme-summer .gallery-section .gallery-count {
+color: #4A5D8F !important;
+}
+
+html[data-theme="summer"] .gallery-section #visibleCount,
+body.theme-summer .gallery-section #visibleCount {
+color: #5C79B8 !important;
+}
+
+html[data-theme="summer"] .gallery-section .masonry-item.polaroid,
+body.theme-summer .gallery-section .masonry-item.polaroid {
+background: #FFFFFB !important;
+box-shadow: 0 12px 30px rgba(23,33,61,.12) !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+GALERIE — chiffres en bleu foncé
+──────────────────────────────────────────────────────────────────────────── */
+
+html[data-theme="summer"] .stats-strip,
+body.theme-summer .stats-strip {
+background: #17213D !important;
+color: #FFFFFB !important;
+border-top: 1px solid rgba(255,255,251,.08) !important;
+border-bottom: 1px solid rgba(255,255,251,.08) !important;
+}
+
+html[data-theme="summer"] .stats-strip .stat-val,
+body.theme-summer .stats-strip .stat-val {
+color: #F7DD7A !important;
+}
+
+html[data-theme="summer"] .stats-strip .stat-label,
+body.theme-summer .stats-strip .stat-label {
+color: rgba(255,255,251,.72) !important;
+}
