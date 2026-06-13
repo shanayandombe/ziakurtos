@@ -4,51 +4,45 @@
    Généré manuellement — Ne pas supprimer les variables de thème.
    ───────────────────────────────────────────────────────────────────────────── */
 
-/* ══ THÈME ÉTÉ (défaut) ══════════════════════════════════════════════════════
-   Ambiance : lumineuse, gourmande, foodtruck, festival, pastel, familiale.
-   ─────────────────────────────────────────────────────────────────────────── */
+/* ══ THÈME ÉTÉ (défaut) ══════════════════════════════════════════════════════ */
 :root,
 [data-theme="summer"] {
   --creme:  #FEFEE2;
   --beige:  #FFFFC1;
   --dore:   #F7DD7A;
-  --caramel:#B66A2C;
+  --caramel:#E3AAF2;
   --brun:   #17213D;
-  --sapin:  #557A3B;
-  --rouge:  #C98FBE;
-  --rouge2: #B678AA;
+  --sapin:  #5C79B8;
+  --rouge:  #E3AAF2;
+  --rouge2: #C886E8;
   --blanc:  #FFFFFB;
-  --texte:  #2C1810;
-  --gris:   #6B4435;
+  --texte:  #17213D;
+  --gris:   #4A5D8F;
 
-  /* Semantic aliases */
   --color-bg:             #FEFEE2;
   --color-bg-soft:        #FFFFC1;
   --color-bg-card:        #FFFFFB;
   --color-primary:        #17213D;
   --color-primary-hover:  #0F172D;
   --color-accent:         #F7DD7A;
-  --color-accent-strong:  #E8C85C;
-  --color-secondary:      #C98FBE;
-  --color-secondary-hover:#B678AA;
-  --color-text:           #2C1810;
-  --color-text-soft:      #6B4435;
-  --color-caramel:        #B66A2C;
-  --color-green:          #557A3B;
+  --color-accent-strong:  #F2C94C;
+  --color-secondary:      #E3AAF2;
+  --color-secondary-hover:#C886E8;
+  --color-text:           #17213D;
+  --color-text-soft:      #4A5D8F;
+  --color-caramel:        #E3AAF2;
+  --color-green:          #5C79B8;
   --color-footer:         #17213D;
-  --color-footer-text:    rgba(255,255,251,.72);
-  --color-border:         rgba(74,43,26,.12);
-  --color-shadow:         rgba(23,33,61,.12);
+  --color-footer-text:    rgba(255,255,251,.78);
+  --color-border:         rgba(92,121,184,.18);
+  --color-shadow:         rgba(23,33,61,.14);
 
-  /* Hero bg */
-  --hero-bg: #557A3B;
+  --hero-bg: #5C79B8;
   --nav-bg:  rgba(254,254,226,.96);
-  --nav-border: rgba(182,106,44,.1);
+  --nav-border: rgba(92,121,184,.14);
 }
 
-/* ══ THÈME HIVER ═════════════════════════════════════════════════════════════
-   Ambiance : Noël, cannelle, caramel, chalet, rouge profond, doré, vert sapin.
-   ─────────────────────────────────────────────────────────────────────────── */
+/* ══ THÈME HIVER ═════════════════════════════════════════════════════════════ */
 [data-theme="winter"] {
   --creme:  #FFF6E8;
   --beige:  #EAD7B7;
@@ -160,7 +154,6 @@ nav.scrolled { box-shadow: 0 4px 28px var(--color-shadow); padding: .7rem 5%; }
 }
 .burger span { width: 24px; height: 2px; background: var(--texte); border-radius: 2px; display: block; transition: all .3s; }
 
-/* Mobile menu overlay */
 .mobile-menu {
   display: none; position: fixed; inset: 0;
   background: var(--creme); z-index: 199;
@@ -203,7 +196,7 @@ section { padding: 7rem 5%; }
   position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
 }
 .hero-glow  { width: 600px; height: 600px; background: radial-gradient(circle, rgba(247,221,122,.18) 0%, transparent 70%); top: -10%; right: 0; }
-.hero-glow2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(201,143,190,.12) 0%, transparent 70%); bottom: 0; left: 10%; }
+.hero-glow2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(227,170,242,.18) 0%, transparent 70%); bottom: 0; left: 10%; }
 .hero-content { position: relative; z-index: 2; padding: 4rem 4% 4rem 8%; }
 .hero-label {
   display: inline-flex; align-items: center; gap: .6rem; font-size: .7rem; font-weight: 600;
@@ -285,7 +278,7 @@ section { padding: 7rem 5%; }
 .marquee-bar-red  .marquee-sep { background: rgba(255,255,255,.4); }
 .marquee-bar-gold .marquee-sep { background: rgba(74,43,26,.35); }
 
-/* ══ STEPS (cuisson) ═════════════════════════════════════════════════════════ */
+/* ══ STEPS ═══════════════════════════════════════════════════════════════════ */
 .steps          { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
 .step           {
   display: flex; gap: 1.2rem; align-items: flex-start;
@@ -300,64 +293,60 @@ section { padding: 7rem 5%; }
 .microcopy      { display: inline-block; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--caramel); font-style: italic; margin-top: 2rem; }
 
 /* ══ SAVEUR CARDS ════════════════════════════════════════════════════════════ */
-.saveurs        { background: var(--sapin); }
+.saveurs { background: var(--sapin); }
 .saveurs .s-label { color: var(--dore); }
 .saveurs .s-title { color: var(--blanc); }
-.saveurs .s-intro { color: rgba(255,255,255,.6); margin-bottom: 2rem; }
+.saveurs .s-intro { color: rgba(255,255,251,.76); margin-bottom: 2rem; }
 .saveurs-tabs, .filter-bar {
   display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2.5rem;
 }
 .tab-btn, .filter-btn {
   font-family: 'DM Sans', sans-serif; padding: .48rem 1.4rem; border-radius: 2px;
-  border: 1.5px solid rgba(255,255,255,.2); background: transparent;
-  color: rgba(255,255,255,.55); font-size: .75rem; letter-spacing: .08em;
+  border: 1.5px solid rgba(255,255,251,.34); background: transparent;
+  color: rgba(255,255,251,.82); font-size: .75rem; letter-spacing: .08em;
   text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all .2s;
 }
 .tab-btn.active, .tab-btn:hover,
 .filter-btn.active, .filter-btn:hover {
   background: var(--dore); border-color: var(--dore); color: var(--brun);
 }
-.saveurs-grid   {
+.saveurs-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 1.1rem;
 }
-.saveur-card    {
-  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09);
+.saveur-card {
+  background: rgba(255,255,251,.11); border: 1px solid rgba(255,255,251,.20);
   border-radius: 3px; padding: 1.5rem 1.3rem 1.3rem;
   transition: all .3s; cursor: pointer; position: relative; overflow: hidden;
-  transform-origin: center bottom;
+  transform-origin: center bottom; box-shadow: 0 10px 26px rgba(23,33,61,.08);
 }
 .saveur-card::before {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(247,221,122,.14) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(247,221,122,.22) 0%, rgba(227,170,242,.14) 55%, transparent 82%);
   opacity: 0; transition: opacity .3s;
 }
-.saveur-card:hover { border-color: rgba(247,221,122,.5); transform: translateY(-5px) rotate(.4deg); box-shadow: 0 12px 32px rgba(0,0,0,.2); }
+.saveur-card:hover { border-color: rgba(247,221,122,.65); transform: translateY(-5px) rotate(.4deg); box-shadow: 0 14px 34px rgba(23,33,61,.18); }
 .saveur-card:hover::before { opacity: 1; }
-.saveur-card.is-upcoming { opacity: .7; }
-.saveur-reveal  {
+.saveur-card.is-upcoming { opacity: .78; }
+.saveur-reveal {
   position: absolute; bottom: 0; left: 0; right: 0; padding: .7rem 1rem;
-  background: rgba(247,221,122,.15); border-top: 1px solid rgba(247,221,122,.2);
-  font-size: .72rem; color: var(--dore); font-weight: 500;
+  background: rgba(247,221,122,.22); border-top: 1px solid rgba(247,221,122,.32);
+  font-size: .72rem; color: var(--blanc); font-weight: 500;
   transform: translateY(100%); transition: transform .3s; letter-spacing: .03em;
 }
 .saveur-card:hover .saveur-reveal { transform: translateY(0); }
-.saveur-tag     { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; padding: .2rem .65rem; border-radius: 2px; margin-bottom: .9rem; display: inline-block; font-weight: 600; }
-.tag-sucre      { background: rgba(247,221,122,.2); color: var(--dore); }
-.tag-tartinage  { background: rgba(201,143,190,.2); color: #D4A0CB; border: 1px solid rgba(201,143,190,.25); }
-.tag-signature  { background: rgba(247,221,122,.28); color: var(--dore); border: 1px solid rgba(247,221,122,.3); }
-.tag-sale       { background: rgba(126,191,170,.1); color: #7EBFAA; border: 1px solid rgba(126,191,170,.2); }
-.tag-saisonnier { background: rgba(255,255,255,.08); color: rgba(255,255,255,.5); border: 1px dashed rgba(255,255,255,.2); }
-.tag-upcoming   { background: rgba(255,255,255,.05); color: rgba(255,255,255,.35); border: 1px dashed rgba(255,255,255,.15); }
-.saveur-badge   { position: absolute; top: .9rem; right: .9rem; font-size: .55rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2rem .5rem; border-radius: 2px; }
-.badge-classique    { background: rgba(255,255,255,.08); color: rgba(255,255,255,.4); }
-.badge-signature    { background: rgba(247,221,122,.25); color: var(--dore); }
-.badge-gourmand     { background: rgba(201,143,190,.2); color: #D4A0CB; }
-.badge-reconfortant { background: rgba(182,106,44,.2); color: var(--caramel); }
-.badge-saisonnier   { background: rgba(255,255,255,.06); color: rgba(255,255,255,.35); }
-.badge-salé         { background: rgba(126,191,170,.12); color: #7EBFAA; }
-.saveur-card h3 { color: var(--blanc); font-size: .95rem; margin-bottom: .35rem; }
-.saveur-card p  { font-size: .78rem; color: rgba(255,255,255,.45); line-height: 1.5; }
-.upcoming-note  { font-size: .7rem; color: rgba(255,255,255,.35); font-style: italic; margin-top: .4rem; }
+.saveur-tag { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; padding: .2rem .65rem; border-radius: 2px; margin-bottom: .9rem; display: inline-block; font-weight: 700; }
+.tag-sucre { background: rgba(247,221,122,.32); color: var(--dore); border: 1px solid rgba(247,221,122,.34); }
+.tag-tartinage { background: rgba(227,170,242,.25); color: #FFD6FF; border: 1px solid rgba(227,170,242,.42); }
+.tag-signature { background: rgba(255,255,251,.18); color: var(--blanc); border: 1px solid rgba(255,255,251,.28); }
+.tag-sale { background: rgba(23,33,61,.24); color: #EAF0FF; border: 1px solid rgba(255,255,251,.24); }
+.saveur-badge { position: absolute; top: .9rem; right: .9rem; font-size: .55rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2rem .5rem; border-radius: 2px; }
+.badge-classique { background: rgba(255,255,251,.14); color: rgba(255,255,251,.72); }
+.badge-signature { background: rgba(247,221,122,.30); color: var(--dore); }
+.badge-gourmand { background: rgba(227,170,242,.24); color: #FFD6FF; }
+.badge-reconfortant { background: rgba(255,255,251,.14); color: rgba(255,255,251,.78); }
+.saveur-card h3 { color: var(--blanc); font-size: .95rem; margin-bottom: .35rem; position: relative; z-index: 1; }
+.saveur-card p { font-size: .78rem; color: rgba(255,255,251,.68); line-height: 1.5; position: relative; z-index: 1; }
+.upcoming-note { font-size: .7rem; color: rgba(255,255,251,.62); font-style: italic; margin-top: .4rem; }
 
 /* ══ EVENT CARDS — home ══════════════════════════════════════════════════════ */
 .events-grid    { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 1.4rem; }
@@ -376,13 +365,13 @@ section { padding: 7rem 5%; }
 .event-card:hover .event-card-arrow { gap: .7rem; }
 .event-card.featured { border-left: 3px solid var(--dore); }
 
-/* ══ EVENT CARDS — page (horizontal) ════════════════════════════════════════ */
+/* ══ EVENT CARDS — page ═════════════════════════════════════════════════════ */
 .events-list    { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 3rem; }
 .event-card-h   { background: var(--creme); border-radius: 3px; border: 1px solid var(--color-border); overflow: hidden; display: grid; grid-template-columns: 260px 1fr; transition: all .3s; }
-.event-card-h:hover { transform: translateY(-4px); box-shadow: 0 16px 40px var(--color-shadow); border-color: rgba(182,106,44,.3); }
+.event-card-h:hover { transform: translateY(-4px); box-shadow: 0 16px 40px var(--color-shadow); border-color: rgba(92,121,184,.32); }
 .event-card-h.featured { border-left: 4px solid var(--dore); }
 .event-img      { background: var(--beige); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7rem; padding: 1.5rem; position: relative; overflow: hidden; min-height: 200px; }
-.event-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(182,106,44,.08) 0%,transparent 60%); pointer-events: none; }
+.event-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(92,121,184,.10) 0%,rgba(227,170,242,.12) 60%,transparent 100%); pointer-events: none; }
 .event-img img  { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .event-card-h .event-body { padding: 1.8rem 2rem; }
 .event-header   { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: .6rem; flex-wrap: wrap; }
@@ -400,7 +389,7 @@ section { padding: 7rem 5%; }
 /* ══ SEASON FILTER ═══════════════════════════════════════════════════════════ */
 .season-filter  { background: var(--blanc); padding: 1.5rem 5%; border-bottom: 1px solid var(--color-border); position: sticky; top: 72px; z-index: 100; }
 .season-filter-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
-.season-label   { font-size: .65rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--caramel); margin-right: .5rem; }
+.season-label   { font-size: .65rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #B46AD8; margin-right: .5rem; }
 .season-pill    { font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .38rem 1.2rem; border-radius: 20px; border: 1.5px solid var(--color-border); background: transparent; color: var(--gris); cursor: pointer; transition: all .2s; }
 .season-pill:hover, .season-pill.active { background: var(--dore); border-color: var(--dore); color: var(--brun); }
 .event-count    { margin-left: auto; font-size: .72rem; color: var(--gris); font-weight: 500; }
@@ -431,7 +420,6 @@ section { padding: 7rem 5%; }
 .masonry-item:hover .item-label, .masonry-item:hover .item-cat { opacity: 1; transform: translateY(0); }
 .polaroid-caption { font-size: .72rem; color: var(--gris); text-align: center; font-style: italic; padding-top: .3rem; }
 
-/* Gallery mosaic (home) */
 .gallery-mosaic { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 260px 260px; gap: 1rem; margin-top: 3rem; }
 .gm-item        { background: var(--blanc); border-radius: 3px; border: 1px solid var(--color-border); overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; position: relative; cursor: pointer; transition: all .3s; }
 .gm-item:hover  { transform: scale(1.02); box-shadow: 0 12px 32px var(--color-shadow); }
@@ -527,7 +515,6 @@ footer          { background: var(--color-footer); padding: 4rem 5% 2rem; color:
   color: rgba(255,255,255,.4); text-decoration: none; transition: all .2s;
 }
 .footer-socials a:hover { border-color: var(--dore); color: var(--dore); }
-/* TikTok hidden by default — shown by main.js if tiktok_url set */
 [data-tiktok]   { display: none; }
 .footer-col h4  { font-family: 'DM Sans', sans-serif; font-size: .67rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--dore); margin-bottom: 1.2rem; }
 .footer-col ul  { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
@@ -599,3 +586,37 @@ footer          { background: var(--color-footer); padding: 4rem 5% 2rem; color:
 }
 
 @media (max-width: 480px) { .masonry { columns: 1; } }
+
+/* ══ AJUSTEMENTS PALETTE ÉTÉ — bleu-violet, rose, jaune, blanc ═════════════ */
+[data-theme="summer"] .hero,
+[data-theme="summer"] .page-hero.dark,
+[data-theme="summer"] .dark-section {
+  background: linear-gradient(135deg, #5C79B8 0%, #6F84C5 55%, #E3AAF2 140%);
+}
+
+[data-theme="summer"] .gallery-filter-bar {
+  background: #5C79B8;
+}
+
+[data-theme="summer"] .insta-section {
+  background: linear-gradient(135deg, #5C79B8 0%, #6F84C5 70%, #E3AAF2 150%);
+}
+
+[data-theme="summer"] .event-tag,
+[data-theme="summer"] .event-dates,
+[data-theme="summer"] .season-label,
+[data-theme="summer"] .microcopy {
+  color: #B46AD8;
+}
+
+[data-theme="summer"] .event-card-h:hover {
+  border-color: rgba(92,121,184,.32);
+}
+
+[data-theme="summer"] .event-img::after {
+  background: linear-gradient(135deg, rgba(92,121,184,.10) 0%, rgba(227,170,242,.12) 60%, transparent 100%);
+}
+
+[data-theme="summer"] .tl-track::before {
+  background: linear-gradient(to right, transparent, var(--dore), #E3AAF2, var(--dore), transparent);
+}
