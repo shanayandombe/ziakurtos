@@ -23,76 +23,122 @@ function formatDateRange(s, e) {
     return j.replace(/^0/,'') + '\u202f' + months[+m - 1];
   };
   if (!e || s === e) return fmt(s);
-  return fmt(s) + ' – ' + fmt(e);
+  const sm = s.split('-')[1], em = e.split('-')[1];
+  return sm === em ? fmt(s) + ' – ' + fmt(e) : fmt(s) + ' – ' + fmt(e);
 }
 
-const seasonLabel    = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
-const seasonBadgeCls = s => ({ printemps:'badge-printemps', été:'badge-ete', automne:'badge-automne', hiver:'badge-hiver', annuel:'badge-annuel' }[s] || 'badge-annuel');
-const flavorTagCls   = c => ({ sucré:'tag-sucre', tartinage:'tag-tartinage', signature:'tag-signature', salé:'tag-sale', saisonnier:'tag-saisonnier', 'à venir':'tag-upcoming' }[c] || 'tag-sucre');
+function normalizeText(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
 
+function normalizeSeason(value) {
+  const v = normalizeText(value);
+  if (['ete', 'été'].includes(v)) return 'ete';
+  if (['printemps'].includes(v)) return 'printemps';
+  if (['automne'].includes(v)) return 'automne';
+  if (['hiver'].includes(v)) return 'hiver';
+  if (['annuel', 'annee', 'année'].includes(v)) return 'annuel';
+  return v || 'annuel';
+}
+
+function seasonLabel(value) {
+  const s = normalizeSeason(value);
+  return { printemps: 'Printemps', ete: 'Été', automne: 'Automne', hiver: 'Hiver', annuel: 'Annuel' }[s] || '';
+}
+
+function seasonBadgeCls(value) {
+  const s = normalizeSeason(value);
+  return { printemps: 'badge-printemps', ete: 'badge-ete', automne: 'badge-automne', hiver: 'badge-hiver', annuel: 'badge-annuel' }[s] || 'badge-annuel';
+}
+
+function normalizeFlavorCategory(value) {
+  const v = normalizeText(value);
+
+  if (['sucre', 'sucres', 'sucree', 'sucrees', 'sweet'].includes(v)) return 'sucre';
+  if (['sale', 'sales', 'savory'].includes(v)) return 'sale';
+  if (['tartinage', 'tartinages', 'tartine', 'tartines'].includes(v)) return 'tartinage';
+  if (['signature', 'signatures'].includes(v)) return 'signature';
+
+  // Compatibilité avec une ancienne valeur du CMS : la crème de pistache est une saveur à venir en tartinage.
+  if (['a venir', 'avenir'].includes(v)) return 'tartinage';
+
+  return v || 'sucre';
+}
+
+function flavorCategoryLabel(category) {
+  const c = normalizeFlavorCategory(category);
+  return {
+    sucre: 'SUCRÉ',
+    tartinage: 'TARTINAGE',
+    signature: 'SIGNATURE',
+    sale: 'SALÉ'
+  }[c] || 'SUCRÉ';
+}
+
+function flavorTagCls(category) {
+  const c = normalizeFlavorCategory(category);
+  return {
+    sucre: 'tag-sucre',
+    tartinage: 'tag-tartinage',
+    signature: 'tag-signature',
+    sale: 'tag-sale'
+  }[c] || 'tag-sucre';
+}
+
+function normalizeBadge(value) {
+  const v = normalizeText(value);
+  if (!v) return '';
+  return {
+    classique: 'classique',
+    gourmand: 'gourmand',
+    reconfortant: 'reconfortant',
+    signature: 'signature'
+  }[v] || v;
+}
+
+function badgeLabel(value) {
+  const b = normalizeBadge(value);
+  return {
+    classique: 'CLASSIQUE',
+    gourmand: 'GOURMAND',
+    reconfortant: 'RÉCONFORTANT',
+    signature: 'SIGNATURE'
+  }[b] || String(value || '').toUpperCase();
+}
+
+// Cycle aspect ratios for masonry variety
 const AR = ['tall','sq','xtall','wide','tall','sq','wide','tall','sq','xtall'];
-
-/* ══ EMPTY STATES ════════════════════════════════════════════════════════════
-   Messages chaleureux et dans l'univers Zia Kürtös.
-   Affichés quand les collections CMS sont vides.
-═══════════════════════════════════════════════════════════════════════════════ */
-
-const _emptyEvents = () => `
-<div class="empty-state" style="padding:5rem 2rem;text-align:center;max-width:560px;margin:0 auto">
-  <svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="margin:0 auto 1.5rem;display:block;opacity:.35" aria-hidden="true">
-    <circle cx="28" cy="28" r="20" stroke="#B66A2C" stroke-width="1.5" fill="none"/>
-    <path d="M20 28 C22 22 26 20 30 22 C34 24 34 30 30 32" stroke="#D89B28" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-    <line x1="28" y1="18" x2="28" y2="28" stroke="#D89B28" stroke-width="1.3" stroke-linecap="round"/>
-    <circle cx="28" cy="32" r="1.2" fill="#B66A2C"/>
-  </svg>
-  <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.8rem;color:var(--texte,#2C1810)">Les prochains rendez-vous arrivent bientôt</h3>
-  <p style="color:var(--gris,#6B4435);font-size:.95rem;line-height:1.75;margin-bottom:2rem">Zia Kürtös prépare doucement sa prochaine tournée gourmande. Revenez bientôt ou suivez-nous sur Instagram pour découvrir les prochains festivals, marchés et événements où nous retrouver.</p>
-  <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Suivre @ziakurtos</a>
-</div>`;
-
-const _emptyFlavors = () => `
-<div class="empty-state" style="padding:5rem 2rem;text-align:center;max-width:560px;margin:0 auto;grid-column:1/-1">
-  <svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="margin:0 auto 1.5rem;display:block;opacity:.35" aria-hidden="true">
-    <rect x="16" y="8" width="24" height="40" rx="12" stroke="#D89B28" stroke-width="1.5" fill="none"/>
-    <rect x="20" y="14" width="16" height="28" rx="8" stroke="#B66A2C" stroke-width="1" fill="none" opacity=".6"/>
-  </svg>
-  <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.8rem;color:var(--blanc,#FFFBF3)">Les saveurs arrivent bientôt</h3>
-  <p style="color:rgba(255,255,255,.55);font-size:.95rem;line-height:1.75;margin-bottom:2rem">Notre carte de kürtös est en préparation. Sucrées, gourmandes, croustillantes ou réconfortantes… les prochaines saveurs seront bientôt ajoutées ici.</p>
-  <a href="evenements.html" class="btn btn-ghost">Découvrir nos événements</a>
-</div>`;
-
-const _emptyGallery = () => `
-<div class="empty-state" style="padding:5rem 2rem;text-align:center;max-width:560px;margin:0 auto">
-  <svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="margin:0 auto 1.5rem;display:block;opacity:.3" aria-hidden="true">
-    <rect x="6" y="14" width="44" height="30" rx="3" stroke="#D89B28" stroke-width="1.5" fill="none"/>
-    <circle cx="20" cy="26" r="5" stroke="#B66A2C" stroke-width="1.2" fill="none"/>
-    <path d="M6 36 L18 26 L28 34 L36 28 L50 38" stroke="#D89B28" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  </svg>
-  <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.8rem;color:var(--blanc,#FFFBF3)">Les images arrivent bientôt</h3>
-  <p style="color:rgba(255,255,255,.5);font-size:.95rem;line-height:1.75;margin-bottom:2rem">Les coulisses, les kürtös dorés à la broche et les moments de festival seront bientôt partagés ici. En attendant, retrouvez Zia Kürtös sur Instagram.</p>
-  <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Suivre @ziakurtos</a>
-</div>`;
 
 /* ══ SETTINGS ════════════════════════════════════════════════════════════════ */
 
 function applySettings() {
   const S = window.ZIA_SETTINGS || {};
 
+  // Email
   if (S.email) {
     document.querySelectorAll('[data-email]').forEach(el => {
       el.href = 'mailto:' + S.email;
       if (!el.querySelector('*')) el.textContent = S.email;
     });
   }
+
+  // TikTok — only show if url provided
   if (S.tiktok_url) {
     document.querySelectorAll('[data-tiktok]').forEach(el => {
       el.href = S.tiktok_url;
       el.style.display = 'flex';
     });
   }
+
+  // Social links
   if (S.instagram_url) document.querySelectorAll('[data-instagram]').forEach(el => { el.href = S.instagram_url; });
   if (S.facebook_url)  document.querySelectorAll('[data-facebook]').forEach(el => { el.href = S.facebook_url; });
 
+  // CTA labels
   if (S.main_cta_label) {
     document.querySelectorAll('[data-cta-main]').forEach(el => { el.textContent = S.main_cta_label; });
   }
@@ -100,18 +146,21 @@ function applySettings() {
     document.querySelectorAll('[data-cta-contact]').forEach(el => { el.textContent = S.contact_cta_label; });
   }
 
+  // Announcement banner
   const ann = $('announcement');
   if (ann && S.announcement_text) {
     ann.textContent = S.announcement_text;
     ann.classList.add('visible');
   }
 
+  // Footer credit
   const fc = $('footerCredit');
   if (fc && S.footer_credit_text) {
     const url = S.footer_credit_url || '#';
     fc.innerHTML = `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(S.footer_credit_text)}</a>`;
   }
 
+  // Nav CTA
   if (S.contact_cta_label) {
     const navCta = $('navCta');
     if (navCta) navCta.textContent = S.contact_cta_label;
@@ -124,6 +173,7 @@ function applyTheme() {
   const S = window.ZIA_SETTINGS || {};
   const theme = (S.active_theme === 'winter') ? 'winter' : 'summer';
   document.documentElement.setAttribute('data-theme', theme);
+
   const T = window.ZIA_THEME;
   if (T && typeof T === 'object') {
     Object.entries(T).forEach(([k, v]) => {
@@ -145,7 +195,7 @@ function getVisibleEvents() {
 }
 
 function _imgOrPlaceholder(img, title) {
-  if (img) return `<img src="${esc(img)}" alt="${esc(title)} — Zia Kürtös" loading="lazy" width="260" height="200" onerror="this.style.display='none'">`;
+  if (img) return `<img src="${esc(img)}" alt="${esc(title)} — Zia Kürtös" loading="lazy" width="260" height="200">`;
   return `<div class="img-placeholder" aria-hidden="true">
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="12" width="32" height="22" rx="2" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".25"/><path d="M4 12 L20 4 L36 12" stroke="currentColor" stroke-width="1" fill="none" opacity=".2"/></svg>
   </div>`;
@@ -163,7 +213,7 @@ function eventCardHome(ev) {
       ${d ? `<div class="event-dates">${d}</div>` : ''}
       <h3>${esc(ev.title||'')}</h3>
       <p>${esc(ev.description||'')}</p>
-      <a href="evenements.html" class="event-card-arrow">Voir tous les événements
+      <a href="evenements.html" class="event-card-arrow">Voir tous les événements 2026
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </a>
     </div>
@@ -200,6 +250,12 @@ function eventCardPage(ev) {
   </article>`;
 }
 
+const _emptyEvents = () => `<div class="empty-state">
+  <h3>Les prochains rendez-vous arrivent bientôt</h3>
+  <p>Zia Kürtös prépare doucement sa prochaine tournée gourmande. Revenez bientôt ou suivez-nous sur Instagram pour découvrir les prochains festivals, marchés et événements où nous retrouver.</p>
+  <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Suivre @ziakurtos</a>
+</div>`;
+
 function renderEventsHome() {
   const c = $('eventsHome');
   if (!c) return;
@@ -229,26 +285,39 @@ function getVisibleFlavors() {
 }
 
 function flavorCard(f) {
-  const tagCls   = flavorTagCls(f.category);
-  const badgeCls = 'badge-' + (f.badge || 'classique');
-  const imgHtml  = f.image
-    ? `<img src="${esc(f.image)}" alt="${esc(f.title)} — kürtős Zia Kürtös" loading="lazy" width="200" height="200" onerror="this.style.display='none'">`
+  const category = normalizeFlavorCategory(f.category);
+  const tagCls = flavorTagCls(category);
+  const badge = normalizeBadge(f.badge);
+
+  const badgeHtml = badge
+    ? `<span class="saveur-badge badge-${esc(badge)}">${esc(badgeLabel(badge))}</span>`
     : '';
+
+  const imgHtml = f.image
+    ? `<img src="${esc(f.image)}" alt="${esc(f.title)} — kürtös Zia Kürtös" loading="lazy" width="200" height="200">`
+    : '';
+
   const upcomingNote = f.upcoming ? `<p class="upcoming-note">Prochainement disponible</p>` : '';
   const reveal = f.upcoming
     ? `<div class="saveur-reveal">Bientôt disponible — restez connecté</div>`
-    : `<div class="saveur-reveal">${esc(f.title)} — kürtős artisanal</div>`;
+    : `<div class="saveur-reveal">${esc(f.title)} — kürtös artisanal</div>`;
 
-  return `<article class="saveur-card${f.upcoming?' is-upcoming':''} reveal" data-type="${esc(f.category||'')}" role="listitem">
+  return `<article class="saveur-card${f.upcoming ? ' is-upcoming' : ''} reveal" data-type="${esc(category)}" role="listitem">
     ${imgHtml}
-    <span class="saveur-badge ${badgeCls}">${esc(f.badge||'classique')}</span>
-    <span class="saveur-tag ${tagCls}">${esc(f.category||'')}</span>
-    <h3>${esc(f.title||'')}</h3>
-    <p>${esc(f.description||'')}</p>
+    ${badgeHtml}
+    <span class="saveur-tag ${tagCls}">${esc(flavorCategoryLabel(category))}</span>
+    <h3>${esc(f.title || '')}</h3>
+    <p>${esc(f.description || '')}</p>
     ${upcomingNote}
     ${reveal}
   </article>`;
 }
+
+const _emptyFlavors = () => `<div class="empty-state">
+  <h3>Les saveurs arrivent bientôt</h3>
+  <p>Notre carte de kürtös est en préparation. Sucrées, gourmandes, croustillantes ou réconfortantes… les prochaines saveurs seront bientôt ajoutées ici.</p>
+  <a href="evenements.html" class="btn btn-primary">Découvrir nos événements</a>
+</div>`;
 
 function renderFlavorsHome() {
   const c = $('flavorsHome');
@@ -266,6 +335,48 @@ function renderFlavorsPage() {
   _initRevealIn(c);
 }
 
+function flavorFilterButtonsHtml(btnClass) {
+  return `
+    <button class="${btnClass} active" data-filter-flavors="all" aria-pressed="true" type="button">Tous</button>
+    <button class="${btnClass}" data-filter-flavors="sucre" aria-pressed="false" type="button">Sucrés</button>
+    <button class="${btnClass}" data-filter-flavors="tartinage" aria-pressed="false" type="button">Tartinage</button>
+    <button class="${btnClass}" data-filter-flavors="signature" aria-pressed="false" type="button">Signature</button>
+    <button class="${btnClass}" data-filter-flavors="sale" aria-pressed="false" type="button">Salés</button>
+  `;
+}
+
+function ensureFlavorFilterButtons() {
+  document.querySelectorAll('.saveurs-tabs, .filter-bar').forEach(group => {
+    if (!group.querySelector('[data-filter-flavors]')) return;
+
+    const firstBtn = group.querySelector('button');
+    const btnClass = firstBtn && firstBtn.classList.contains('filter-btn') ? 'filter-btn' : 'tab-btn';
+
+    group.innerHTML = flavorFilterButtonsHtml(btnClass);
+  });
+}
+
+function filterFlavorCards(type, btn) {
+  const normalizedType = type === 'all' ? 'all' : normalizeFlavorCategory(type);
+
+  document.querySelectorAll('[data-filter-flavors]').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-pressed', 'false');
+  });
+
+  if (btn) {
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
+  }
+
+  document.querySelectorAll('.saveur-card').forEach(card => {
+    const cardType = normalizeFlavorCategory(card.dataset.type);
+    card.style.display = (normalizedType === 'all' || cardType === normalizedType) ? '' : 'none';
+  });
+}
+
+window.filterSaveurs = filterFlavorCards;
+
 /* ══ GALLERY ═════════════════════════════════════════════════════════════════ */
 
 function getVisibleGallery() {
@@ -279,16 +390,16 @@ function getVisibleGallery() {
 }
 
 function galleryItemHtml(item, idx) {
-  const aspect  = AR[idx % AR.length];
+  const aspect = AR[idx % AR.length];
   const polaroid = item.featured ? ' polaroid' : '';
-  const caption  = item.featured && item.caption
+  const caption = item.featured && item.caption
     ? `<p class="polaroid-caption">${esc(item.caption)}</p>` : '';
 
   return `<div class="masonry-item${polaroid}" data-cat="${esc(item.category||'')}" data-index="${idx}"
     role="listitem" tabindex="0"
     aria-label="${esc(item.alt||item.title||'Photo Zia Kürtös')} — ouvrir en grand">
     <div class="item-img ar-${aspect}">
-      <img src="${esc(item.image)}" alt="${esc(item.alt||item.title||'Photo Zia Kürtös')}" loading="lazy" width="400" height="400" onerror="this.style.display='none'">
+      <img src="${esc(item.image)}" alt="${esc(item.alt||item.title||'Photo Zia Kürtös')}" loading="lazy" width="400" height="400">
       <div class="item-overlay">
         <span class="item-cat">${esc(item.category||'')}</span>
         <span class="item-label">${esc(item.caption||item.title||'')}</span>
@@ -308,8 +419,11 @@ function renderGalleryPage() {
   if (!c) return;
   const imgs = getVisibleGallery();
   if (!imgs.length) {
-    c.innerHTML = _emptyGallery();
-    _setGalleryCount(0);
+    c.innerHTML = `<div class="empty-state">
+      <h3>Les images arrivent bientôt</h3>
+      <p>Les coulisses, les kürtös dorés à la broche et les moments de festival seront bientôt partagés ici. En attendant, retrouvez Zia Kürtös sur Instagram.</p>
+      <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Suivre @ziakurtos</a>
+    </div>`;
     return;
   }
   c.innerHTML = imgs.map(galleryItemHtml).join('');
@@ -326,7 +440,7 @@ function renderGalleryMosaic() {
   c.innerHTML = imgs.map((item, i) => `<div class="gm-item${i === 0 ? ' tall' : ''}"
     role="img" aria-label="${esc(item.alt||item.title||'Photo Zia Kürtös')}">
     <img src="${esc(item.image)}" alt="${esc(item.alt||item.title||'Photo Zia Kürtös')}"
-      loading="lazy" width="${i===0?560:280}" height="${i===0?560:280}" onerror="this.style.display='none'">
+      loading="lazy" width="${i===0?560:280}" height="${i===0?560:280}">
     <div class="gm-overlay"><span class="gm-legend">${esc(item.caption||item.title||'')}</span></div>
   </div>`).join('');
 }
@@ -336,15 +450,17 @@ function renderGalleryMosaic() {
 function renderInstagramPreview() {
   const c = $('instaGrid');
   if (!c) return;
-  const S   = window.ZIA_SETTINGS || {};
+  const S = window.ZIA_SETTINGS || {};
   const url = S.instagram_url || 'https://www.instagram.com/ziakurtos/';
+
   const feed = (window.ZIA_INSTA && window.ZIA_INSTA.length)
     ? window.ZIA_INSTA.slice(0, 6)
     : getVisibleGallery().filter(g => g.featured).slice(0, 6);
+
   if (!feed.length) return;
   c.innerHTML = feed.map(item => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer"
     class="insta-item" aria-label="${esc(item.alt||item.title||'Instagram Zia Kürtös')}">
-    <img src="${esc(item.image)}" alt="${esc(item.alt||item.title||'Zia Kürtös')}" loading="lazy" width="220" height="220" onerror="this.style.display='none'">
+    <img src="${esc(item.image)}" alt="${esc(item.alt||item.title||'Zia Kürtös')}" loading="lazy" width="220" height="220">
   </a>`).join('');
 }
 
@@ -358,18 +474,19 @@ function initGalleryLightbox(images) {
   if (!lb) return;
 
   document.querySelectorAll('[data-index]').forEach(el => {
-    el.onclick   = () => openLightbox(+(el.dataset.index));
+    el.onclick = () => openLightbox(+(el.dataset.index));
     el.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') openLightbox(+(el.dataset.index)); };
   });
 
   lb.onclick = e => { if (e.target === lb) closeLightbox(); };
+
   lb.onkeydown = e => {
     if (e.key === 'Escape')     closeLightbox();
     if (e.key === 'ArrowLeft')  lbNav(-1);
     if (e.key === 'ArrowRight') lbNav(1);
   };
 
-  const prev  = $('lbPrev'), next = $('lbNext'), close = $('lbClose');
+  const prev  = $('lbPrev'),  next  = $('lbNext'), close = $('lbClose');
   if (prev)  prev.onclick  = () => lbNav(-1);
   if (next)  next.onclick  = () => lbNav(1);
   if (close) close.onclick = closeLightbox;
@@ -398,9 +515,10 @@ function lbNav(dir) {
 }
 
 function _updateLb() {
-  const item    = _lbImgs[_lbIdx];
+  const item = _lbImgs[_lbIdx];
   if (!item) return;
-  const frame   = $('lbFrame'), caption = $('lbCaption'), counter = $('lbCounter');
+  const frame   = $('lbFrame'),   caption = $('lbCaption');
+  const counter = $('lbCounter');
   if (frame)   frame.innerHTML = `<img src="${esc(item.image)}" alt="${esc(item.alt||item.title||'Photo Zia Kürtös')}" style="width:100%;height:100%;object-fit:contain;">`;
   if (caption) caption.textContent = item.caption || item.title || '';
   if (counter) counter.textContent = `${_lbIdx + 1} / ${_lbImgs.length}`;
@@ -409,31 +527,23 @@ function _updateLb() {
 /* ══ FILTERS ═════════════════════════════════════════════════════════════════ */
 
 function initFilters() {
-  // Saveurs — data-filter-flavors
+  ensureFlavorFilterButtons();
   document.querySelectorAll('[data-filter-flavors]').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-filter-flavors]').forEach(b => {
-        b.classList.remove('active'); b.setAttribute('aria-pressed','false');
-      });
-      btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
-      const type = btn.dataset.filterFlavors;
-      document.querySelectorAll('.saveur-card').forEach(card => {
-        card.style.display = (type === 'all' || card.dataset.type === type) ? '' : 'none';
-      });
+      filterFlavorCards(btn.dataset.filterFlavors, btn);
     });
   });
 
-  // Saisons — data-filter-season
   document.querySelectorAll('[data-filter-season]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('[data-filter-season]').forEach(b => {
         b.classList.remove('active'); b.setAttribute('aria-pressed','false');
       });
       btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
-      const s = btn.dataset.filterSeason;
+      const s = btn.dataset.filterSeason === 'all' ? 'all' : normalizeSeason(btn.dataset.filterSeason);
       let n = 0;
       document.querySelectorAll('#eventsList .event-card-h, #eventsList .event-card').forEach(card => {
-        const show = s === 'all' || card.dataset.season === s;
+        const show = s === 'all' || normalizeSeason(card.dataset.season) === s;
         card.style.display = show ? '' : 'none';
         if (show) n++;
       });
@@ -442,7 +552,6 @@ function initFilters() {
     });
   });
 
-  // Galerie — data-filter-gallery
   document.querySelectorAll('[data-filter-gallery]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('[data-filter-gallery]').forEach(b => {
@@ -517,7 +626,8 @@ function _initRevealIn(container) {
 
 function initWordChanger() {
   const el = $('wordChanger');
-  if (!el || _reducedMotion) return;
+  if (!el) return;
+  if (_reducedMotion) return;
   const words = ['gourmand','croustillant','moelleux','caramélisé','réconfortant','irrésistible','doux'];
   let i = 0;
   el.style.transition = 'opacity .35s ease, transform .35s ease';
@@ -541,25 +651,19 @@ function staggerCards() {
   });
 }
 
-/* ══ STATS DYNAMIQUES (home) ═════════════════════════════════════════════════ */
+/* ══ SEASON TIMELINE ═════════════════════════════════════════════════════════ */
 
-function updateHomeStats() {
-  const evs = getVisibleEvents();
-  const fls = getVisibleFlavors().filter(f => !f.upcoming);
-  const s = $('statEvents');
-  const f = $('statFlavors');
-  if (s) s.textContent = evs.length ? evs.length + '+' : '—';
-  if (f) f.textContent = fls.length || '—';
+function initSeasonTimeline() {
+  const track = document.querySelector('.tl-track');
+  if (!track) return;
 }
 
 /* ══ MAIN INIT ═══════════════════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Thème et réglages
   applySettings();
   applyTheme();
 
-  // 2. Rendu CMS
   renderEventsHome();
   renderEventsPage();
   renderFlavorsHome();
@@ -567,13 +671,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGalleryPage();
   renderGalleryMosaic();
   renderInstagramPreview();
-  updateHomeStats();
 
-  // 3. UI
   initMobileMenu();
   initScrollNavbar();
   initRevealAnimations();
   initFilters();
   initWordChanger();
+  initSeasonTimeline();
   staggerCards();
 });
