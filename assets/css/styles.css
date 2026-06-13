@@ -587,46 +587,15 @@ footer          { background: var(--color-footer); padding: 4rem 5% 2rem; color:
 
 @media (max-width: 480px) { .masonry { columns: 1; } }
 
-/* ══ AJUSTEMENTS PALETTE ÉTÉ — bleu-violet, rose, jaune, blanc ═════════════ */
-[data-theme="summer"] .hero,
-[data-theme="summer"] .page-hero.dark,
-[data-theme="summer"] .dark-section {
-  background: linear-gradient(135deg, #5C79B8 0%, #6F84C5 55%, #E3AAF2 140%);
-}
-
-[data-theme="summer"] .gallery-filter-bar {
-  background: #5C79B8;
-}
-
-[data-theme="summer"] .insta-section {
-  background: linear-gradient(135deg, #5C79B8 0%, #6F84C5 70%, #E3AAF2 150%);
-}
-
-[data-theme="summer"] .event-tag,
-[data-theme="summer"] .event-dates,
-[data-theme="summer"] .season-label,
-[data-theme="summer"] .microcopy {
-  color: #B46AD8;
-}
-
-[data-theme="summer"] .event-card-h:hover {
-  border-color: rgba(92,121,184,.32);
-}
-
-[data-theme="summer"] .event-img::after {
-  background: linear-gradient(135deg, rgba(92,121,184,.10) 0%, rgba(227,170,242,.12) 60%, transparent 100%);
-}
-
-[data-theme="summer"] .tl-track::before {
-  background: linear-gradient(to right, transparent, var(--dore), #E3AAF2, var(--dore), transparent);
-}
-
 /* ════════════════════════════════════════════════════════════════════════════
-   CORRECTION THEME ETE ZIA KURTOS
+   THEME ETE FINAL — Zia Kürtös
    Bleu-violet / jaune pale / rose / blanc
-   A placer tout en bas du fichier styles.css
+   Ce bloc doit rester tout en bas de styles.css
    ════════════════════════════════════════════════════════════════════════════ */
 
+html[data-theme="summer"],
+body[data-theme="summer"],
+body.theme-summer,
 [data-theme="summer"] {
   --creme: #FFFFFB;
   --beige: #FEFEE2;
@@ -663,286 +632,642 @@ footer          { background: var(--color-footer); padding: 4rem 5% 2rem; color:
   --nav-border: rgba(92,121,184,.16);
 }
 
-/* Fonds clairs globaux du mode été */
-[data-theme="summer"] body,
-[data-theme="summer"] main,
-[data-theme="summer"] .light-section,
-[data-theme="summer"] .process-section,
-[data-theme="summer"] .about-section,
-[data-theme="summer"] .faq-section,
-[data-theme="summer"] .contact-section,
-[data-theme="summer"] .content-section,
-[data-theme="summer"] .speciality-section,
-[data-theme="summer"] .kurtos-section {
+/* Fond général été */
+html[data-theme="summer"] body,
+body.theme-summer {
   background: #FFFFFB !important;
   color: #17213D !important;
 }
 
-/* Hero et grandes sections foncées en bleu-violet */
-[data-theme="summer"] .hero,
-[data-theme="summer"] .page-hero,
-[data-theme="summer"] .page-hero.dark,
-[data-theme="summer"] .dark-section,
-[data-theme="summer"] .saveurs,
-[data-theme="summer"] .organisateurs,
-[data-theme="summer"] .organizers,
-[data-theme="summer"] .organizer-section,
-[data-theme="summer"] .invite-section,
-[data-theme="summer"] .cta-section,
-[data-theme="summer"] .cta-final,
-[data-theme="summer"] .insta-section {
+/* Navigation */
+html[data-theme="summer"] nav,
+body.theme-summer nav {
+  background: rgba(255,255,251,.96) !important;
+  border-bottom: 1px solid rgba(92,121,184,.16) !important;
+  box-shadow: 0 4px 24px rgba(23,33,61,.06) !important;
+}
+
+html[data-theme="summer"] .nav-logo,
+html[data-theme="summer"] .nav-links a,
+body.theme-summer .nav-logo,
+body.theme-summer .nav-links a {
+  color: #17213D !important;
+}
+
+html[data-theme="summer"] .nav-logo span,
+html[data-theme="summer"] .nav-links a:hover,
+html[data-theme="summer"] .nav-links a[aria-current="page"],
+body.theme-summer .nav-logo span,
+body.theme-summer .nav-links a:hover,
+body.theme-summer .nav-links a[aria-current="page"] {
+  color: #5C79B8 !important;
+}
+
+html[data-theme="summer"] .nav-links a::after,
+body.theme-summer .nav-links a::after {
   background: #5C79B8 !important;
+}
+
+html[data-theme="summer"] .burger span,
+body.theme-summer .burger span {
+  background: #17213D !important;
+}
+
+/* Heroes + sections foncées */
+html[data-theme="summer"] .hero,
+html[data-theme="summer"] .page-hero,
+html[data-theme="summer"] .hero-left,
+html[data-theme="summer"] .saveurs,
+html[data-theme="summer"] .dark-section,
+html[data-theme="summer"] .section-dark,
+html[data-theme="summer"] .quote-section,
+html[data-theme="summer"] .types,
+html[data-theme="summer"] .gallery-section,
+html[data-theme="summer"] .filter-bar,
+html[data-theme="summer"] .gallery-filter-bar,
+html[data-theme="summer"] .insta-section,
+html[data-theme="summer"] .organisateurs,
+html[data-theme="summer"] .organizers,
+html[data-theme="summer"] .organizer-section,
+html[data-theme="summer"] .invite-section,
+html[data-theme="summer"] .devis,
+html[data-theme="summer"] .cta-section,
+html[data-theme="summer"] .cta-final,
+html[data-theme="summer"] .faq-cta,
+body.theme-summer .hero,
+body.theme-summer .page-hero,
+body.theme-summer .hero-left,
+body.theme-summer .saveurs,
+body.theme-summer .dark-section,
+body.theme-summer .section-dark,
+body.theme-summer .quote-section,
+body.theme-summer .types,
+body.theme-summer .gallery-section,
+body.theme-summer .filter-bar,
+body.theme-summer .gallery-filter-bar,
+body.theme-summer .insta-section,
+body.theme-summer .organisateurs,
+body.theme-summer .organizers,
+body.theme-summer .organizer-section,
+body.theme-summer .invite-section,
+body.theme-summer .devis,
+body.theme-summer .cta-section,
+body.theme-summer .cta-final,
+body.theme-summer .faq-cta {
+  background:
+    radial-gradient(circle at 85% 10%, rgba(227,170,242,.25) 0%, transparent 35%),
+    radial-gradient(circle at 12% 90%, rgba(247,221,122,.18) 0%, transparent 32%),
+    linear-gradient(135deg, #5C79B8 0%, #667FC2 58%, #5C79B8 100%) !important;
   color: #FFFFFB !important;
 }
 
-/* Dégradé léger pour le hero, plus estival */
-[data-theme="summer"] .hero {
-  background:
-    radial-gradient(circle at 80% 15%, rgba(227,170,242,.28) 0%, transparent 34%),
-    radial-gradient(circle at 10% 90%, rgba(247,221,122,.18) 0%, transparent 32%),
-    linear-gradient(135deg, #5C79B8 0%, #667FC2 55%, #5C79B8 100%) !important;
+/* Partie droite de la page contact */
+html[data-theme="summer"] .hero-right,
+body.theme-summer .hero-right {
+  background: #FFFFFB !important;
+  color: #17213D !important;
 }
 
-/* Section Nos créations en bleu-violet */
-[data-theme="summer"] .saveurs {
-  background:
-    radial-gradient(circle at 85% 10%, rgba(227,170,242,.22) 0%, transparent 34%),
-    linear-gradient(135deg, #5C79B8 0%, #637FC1 100%) !important;
+/* Sections claires */
+html[data-theme="summer"] main,
+html[data-theme="summer"] .univers,
+html[data-theme="summer"] .origine,
+html[data-theme="summer"] .sens,
+html[data-theme="summer"] .valeurs,
+html[data-theme="summer"] .events-presences,
+html[data-theme="summer"] .festival-timeline,
+html[data-theme="summer"] .season-filter,
+html[data-theme="summer"] .cat-nav,
+html[data-theme="summer"] .faq-section,
+html[data-theme="summer"] .avantages-section,
+html[data-theme="summer"] .stats-strip,
+html[data-theme="summer"] .split-section,
+html[data-theme="summer"] .white-section,
+html[data-theme="summer"] .plain-section,
+html[data-theme="summer"] .about-section,
+html[data-theme="summer"] .speciality-section,
+html[data-theme="summer"] .process-section,
+html[data-theme="summer"] .contact-section,
+html[data-theme="summer"] .content-section,
+html[data-theme="summer"] .kurtos-section,
+body.theme-summer main,
+body.theme-summer .univers,
+body.theme-summer .origine,
+body.theme-summer .sens,
+body.theme-summer .valeurs,
+body.theme-summer .events-presences,
+body.theme-summer .festival-timeline,
+body.theme-summer .season-filter,
+body.theme-summer .cat-nav,
+body.theme-summer .faq-section,
+body.theme-summer .avantages-section,
+body.theme-summer .stats-strip,
+body.theme-summer .split-section,
+body.theme-summer .white-section,
+body.theme-summer .plain-section,
+body.theme-summer .about-section,
+body.theme-summer .speciality-section,
+body.theme-summer .process-section,
+body.theme-summer .contact-section,
+body.theme-summer .content-section,
+body.theme-summer .kurtos-section {
+  background: #FFFFFB !important;
+  color: #17213D !important;
 }
 
-[data-theme="summer"] .saveurs .s-label,
-[data-theme="summer"] .dark-section .s-label,
-[data-theme="summer"] .organisateurs .s-label,
-[data-theme="summer"] .organizers .s-label,
-[data-theme="summer"] .organizer-section .s-label,
-[data-theme="summer"] .invite-section .s-label {
+/* Textes sur fond bleu-violet */
+html[data-theme="summer"] .hero h1,
+html[data-theme="summer"] .hero h2,
+html[data-theme="summer"] .page-hero h1,
+html[data-theme="summer"] .page-hero h2,
+html[data-theme="summer"] .hero-left h1,
+html[data-theme="summer"] .saveurs h1,
+html[data-theme="summer"] .saveurs h2,
+html[data-theme="summer"] .quote-section h2,
+html[data-theme="summer"] .quote-section blockquote p,
+html[data-theme="summer"] .types h2,
+html[data-theme="summer"] .gallery-section h1,
+html[data-theme="summer"] .gallery-section h2,
+html[data-theme="summer"] .insta-section h2,
+html[data-theme="summer"] .organisateurs h2,
+html[data-theme="summer"] .organizers h2,
+html[data-theme="summer"] .organizer-section h2,
+html[data-theme="summer"] .invite-section h2,
+html[data-theme="summer"] .devis h2,
+html[data-theme="summer"] .cta-section h2,
+html[data-theme="summer"] .cta-final h2,
+html[data-theme="summer"] .faq-cta h2,
+body.theme-summer .hero h1,
+body.theme-summer .hero h2,
+body.theme-summer .page-hero h1,
+body.theme-summer .page-hero h2,
+body.theme-summer .hero-left h1,
+body.theme-summer .saveurs h1,
+body.theme-summer .saveurs h2,
+body.theme-summer .quote-section h2,
+body.theme-summer .quote-section blockquote p,
+body.theme-summer .types h2,
+body.theme-summer .gallery-section h1,
+body.theme-summer .gallery-section h2,
+body.theme-summer .insta-section h2,
+body.theme-summer .organisateurs h2,
+body.theme-summer .organizers h2,
+body.theme-summer .organizer-section h2,
+body.theme-summer .invite-section h2,
+body.theme-summer .devis h2,
+body.theme-summer .cta-section h2,
+body.theme-summer .cta-final h2,
+body.theme-summer .faq-cta h2 {
+  color: #FFFFFB !important;
+}
+
+html[data-theme="summer"] .hero p,
+html[data-theme="summer"] .page-hero p,
+html[data-theme="summer"] .hero-left p,
+html[data-theme="summer"] .saveurs p,
+html[data-theme="summer"] .quote-section p,
+html[data-theme="summer"] .types p,
+html[data-theme="summer"] .gallery-section p,
+html[data-theme="summer"] .insta-section p,
+html[data-theme="summer"] .organisateurs p,
+html[data-theme="summer"] .organizers p,
+html[data-theme="summer"] .organizer-section p,
+html[data-theme="summer"] .invite-section p,
+html[data-theme="summer"] .devis p,
+html[data-theme="summer"] .cta-section p,
+html[data-theme="summer"] .cta-final p,
+html[data-theme="summer"] .faq-cta p,
+body.theme-summer .hero p,
+body.theme-summer .page-hero p,
+body.theme-summer .hero-left p,
+body.theme-summer .saveurs p,
+body.theme-summer .quote-section p,
+body.theme-summer .types p,
+body.theme-summer .gallery-section p,
+body.theme-summer .insta-section p,
+body.theme-summer .organisateurs p,
+body.theme-summer .organizers p,
+body.theme-summer .organizer-section p,
+body.theme-summer .invite-section p,
+body.theme-summer .devis p,
+body.theme-summer .cta-section p,
+body.theme-summer .cta-final p,
+body.theme-summer .faq-cta p {
+  color: rgba(255,255,251,.78) !important;
+}
+
+/* Textes sur fond clair */
+html[data-theme="summer"] .univers h2,
+html[data-theme="summer"] .origine h2,
+html[data-theme="summer"] .sens h2,
+html[data-theme="summer"] .valeurs h2,
+html[data-theme="summer"] .events-presences h2,
+html[data-theme="summer"] .festival-timeline h2,
+html[data-theme="summer"] .faq-section h2,
+html[data-theme="summer"] .avantages-section h2,
+html[data-theme="summer"] .hero-right h2,
+html[data-theme="summer"] .form-title,
+html[data-theme="summer"] .event-card h3,
+html[data-theme="summer"] .event-card-h h3,
+html[data-theme="summer"] .faq-q-text,
+body.theme-summer .univers h2,
+body.theme-summer .origine h2,
+body.theme-summer .sens h2,
+body.theme-summer .valeurs h2,
+body.theme-summer .events-presences h2,
+body.theme-summer .festival-timeline h2,
+body.theme-summer .faq-section h2,
+body.theme-summer .avantages-section h2,
+body.theme-summer .hero-right h2,
+body.theme-summer .form-title,
+body.theme-summer .event-card h3,
+body.theme-summer .event-card-h h3,
+body.theme-summer .faq-q-text {
+  color: #17213D !important;
+}
+
+html[data-theme="summer"] .univers p,
+html[data-theme="summer"] .origine p,
+html[data-theme="summer"] .sens p,
+html[data-theme="summer"] .valeurs p,
+html[data-theme="summer"] .events-presences p,
+html[data-theme="summer"] .festival-timeline p,
+html[data-theme="summer"] .faq-section p,
+html[data-theme="summer"] .avantages-section p,
+html[data-theme="summer"] .hero-right p,
+html[data-theme="summer"] .event-card p,
+html[data-theme="summer"] .event-card-h p,
+body.theme-summer .univers p,
+body.theme-summer .origine p,
+body.theme-summer .sens p,
+body.theme-summer .valeurs p,
+body.theme-summer .events-presences p,
+body.theme-summer .festival-timeline p,
+body.theme-summer .faq-section p,
+body.theme-summer .avantages-section p,
+body.theme-summer .hero-right p,
+body.theme-summer .event-card p,
+body.theme-summer .event-card-h p {
+  color: #4A5D8F !important;
+}
+
+/* Labels */
+html[data-theme="summer"] .s-label,
+html[data-theme="summer"] .ph-label,
+html[data-theme="summer"] .page-hero-label,
+html[data-theme="summer"] .hero-label,
+html[data-theme="summer"] .section-label,
+html[data-theme="summer"] .eyebrow,
+body.theme-summer .s-label,
+body.theme-summer .ph-label,
+body.theme-summer .page-hero-label,
+body.theme-summer .hero-label,
+body.theme-summer .section-label,
+body.theme-summer .eyebrow {
   color: #F7DD7A !important;
+  border-color: rgba(247,221,122,.38) !important;
 }
 
-[data-theme="summer"] .saveurs .s-title,
-[data-theme="summer"] .dark-section h2,
-[data-theme="summer"] .organisateurs h2,
-[data-theme="summer"] .organizers h2,
-[data-theme="summer"] .organizer-section h2,
-[data-theme="summer"] .invite-section h2 {
-  color: #FFFFFB !important;
+html[data-theme="summer"] .event-tag,
+html[data-theme="summer"] .event-dates,
+html[data-theme="summer"] .season-label,
+html[data-theme="summer"] .cat-nav-label,
+html[data-theme="summer"] .event-selector-label,
+html[data-theme="summer"] label,
+html[data-theme="summer"] .related-card-label,
+html[data-theme="summer"] .microcopy,
+body.theme-summer .event-tag,
+body.theme-summer .event-dates,
+body.theme-summer .season-label,
+body.theme-summer .cat-nav-label,
+body.theme-summer .event-selector-label,
+body.theme-summer label,
+body.theme-summer .related-card-label,
+body.theme-summer .microcopy {
+  color: #B46AD8 !important;
 }
 
-[data-theme="summer"] .saveurs .s-intro,
-[data-theme="summer"] .dark-section p,
-[data-theme="summer"] .organisateurs p,
-[data-theme="summer"] .organizers p,
-[data-theme="summer"] .organizer-section p,
-[data-theme="summer"] .invite-section p {
-  color: rgba(255,255,251,.78) !important;
+/* Cartes claires */
+html[data-theme="summer"] .univers-img,
+html[data-theme="summer"] .origine-block.left,
+html[data-theme="summer"] .sens-card,
+html[data-theme="summer"] .valeur-item,
+html[data-theme="summer"] .event-card,
+html[data-theme="summer"] .event-card-h,
+html[data-theme="summer"] .event-type-card,
+html[data-theme="summer"] .avantage-card,
+html[data-theme="summer"] .related-card,
+html[data-theme="summer"] .faq-item,
+html[data-theme="summer"] .step,
+html[data-theme="summer"] .contact-card,
+html[data-theme="summer"] .info-card,
+body.theme-summer .univers-img,
+body.theme-summer .origine-block.left,
+body.theme-summer .sens-card,
+body.theme-summer .valeur-item,
+body.theme-summer .event-card,
+body.theme-summer .event-card-h,
+body.theme-summer .event-type-card,
+body.theme-summer .avantage-card,
+body.theme-summer .related-card,
+body.theme-summer .faq-item,
+body.theme-summer .step,
+body.theme-summer .contact-card,
+body.theme-summer .info-card {
+  background: #FFFFFB !important;
+  color: #17213D !important;
+  border-color: rgba(92,121,184,.18) !important;
+  box-shadow: 0 12px 30px rgba(23,33,61,.06) !important;
 }
 
-/* Cartes saveurs plus lisibles sur bleu-violet */
-[data-theme="summer"] .saveur-card {
-  background: rgba(255,255,251,.12) !important;
+/* Cartes sur fond bleu */
+html[data-theme="summer"] .saveur-card,
+html[data-theme="summer"] .type-card,
+html[data-theme="summer"] .org-benefit,
+html[data-theme="summer"] .invite-reason,
+html[data-theme="summer"] .devis-contact,
+body.theme-summer .saveur-card,
+body.theme-summer .type-card,
+body.theme-summer .org-benefit,
+body.theme-summer .invite-reason,
+body.theme-summer .devis-contact {
+  background: rgba(255,255,251,.11) !important;
   border-color: rgba(255,255,251,.24) !important;
-  box-shadow: 0 12px 30px rgba(23,33,61,.12) !important;
-}
-
-[data-theme="summer"] .saveur-card:hover {
-  border-color: rgba(247,221,122,.7) !important;
-  box-shadow: 0 18px 42px rgba(23,33,61,.18) !important;
-}
-
-[data-theme="summer"] .saveur-card h3 {
   color: #FFFFFB !important;
 }
 
-[data-theme="summer"] .saveur-card p {
+html[data-theme="summer"] .saveur-card h3,
+html[data-theme="summer"] .type-card h3,
+html[data-theme="summer"] .org-benefit strong,
+html[data-theme="summer"] .invite-reason strong,
+html[data-theme="summer"] .devis-contact h3,
+body.theme-summer .saveur-card h3,
+body.theme-summer .type-card h3,
+body.theme-summer .org-benefit strong,
+body.theme-summer .invite-reason strong,
+body.theme-summer .devis-contact h3 {
+  color: #FFFFFB !important;
+}
+
+html[data-theme="summer"] .saveur-card p,
+html[data-theme="summer"] .type-card p,
+html[data-theme="summer"] .org-benefit p,
+html[data-theme="summer"] .invite-reason p,
+html[data-theme="summer"] .devis-contact p,
+body.theme-summer .saveur-card p,
+body.theme-summer .type-card p,
+body.theme-summer .org-benefit p,
+body.theme-summer .invite-reason p,
+body.theme-summer .devis-contact p {
   color: rgba(255,255,251,.78) !important;
 }
 
-/* Filtres saveurs */
-[data-theme="summer"] .tab-btn,
-[data-theme="summer"] .filter-btn {
-  border-color: rgba(255,255,251,.42) !important;
-  color: rgba(255,255,251,.85) !important;
+/* Filtres */
+html[data-theme="summer"] .tab-btn,
+html[data-theme="summer"] .filter-btn,
+html[data-theme="summer"] .season-pill,
+html[data-theme="summer"] .cat-pill,
+body.theme-summer .tab-btn,
+body.theme-summer .filter-btn,
+body.theme-summer .season-pill,
+body.theme-summer .cat-pill {
+  border-color: rgba(92,121,184,.22) !important;
+  color: #4A5D8F !important;
   background: transparent !important;
 }
 
-[data-theme="summer"] .tab-btn.active,
-[data-theme="summer"] .tab-btn:hover,
-[data-theme="summer"] .filter-btn.active,
-[data-theme="summer"] .filter-btn:hover {
+html[data-theme="summer"] .saveurs .tab-btn,
+html[data-theme="summer"] .saveurs .filter-btn,
+html[data-theme="summer"] .gallery-section .filter-btn,
+body.theme-summer .saveurs .tab-btn,
+body.theme-summer .saveurs .filter-btn,
+body.theme-summer .gallery-section .filter-btn {
+  border-color: rgba(255,255,251,.42) !important;
+  color: rgba(255,255,251,.85) !important;
+}
+
+html[data-theme="summer"] .tab-btn.active,
+html[data-theme="summer"] .tab-btn:hover,
+html[data-theme="summer"] .filter-btn.active,
+html[data-theme="summer"] .filter-btn:hover,
+html[data-theme="summer"] .season-pill.active,
+html[data-theme="summer"] .season-pill:hover,
+html[data-theme="summer"] .cat-pill.active,
+html[data-theme="summer"] .cat-pill:hover,
+body.theme-summer .tab-btn.active,
+body.theme-summer .tab-btn:hover,
+body.theme-summer .filter-btn.active,
+body.theme-summer .filter-btn:hover,
+body.theme-summer .season-pill.active,
+body.theme-summer .season-pill:hover,
+body.theme-summer .cat-pill.active,
+body.theme-summer .cat-pill:hover {
   background: #F7DD7A !important;
   border-color: #F7DD7A !important;
   color: #17213D !important;
 }
 
-/* Badges catégories */
-[data-theme="summer"] .tag-sucre {
+/* Badges catégories saveurs */
+html[data-theme="summer"] .tag-sucre,
+body.theme-summer .tag-sucre {
   background: rgba(247,221,122,.32) !important;
   color: #F7DD7A !important;
   border: 1px solid rgba(247,221,122,.42) !important;
 }
 
-[data-theme="summer"] .tag-tartinage {
-  background: rgba(227,170,242,.26) !important;
+html[data-theme="summer"] .tag-tartinage,
+body.theme-summer .tag-tartinage {
+  background: rgba(227,170,242,.28) !important;
   color: #FFD6FF !important;
   border: 1px solid rgba(227,170,242,.48) !important;
 }
 
-[data-theme="summer"] .tag-signature {
+html[data-theme="summer"] .tag-signature,
+body.theme-summer .tag-signature {
   background: rgba(255,255,251,.18) !important;
   color: #FFFFFB !important;
   border: 1px solid rgba(255,255,251,.32) !important;
 }
 
-[data-theme="summer"] .tag-sale {
+html[data-theme="summer"] .tag-sale,
+body.theme-summer .tag-sale {
   background: rgba(23,33,61,.24) !important;
   color: #EAF0FF !important;
   border: 1px solid rgba(255,255,251,.30) !important;
 }
 
-/* Badges secondaires optionnels */
-[data-theme="summer"] .saveur-badge {
-  color: #FFFFFB !important;
-}
-
-[data-theme="summer"] .badge-classique {
+/* Badges secondaires seulement si vrais badges */
+html[data-theme="summer"] .badge-classique,
+body.theme-summer .badge-classique {
   background: rgba(255,255,251,.18) !important;
-  color: rgba(255,255,251,.78) !important;
+  color: rgba(255,255,251,.82) !important;
 }
 
-[data-theme="summer"] .badge-signature {
+html[data-theme="summer"] .badge-signature,
+body.theme-summer .badge-signature {
   background: rgba(247,221,122,.30) !important;
   color: #F7DD7A !important;
 }
 
-[data-theme="summer"] .badge-gourmand {
+html[data-theme="summer"] .badge-gourmand,
+body.theme-summer .badge-gourmand {
   background: rgba(227,170,242,.28) !important;
   color: #FFD6FF !important;
 }
 
-[data-theme="summer"] .badge-reconfortant {
+html[data-theme="summer"] .badge-reconfortant,
+body.theme-summer .badge-reconfortant {
   background: rgba(255,255,251,.16) !important;
-  color: rgba(255,255,251,.82) !important;
+  color: rgba(255,255,251,.86) !important;
 }
 
-/* Supprime visuellement les anciens badges secondaires invalides comme sale/sucre/tartinage */
-[data-theme="summer"] .badge-sale,
-[data-theme="summer"] .badge-sucre,
-[data-theme="summer"] .badge-sucré,
-[data-theme="summer"] .badge-tartinage,
-[data-theme="summer"] .badge-a-venir,
-[data-theme="summer"] .badge-avenir {
+/* Supprimer les vieux badges invalides */
+html[data-theme="summer"] .badge-sale,
+html[data-theme="summer"] .badge-sucre,
+html[data-theme="summer"] .badge-sucré,
+html[data-theme="summer"] .badge-tartinage,
+html[data-theme="summer"] .badge-a-venir,
+html[data-theme="summer"] .badge-avenir,
+body.theme-summer .badge-sale,
+body.theme-summer .badge-sucre,
+body.theme-summer .badge-sucré,
+body.theme-summer .badge-tartinage,
+body.theme-summer .badge-a-venir,
+body.theme-summer .badge-avenir {
   display: none !important;
 }
 
-/* Section organisateurs : remplacer le brun par bleu-violet */
-[data-theme="summer"] .invite-reason,
-[data-theme="summer"] .org-benefit,
-[data-theme="summer"] .organizer-card,
-[data-theme="summer"] .organisateur-card {
-  background: rgba(255,255,251,.10) !important;
-  border-color: rgba(255,255,251,.22) !important;
-  color: rgba(255,255,251,.82) !important;
-}
-
-[data-theme="summer"] .invite-reason strong,
-[data-theme="summer"] .org-benefit strong,
-[data-theme="summer"] .organizer-card strong,
-[data-theme="summer"] .organisateur-card strong {
-  color: #FFFFFB !important;
-}
-
-[data-theme="summer"] .invite-reason-icon,
-[data-theme="summer"] .org-benefit-icon {
-  color: #F7DD7A !important;
-}
-
-/* Pages claires : garder le blanc doux du screenshot */
-[data-theme="summer"] .split-section,
-[data-theme="summer"] .white-section,
-[data-theme="summer"] .plain-section,
-[data-theme="summer"] .faq-item,
-[data-theme="summer"] .contact-card,
-[data-theme="summer"] .info-card,
-[data-theme="summer"] .step,
-[data-theme="summer"] .event-card,
-[data-theme="summer"] .event-card-h {
+/* Formulaires */
+html[data-theme="summer"] input,
+html[data-theme="summer"] select,
+html[data-theme="summer"] textarea,
+body.theme-summer input,
+body.theme-summer select,
+body.theme-summer textarea {
   background: #FFFFFB !important;
   color: #17213D !important;
+  border-color: rgba(92,121,184,.22) !important;
 }
 
-/* Textes sur fonds clairs */
-[data-theme="summer"] .split-section h2,
-[data-theme="summer"] .white-section h2,
-[data-theme="summer"] .plain-section h2,
-[data-theme="summer"] .faq-item h3,
-[data-theme="summer"] .contact-card h3,
-[data-theme="summer"] .info-card h3,
-[data-theme="summer"] .event-card h3,
-[data-theme="summer"] .event-card-h h3 {
-  color: #17213D !important;
+html[data-theme="summer"] input:focus,
+html[data-theme="summer"] select:focus,
+html[data-theme="summer"] textarea:focus,
+body.theme-summer input:focus,
+body.theme-summer select:focus,
+body.theme-summer textarea:focus {
+  border-color: #5C79B8 !important;
+  box-shadow: 0 0 0 3px rgba(92,121,184,.14) !important;
 }
 
-[data-theme="summer"] .split-section p,
-[data-theme="summer"] .white-section p,
-[data-theme="summer"] .plain-section p,
-[data-theme="summer"] .faq-item p,
-[data-theme="summer"] .contact-card p,
-[data-theme="summer"] .info-card p,
-[data-theme="summer"] .event-card p,
-[data-theme="summer"] .event-card-h p {
-  color: #4A5D8F !important;
-}
-
-/* Accents roses au lieu des bruns chauds */
-[data-theme="summer"] .event-tag,
-[data-theme="summer"] .event-dates,
-[data-theme="summer"] .season-label,
-[data-theme="summer"] .microcopy,
-[data-theme="summer"] .footer-col h4 {
-  color: #B46AD8 !important;
-}
-
-/* Footer en bleu foncé, pas brun */
-[data-theme="summer"] footer {
-  background: #17213D !important;
-  color: rgba(255,255,251,.78) !important;
-}
-
-/* Images placeholder claires */
-[data-theme="summer"] .img-placeholder,
-[data-theme="summer"] .ph-text,
-[data-theme="summer"] .gm-ph {
-  color: rgba(23,33,61,.28) !important;
-}
-
-/* Liens et boutons */
-[data-theme="summer"] a {
-  text-decoration-color: rgba(227,170,242,.6);
-}
-
-[data-theme="summer"] .btn-primary {
+/* Boutons */
+html[data-theme="summer"] .btn-primary,
+body.theme-summer .btn-primary {
   background: #17213D !important;
   border-color: #17213D !important;
   color: #FFFFFB !important;
 }
 
-[data-theme="summer"] .btn-primary:hover {
+html[data-theme="summer"] .btn-primary:hover,
+body.theme-summer .btn-primary:hover {
   background: #0F172D !important;
   border-color: #0F172D !important;
 }
 
-[data-theme="summer"] .btn-accent {
+html[data-theme="summer"] .btn-accent,
+body.theme-summer .btn-accent {
   background: #F7DD7A !important;
   border-color: #F7DD7A !important;
   color: #17213D !important;
 }
 
-[data-theme="summer"] .btn-secondary {
+html[data-theme="summer"] .btn-secondary,
+body.theme-summer .btn-secondary {
   color: #17213D !important;
   border-color: #17213D !important;
 }
 
-[data-theme="summer"] .btn-secondary:hover {
+html[data-theme="summer"] .btn-secondary:hover,
+body.theme-summer .btn-secondary:hover {
   background: #17213D !important;
   color: #FFFFFB !important;
+}
+
+html[data-theme="summer"] .btn-ghost,
+body.theme-summer .btn-ghost {
+  color: #FFFFFB !important;
+  border-color: rgba(255,255,251,.45) !important;
+}
+
+/* Marquees */
+html[data-theme="summer"] .marquee-bar,
+html[data-theme="summer"] .marquee-bar-red,
+html[data-theme="summer"] .marquee-bar-gold,
+html[data-theme="summer"] .marquee-bar-contact,
+html[data-theme="summer"] .marquee-bar-caramel,
+body.theme-summer .marquee-bar,
+body.theme-summer .marquee-bar-red,
+body.theme-summer .marquee-bar-gold,
+body.theme-summer .marquee-bar-contact,
+body.theme-summer .marquee-bar-caramel {
+  background: #F7DD7A !important;
+  border-color: #F7DD7A !important;
+}
+
+html[data-theme="summer"] .marquee-item,
+body.theme-summer .marquee-item {
+  color: #17213D !important;
+}
+
+html[data-theme="summer"] .marquee-sep,
+body.theme-summer .marquee-sep {
+  background: rgba(23,33,61,.35) !important;
+}
+
+/* Placeholders */
+html[data-theme="summer"] .img-placeholder,
+html[data-theme="summer"] .ph-text,
+html[data-theme="summer"] .gm-ph,
+body.theme-summer .img-placeholder,
+body.theme-summer .ph-text,
+body.theme-summer .gm-ph {
+  color: rgba(23,33,61,.28) !important;
+}
+
+/* Galerie */
+html[data-theme="summer"] .gallery-count,
+body.theme-summer .gallery-count {
+  color: rgba(255,255,251,.72) !important;
+}
+
+html[data-theme="summer"] #visibleCount,
+body.theme-summer #visibleCount {
+  color: #F7DD7A !important;
+}
+
+/* Footer */
+html[data-theme="summer"] footer,
+body.theme-summer footer {
+  background: #17213D !important;
+  color: rgba(255,255,251,.78) !important;
+}
+
+html[data-theme="summer"] .footer-logo,
+body.theme-summer .footer-logo {
+  color: #FFFFFB !important;
+}
+
+html[data-theme="summer"] .footer-logo span,
+html[data-theme="summer"] .footer-col h4,
+body.theme-summer .footer-logo span,
+body.theme-summer .footer-col h4 {
+  color: #F7DD7A !important;
+}
+
+html[data-theme="summer"] .footer-col ul a,
+html[data-theme="summer"] .footer-brand p,
+html[data-theme="summer"] .footer-bottom,
+body.theme-summer .footer-col ul a,
+body.theme-summer .footer-brand p,
+body.theme-summer .footer-bottom {
+  color: rgba(255,255,251,.68) !important;
 }
