@@ -177,14 +177,20 @@ function applySettings() {
 function applyTheme() {
   const S = window.ZIA_SETTINGS || {};
   const theme = (S.active_theme === 'winter') ? 'winter' : 'summer';
+
+  // Le thème est appliqué à html ET body pour que toutes les pages puissent être ciblées.
   document.documentElement.setAttribute('data-theme', theme);
 
-  const T = window.ZIA_THEME;
-  if (T && typeof T === 'object') {
-    Object.entries(T).forEach(([k, v]) => {
-      if (k.startsWith('--')) document.documentElement.style.setProperty(k, v);
-    });
+  if (document.body) {
+    document.body.setAttribute('data-theme', theme);
+    document.body.classList.remove('theme-summer', 'theme-winter');
+    document.body.classList.add(`theme-${theme}`);
   }
+
+  // Important :
+  // On ne réinjecte pas ici window.ZIA_THEME en variables inline,
+  // sinon les anciennes couleurs générées dans zia-data.js peuvent reprendre le dessus.
+  // Le thème visuel est maintenant contrôlé proprement par styles.css.
 }
 
 /* ══ EVENTS ══════════════════════════════════════════════════════════════════ */
@@ -328,9 +334,9 @@ function renderFlavorsHome() {
   const c = $('flavorsHome');
   if (!c) return;
 
-  // Avant, la home affichait seulement 8 saveurs.
-  // Problème : Gruyère et Olive & gruyère étaient souvent en ordre 9/10, donc elles n’apparaissaient pas.
-  // Maintenant, la home affiche toutes les saveurs visibles, sauf celles marquées "prochainement".
+  // Affiche toutes les saveurs visibles sur la home,
+  // sauf celles indiquées comme "prochainement".
+  // Avant, le code limitait à 8 saveurs, donc les salées en ordre 9/10 disparaissaient.
   const fl = getVisibleFlavors().filter(f => !f.upcoming);
 
   c.innerHTML = fl.length ? fl.map(flavorCard).join('') : _emptyFlavors();
