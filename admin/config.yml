@@ -28,12 +28,16 @@ collections:
         widget: string
       - label: Date de debut
         name: start_date
-        widget: date
+        widget: datetime
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
       - label: Date de fin
         name: end_date
-        widget: date
+        widget: datetime
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
       - label: Ville
         name: city
         widget: string
@@ -108,25 +112,30 @@ collections:
         name: category
         widget: select
         options:
-          - sucre
-          - tartinage
-          - signature
-          - sale
-          - saisonnier
-          - a venir
+          - label: Sucre
+            value: sucre
+          - label: Tartinage
+            value: tartinage
+          - label: Signature
+            value: signature
+          - label: Sale
+            value: sale
       - label: Description courte
         name: description
         widget: text
-      - label: Badge
+      - label: Badge optionnel
         name: badge
         widget: select
+        required: false
         options:
-          - classique
-          - signature
-          - gourmand
-          - saisonnier
-          - sale
-          - reconfortant
+          - label: Classique
+            value: classique
+          - label: Gourmand
+            value: gourmand
+          - label: Reconfortant
+            value: reconfortant
+          - label: Signature
+            value: signature
       - label: Saveur permanente
         name: permanent
         widget: boolean
@@ -200,8 +209,10 @@ collections:
         default: 99
       - label: Date de la photo
         name: date
-        widget: date
+        widget: datetime
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
         required: false
 
   - name: settings
