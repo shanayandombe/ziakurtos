@@ -91,13 +91,18 @@ function flavorTagCls(category) {
 
 function normalizeBadge(value) {
   const v = normalizeText(value);
-  if (!v) return '';
-  return {
+
+  // Les badges sont optionnels.
+  // On ignore volontairement les anciennes valeurs comme "sale", "sucre", "tartinage", etc.
+  // Ces valeurs doivent rester des catégories, pas des badges secondaires.
+  const allowedBadges = {
     classique: 'classique',
     gourmand: 'gourmand',
     reconfortant: 'reconfortant',
     signature: 'signature'
-  }[v] || v;
+  };
+
+  return allowedBadges[v] || '';
 }
 
 function badgeLabel(value) {
@@ -322,7 +327,12 @@ const _emptyFlavors = () => `<div class="empty-state">
 function renderFlavorsHome() {
   const c = $('flavorsHome');
   if (!c) return;
-  const fl = getVisibleFlavors().filter(f => !f.upcoming).slice(0, 8);
+
+  // Avant, la home affichait seulement 8 saveurs.
+  // Problème : Gruyère et Olive & gruyère étaient souvent en ordre 9/10, donc elles n’apparaissaient pas.
+  // Maintenant, la home affiche toutes les saveurs visibles, sauf celles marquées "prochainement".
+  const fl = getVisibleFlavors().filter(f => !f.upcoming);
+
   c.innerHTML = fl.length ? fl.map(flavorCard).join('') : _emptyFlavors();
   _initRevealIn(c);
 }
