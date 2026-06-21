@@ -62,7 +62,7 @@
   </script>
 </head>
 
-<body>
+<body class="contact-page">
 
 <div id="announcement" class="announcement" role="alert" aria-live="polite"></div>
 
@@ -105,70 +105,44 @@
   <a href="contact.html">Contact</a>
 </div>
 
-<header class="page-hero" role="banner">
-  <div class="hero-left">
-    <div class="hero-glow" aria-hidden="true"></div>
+<header class="contact-hero" role="banner">
+  <div class="contact-hero-inner">
+    <div class="contact-hero-content">
+      <div class="ph-label">
+        <span class="ph-dot" aria-hidden="true"></span>
+        Contactez-nous
+      </div>
 
-    <div class="ph-label">
-      <span class="ph-dot" aria-hidden="true"></span>
-      Contactez-nous
-    </div>
+      <h1>Inviter <em>Zia Kürtös</em><br>ou nous contacter</h1>
 
-    <h1>Inviter <em>Zia Kürtös</em><br>ou nous contacter</h1>
+      <p>
+        Vous organisez un festival, un marché, un événement d'entreprise, une fête privée ou un rendez-vous gourmand&nbsp;?
+        Zia Kürtös peut apporter une expérience chaude, artisanale et visuelle à votre public, avec des kürtős préparés sur place.
+      </p>
 
-    <p>
-      Vous organisez un festival, un marché, un événement d'entreprise, une fête privée ou un rendez-vous gourmand&nbsp;?
-      Zia Kürtös peut apporter une expérience chaude, artisanale et visuelle à votre public, avec des kürtős préparés sur place.
-    </p>
+      <div class="contact-direct-row" aria-label="Coordonnées directes">
+        <a href="mailto:info@ziakurtos.com" class="contact-direct-link" data-email>info@ziakurtos.com</a>
+        <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" class="contact-direct-link" data-instagram>@ziakurtos</a>
+        <a href="https://www.facebook.com/zia.kurtos/" target="_blank" rel="noopener noreferrer" class="contact-direct-link" data-facebook>zia.kurtos</a>
+      </div>
 
-    <div class="hero-contact-direct" aria-label="Coordonnées directes">
-      <a href="mailto:info@ziakurtos.com" class="contact-item" data-email>
-        <span class="contact-item-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2">
-            <rect x="1" y="3" width="14" height="10" rx="1.5"/>
-            <path d="M1 5l7 5 7-5"/>
-          </svg>
-        </span>
-        <span><strong>info@ziakurtos.com</strong></span>
-      </a>
-
-      <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" class="contact-item" data-instagram>
-        <span class="contact-item-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2">
-            <rect x="1" y="1" width="14" height="14" rx="3.5"/>
-            <circle cx="8" cy="8" r="3.5"/>
-            <circle cx="12" cy="4" r=".8" fill="currentColor" stroke="none"/>
-          </svg>
-        </span>
-        <span><strong>@ziakurtos</strong></span>
-      </a>
-
-      <a href="https://www.facebook.com/zia.kurtos/" target="_blank" rel="noopener noreferrer" class="contact-item" data-facebook>
-        <span class="contact-item-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M12 1.5h-2a3.5 3.5 0 0 0-3.5 3.5v2H5v3h1.5v5h3v-5h2l.5-3H9.5V5a.5.5 0 0 1 .5-.5H12z"/>
-          </svg>
-        </span>
-        <span><strong>zia.kurtos</strong></span>
-      </a>
-    </div>
-
-    <div class="hero-actions">
-      <a href="evenements.html" class="btn btn-ghost">Voir nos événements</a>
-      <a href="faq.html" class="btn btn-ghost">FAQ</a>
+      <div class="contact-hero-actions">
+        <a href="evenements.html" class="btn btn-ghost">Voir nos événements</a>
+        <a href="faq.html" class="btn btn-ghost">FAQ</a>
+      </div>
     </div>
   </div>
+</header>
 
-  <div class="hero-right" aria-label="Formulaire de demande d'événement">
-    <div class="ghl-form-shell reveal">
-      <div class="ghl-form-head">
-        <span class="event-selector-label">Demande d'événement</span>
-        <h2>Votre demande pour Zia Kürtös</h2>
-        <p>
-          Décrivez votre événement, la date souhaitée, le lieu et le nombre approximatif de personnes.
-          L’équipe vous répondra prochainement avec plus d’informations.
-        </p>
-      </div>
+<section class="contact-form-section" aria-label="Formulaire de demande d'événement">
+  <div class="contact-form-inner">
+    <div class="contact-form-intro">
+      <span class="s-label">Demande d'événement</span>
+      <h2>Votre demande pour Zia Kürtös</h2>
+      <p>
+        Décrivez votre événement, la date souhaitée, le lieu et le nombre approximatif de personnes.
+        L’équipe vous répondra prochainement avec plus d’informations.
+      </p>
 
       <div class="ghl-event-tags" aria-label="Types d'événements possibles">
         <span>Festival</span>
@@ -178,33 +152,33 @@
         <span>Mariage</span>
         <span>Autre événement</span>
       </div>
-
-      <div class="ghl-form-card">
-        <iframe
-          src="https://api.leadconnectorhq.com/widget/form/en0TPHZsVstVRXbY9VWO"
-          class="ghl-form-frame"
-          id="inline-en0TPHZsVstVRXbY9VWO"
-          data-layout="{'id':'INLINE'}"
-          data-trigger-type="alwaysShow"
-          data-trigger-value=""
-          data-activation-type="alwaysActivated"
-          data-activation-value=""
-          data-deactivation-type="neverDeactivate"
-          data-deactivation-value=""
-          data-form-name="Demande d’événement — Zia Kürtös"
-          data-height="921"
-          data-layout-iframe-id="inline-en0TPHZsVstVRXbY9VWO"
-          data-form-id="en0TPHZsVstVRXbY9VWO"
-          title="Demande d’événement — Zia Kürtös">
-        </iframe>
-      </div>
-
-      <p class="ghl-form-note">
-        Les informations transmises sont utilisées uniquement pour répondre à votre demande d’événement.
-      </p>
     </div>
+
+    <div class="ghl-form-card">
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/form/en0TPHZsVstVRXbY9VWO"
+        class="ghl-form-frame"
+        id="inline-en0TPHZsVstVRXbY9VWO"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="Demande d’événement — Zia Kürtös"
+        data-height="921"
+        data-layout-iframe-id="inline-en0TPHZsVstVRXbY9VWO"
+        data-form-id="en0TPHZsVstVRXbY9VWO"
+        title="Demande d’événement — Zia Kürtös">
+      </iframe>
+    </div>
+
+    <p class="ghl-form-note">
+      Les informations transmises sont utilisées uniquement pour répondre à votre demande d’événement.
+    </p>
   </div>
-</header>
+</section>
 
 <div class="marquee-bar marquee-bar-contact" aria-hidden="true" role="presentation">
   <div class="marquee-track">
