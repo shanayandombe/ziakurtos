@@ -63,7 +63,6 @@ function normalizeFlavorCategory(value) {
   if (['tartinage', 'tartinages', 'tartine', 'tartines'].includes(v)) return 'tartinage';
   if (['signature', 'signatures'].includes(v)) return 'signature';
 
-  // Compatibilité avec une ancienne valeur du CMS : la crème de pistache est une saveur à venir en tartinage.
   if (['a venir', 'avenir'].includes(v)) return 'tartinage';
 
   return v || 'sucre';
@@ -92,9 +91,6 @@ function flavorTagCls(category) {
 function normalizeBadge(value) {
   const v = normalizeText(value);
 
-  // Les badges sont optionnels.
-  // On ignore volontairement les anciennes valeurs comme "sale", "sucre", "tartinage", etc.
-  // Ces valeurs doivent rester des catégories, pas des badges secondaires.
   const allowedBadges = {
     classique: 'classique',
     gourmand: 'gourmand',
@@ -123,7 +119,7 @@ const AR = ['tall','sq','xtall','wide','tall','sq','wide','tall','sq','xtall'];
 function applySettings() {
   const S = window.ZIA_SETTINGS || {};
 
-  // Email
+  // Email général du site
   if (S.email) {
     document.querySelectorAll('[data-email]').forEach(el => {
       el.href = 'mailto:' + S.email;
@@ -172,13 +168,125 @@ function applySettings() {
   }
 }
 
+/* ══ CONTACT SETTINGS ═══════════════════════════════════════════════════════ */
+
+function applyContactSettings() {
+  const C = window.ZIA_CONTACT_SETTINGS || {};
+
+  // Email affiché sur la page contact / footer
+  // Important : cette fonction passe APRÈS applySettings(), donc elle peut remplacer l'email général.
+  if (C.contact_display_email) {
+    document.querySelectorAll('[data-email]').forEach(el => {
+      el.href = 'mailto:' + C.contact_display_email;
+
+      // Ne remplace le texte que si l'élément n'a pas d'enfants
+      // pour éviter de casser les liens contenant uniquement une icône SVG.
+      if (!el.querySelector('*')) {
+        el.textContent = C.contact_display_email;
+      }
+    });
+  }
+
+  // Instagram / Facebook depuis paramètres contact si présents
+  if (C.instagram_url) {
+    document.querySelectorAll('[data-instagram]').forEach(el => {
+      el.href = C.instagram_url;
+    });
+  }
+
+  if (C.facebook_url) {
+    document.querySelectorAll('[data-facebook]').forEach(el => {
+      el.href = C.facebook_url;
+    });
+  }
+}
+
+function initEventTypeSelector() {
+  document.querySelectorAll('.event-type-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.event-type-card').forEach(c => {
+        c.classList.remove('selected');
+        c.setAttribute('aria-pressed', 'false');
+      });
+
+      card.classList.add('selected');
+      card.setAttribute('aria-pressed', 'true');
+
+      const value = card.dataset.eventType;
+      const sel = $('type-evenement');
+
+      if (sel && value) {
+        for (let i = 0; i < sel.options.length; i++) {
+          if (
+            sel.options[i].value === value ||
+            sel.options[i].value.startsWith(value.split(' ')[0])
+          ) {
+            sel.selectedIndex = i;
+            break;
+          }
+        }
+      }
+
+      const td = $('type-demande');
+      if (td && !td.value) {
+        td.value = "Inviter Zia Kürtös à un événement";
+      }
+    });
+  });
+}
+
+function initContactForm() {
+  const form = $('contactForm');
+  if (!form) return;
+
+  const successBox = $('formSuccess');
+  const successText = $('formSuccessText');
+  const submitBtn = $('contactSubmitBtn');
+
+  const C = window.ZIA_CONTACT_SETTINGS || {};
+  if (successText && C.success_message) {
+    successText.textContent = C.success_message;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours...';
+    }
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString()
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+
+        if (successBox) {
+          successBox.classList.add('show');
+          successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } else {
+        form.submit();
+      }
+    } catch (err) {
+      form.submit();
+    }
+  });
+}
+
 /* ══ THEME ═══════════════════════════════════════════════════════════════════ */
 
 function applyTheme() {
   const S = window.ZIA_SETTINGS || {};
   const theme = (S.active_theme === 'winter') ? 'winter' : 'summer';
 
-  // Le thème est appliqué à html ET body pour que toutes les pages puissent être ciblées.
   document.documentElement.setAttribute('data-theme', theme);
 
   if (document.body) {
@@ -186,11 +294,6 @@ function applyTheme() {
     document.body.classList.remove('theme-summer', 'theme-winter');
     document.body.classList.add(`theme-${theme}`);
   }
-
-  // Important :
-  // On ne réinjecte pas ici window.ZIA_THEME en variables inline,
-  // sinon les anciennes couleurs générées dans zia-data.js peuvent reprendre le dessus.
-  // Le thème visuel est maintenant contrôlé proprement par styles.css.
 }
 
 /* ══ EVENTS ══════════════════════════════════════════════════════════════════ */
@@ -333,12 +436,7 @@ const _emptyFlavors = () => `<div class="empty-state">
 function renderFlavorsHome() {
   const c = $('flavorsHome');
   if (!c) return;
-
-  // Affiche toutes les saveurs visibles sur la home,
-  // sauf celles indiquées comme "prochainement".
-  // Avant, le code limitait à 8 saveurs, donc les salées en ordre 9/10 disparaissaient.
   const fl = getVisibleFlavors().filter(f => !f.upcoming);
-
   c.innerHTML = fl.length ? fl.map(flavorCard).join('') : _emptyFlavors();
   _initRevealIn(c);
 }
@@ -544,6 +642,7 @@ function _updateLb() {
 
 function initFilters() {
   ensureFlavorFilterButtons();
+
   document.querySelectorAll('[data-filter-flavors]').forEach(btn => {
     btn.addEventListener('click', () => {
       filterFlavorCards(btn.dataset.filterFlavors, btn);
@@ -553,16 +652,22 @@ function initFilters() {
   document.querySelectorAll('[data-filter-season]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('[data-filter-season]').forEach(b => {
-        b.classList.remove('active'); b.setAttribute('aria-pressed','false');
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed','false');
       });
-      btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+
       const s = btn.dataset.filterSeason === 'all' ? 'all' : normalizeSeason(btn.dataset.filterSeason);
       let n = 0;
+
       document.querySelectorAll('#eventsList .event-card-h, #eventsList .event-card').forEach(card => {
         const show = s === 'all' || normalizeSeason(card.dataset.season) === s;
         card.style.display = show ? '' : 'none';
         if (show) n++;
       });
+
       const cnt = $('eventCountNum');
       if (cnt) cnt.textContent = n;
     });
@@ -571,16 +676,22 @@ function initFilters() {
   document.querySelectorAll('[data-filter-gallery]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('[data-filter-gallery]').forEach(b => {
-        b.classList.remove('active'); b.setAttribute('aria-pressed','false');
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed','false');
       });
-      btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+
       const cat = btn.dataset.filterGallery;
       let n = 0;
+
       document.querySelectorAll('#galleryGrid .masonry-item').forEach(item => {
         const show = cat === 'all' || item.dataset.cat === cat;
         item.style.display = show ? '' : 'none';
         if (show) n++;
       });
+
       _setGalleryCount(n);
     });
   });
@@ -593,8 +704,17 @@ function initMobileMenu() {
   const burger = document.querySelector('.burger');
   if (!menu || !burger) return;
 
-  function open()  { menu.classList.add('open');    burger.setAttribute('aria-expanded','true');  document.body.style.overflow = 'hidden'; }
-  function close() { menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
+  function open()  {
+    menu.classList.add('open');
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
 
   burger.addEventListener('click', () => menu.classList.contains('open') ? close() : open());
   menu.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
@@ -615,7 +735,10 @@ const _reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').mat
 
 const _revObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); _revObs.unobserve(e.target); }
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      _revObs.unobserve(e.target);
+    }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
@@ -624,6 +747,7 @@ function initRevealAnimations() {
     document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => el.classList.add('visible'));
     return;
   }
+
   document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach((el, i) => {
     el.style.transitionDelay = `${(i % 4) * 0.07}s`;
     _revObs.observe(el);
@@ -635,6 +759,7 @@ function _initRevealIn(container) {
     container.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => el.classList.add('visible'));
     return;
   }
+
   container.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => _revObs.observe(el));
 }
 
@@ -644,16 +769,22 @@ function initWordChanger() {
   const el = $('wordChanger');
   if (!el) return;
   if (_reducedMotion) return;
+
   const words = ['gourmand','croustillant','moelleux','caramélisé','réconfortant','irrésistible','doux'];
   let i = 0;
+
   el.style.transition = 'opacity .35s ease, transform .35s ease';
+
   setInterval(() => {
-    el.style.opacity = '0'; el.style.transform = 'translateY(6px)';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(6px)';
+
     setTimeout(() => {
       i = (i + 1) % words.length;
       el.textContent = words[i];
       el.setAttribute('aria-label', words[i]);
-      el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
     }, 350);
   }, 2600);
 }
@@ -662,6 +793,7 @@ function initWordChanger() {
 
 function staggerCards() {
   if (_reducedMotion) return;
+
   document.querySelectorAll('.saveur-card,.event-card,.event-card-h,.invite-reason,.org-benefit').forEach((el, i) => {
     el.style.transitionDelay = `${(i % 4) * 0.07}s`;
   });
@@ -678,6 +810,7 @@ function initSeasonTimeline() {
 
 document.addEventListener('DOMContentLoaded', () => {
   applySettings();
+  applyContactSettings();
   applyTheme();
 
   renderEventsHome();
@@ -695,4 +828,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWordChanger();
   initSeasonTimeline();
   staggerCards();
+
+  initEventTypeSelector();
+  initContactForm();
 });
