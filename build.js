@@ -11,7 +11,8 @@
 //  - Si content/evenements/ est vide → window.ZIA_EVENTS = []
 //  - Si content/saveurs/ est vide    → window.ZIA_FLAVORS = []
 //  - Si content/galerie/ est vide    → window.ZIA_GALLERY = []
-//  - Seul content/settings/site.yml est créé automatiquement s'il est absent.
+//  - content/settings/site.yml est créé automatiquement s'il est absent.
+//  - content/settings/contact.yml est créé automatiquement s'il est absent.
 //  - Aucun seeding automatique des événements, saveurs ou galerie.
 // ─────────────────────────────────────────────────────────────────────────────
 'use strict';
@@ -111,6 +112,16 @@ const DEFAULT_SETTINGS = {
   footer_credit_url:  'https://www.instagram.com/web.onit/'
 };
 
+// ── RÉGLAGES CONTACT PAR DÉFAUT ──────────────────────────────────────────────
+// Email affiché sur le site uniquement.
+// L'email qui reçoit les notifications Netlify Forms se règle dans Netlify.
+const DEFAULT_CONTACT_SETTINGS = {
+  contact_display_email: 'ndombe.shanaya@gmail.com',
+  instagram_url:          'https://www.instagram.com/ziakurtos/',
+  facebook_url:           'https://www.facebook.com/zia.kurtos/',
+  success_message:        'Merci pour votre demande. Nous vous répondons dans les plus brefs délais.'
+};
+
 // ── THÈMES ────────────────────────────────────────────────────────────────────
 const THEMES = {
   summer: {
@@ -127,7 +138,7 @@ const THEMES = {
   }
 };
 
-// ── INIT RÉGLAGES (seulement) ─────────────────────────────────────────────────
+// ── INIT RÉGLAGES ─────────────────────────────────────────────────────────────
 // Crée content/settings/site.yml avec les valeurs par défaut si absent.
 // Ne touche PAS aux dossiers evenements/, saveurs/, galerie/.
 function initSettings() {
@@ -135,6 +146,15 @@ function initSettings() {
   if (!fs.existsSync('content/settings/site.yml')) {
     fs.writeFileSync('content/settings/site.yml', toYAML(DEFAULT_SETTINGS));
     log('  [init] content/settings/site.yml créé avec les réglages par défaut');
+  }
+}
+
+// Crée content/settings/contact.yml avec les valeurs par défaut si absent.
+function initContactSettings() {
+  ensureDir('content/settings');
+  if (!fs.existsSync('content/settings/contact.yml')) {
+    fs.writeFileSync('content/settings/contact.yml', toYAML(DEFAULT_CONTACT_SETTINGS));
+    log('  [init] content/settings/contact.yml créé avec les réglages contact par défaut');
   }
 }
 
@@ -183,6 +203,16 @@ function buildSettings() {
   };
 }
 
+function buildContactSettings() {
+  const raw = readYAMLFile('content/settings/contact.yml');
+  return {
+    ...DEFAULT_CONTACT_SETTINGS,
+    ...Object.fromEntries(
+      Object.entries(raw).filter(([, v]) => v !== null && v !== undefined && v !== '')
+    )
+  };
+}
+
 // ── LOGGER ───────────────────────────────────────────────────────────────────
 function log(msg) { process.stdout.write(msg + '\n'); }
 
@@ -201,15 +231,17 @@ function build() {
     'content/settings'
   ].forEach(ensureDir);
 
-  // 2. Initialiser les réglages si absent (UNIQUEMENT site.yml)
+  // 2. Initialiser les réglages si absents
   initSettings();
+  initContactSettings();
 
   // 3. Lire les contenus CMS — retourne [] si vide, sans fallback
-  const events   = buildEvents();
-  const flavors  = buildFlavors();
-  const gallery  = buildGallery();
-  const settings = buildSettings();
-  const theme    = THEMES[settings.active_theme] || THEMES.summer;
+  const events          = buildEvents();
+  const flavors         = buildFlavors();
+  const gallery         = buildGallery();
+  const settings        = buildSettings();
+  const contactSettings = buildContactSettings();
+  const theme           = THEMES[settings.active_theme] || THEMES.summer;
 
   // 4. Sélection Instagram : photos mises en avant (jusqu'à 6)
   const instaFeed = gallery.filter(g => g.featured).slice(0, 6);
@@ -222,7 +254,7 @@ function build() {
    Événements : ${events.length} | Saveurs : ${flavors.length} | Photos : ${gallery.length}
 ───────────────────────────────────────────────── */
 
-/* global ZIA_EVENTS, ZIA_FLAVORS, ZIA_GALLERY, ZIA_SETTINGS, ZIA_THEME, ZIA_INSTA */
+/* global ZIA_EVENTS, ZIA_FLAVORS, ZIA_GALLERY, ZIA_SETTINGS, ZIA_CONTACT_SETTINGS, ZIA_THEME, ZIA_INSTA */
 
 window.ZIA_EVENTS   = ${JSON.stringify(events,   null, 2)};
 
@@ -231,6 +263,8 @@ window.ZIA_FLAVORS  = ${JSON.stringify(flavors,  null, 2)};
 window.ZIA_GALLERY  = ${JSON.stringify(gallery,  null, 2)};
 
 window.ZIA_SETTINGS = ${JSON.stringify(settings, null, 2)};
+
+window.ZIA_CONTACT_SETTINGS = ${JSON.stringify(contactSettings, null, 2)};
 
 window.ZIA_THEME    = ${JSON.stringify(theme,    null, 2)};
 
@@ -247,15 +281,22 @@ window.ZIA_INSTA    = ${JSON.stringify(instaFeed,null, 2)};
 
   // 6. Rapport de build
   log(`  ✓ assets/js/zia-data.js généré`);
+
   if (events.length)  log(`  ✓ ${events.length} événement(s) chargé(s)`);
   else                log(`  ⚠ Aucun événement — ZIA_EVENTS = []`);
+
   if (flavors.length) log(`  ✓ ${flavors.filter(f => !f.upcoming).length} saveur(s) active(s) + ${flavors.filter(f => f.upcoming).length} à venir`);
   else                log(`  ⚠ Aucune saveur — ZIA_FLAVORS = []`);
+
   if (gallery.length) log(`  ✓ ${gallery.length} photo(s) chargée(s)`);
   else                log(`  ⚠ Aucune photo — ZIA_GALLERY = []`);
+
   log(`  ✓ Thème actif : ${settings.active_theme}`);
-  if (settings.tiktok_url)         log(`  ✓ TikTok : ${settings.tiktok_url}`);
-  if (settings.announcement_text)  log(`  ✓ Annonce : "${settings.announcement_text}"`);
+
+  if (settings.tiktok_url)                log(`  ✓ TikTok : ${settings.tiktok_url}`);
+  if (settings.announcement_text)         log(`  ✓ Annonce : "${settings.announcement_text}"`);
+  if (contactSettings.contact_display_email) log(`  ✓ Email contact affiché : ${contactSettings.contact_display_email}`);
+
   log('');
 }
 
@@ -296,19 +337,19 @@ const DEFAULT_EVENTS = [
 ];
 
 const DEFAULT_FLAVORS = [
-  { title:"Sucre",           category:"sucré",     description:"La pureté du caramel.",                  badge:"classique", permanent:true, upcoming:false, visible:true, order:1 },
-  { title:"Sucre & cannelle",category:"sucré",     description:"Chaud, épicé, réconfortant.",             badge:"classique", permanent:true, upcoming:false, visible:true, order:2 },
-  { title:"Amandes grillées",category:"sucré",     description:"Caramélisé, croquant, irrésistible.",     badge:"signature", permanent:true, upcoming:false, visible:true, order:3 },
-  { title:"Nutella",         category:"tartinage", description:"Fondant, intense, irrésistible.",          badge:"signature", permanent:true, upcoming:false, visible:true, order:4 },
+  { title:"Sucre",           category:"sucré",     description:"La pureté du caramel.",                    badge:"classique", permanent:true, upcoming:false, visible:true, order:1 },
+  { title:"Sucre & cannelle",category:"sucré",     description:"Chaud, épicé, réconfortant.",               badge:"classique", permanent:true, upcoming:false, visible:true, order:2 },
+  { title:"Amandes grillées",category:"sucré",     description:"Caramélisé, croquant, irrésistible.",       badge:"signature", permanent:true, upcoming:false, visible:true, order:3 },
+  { title:"Nutella",         category:"tartinage", description:"Fondant, intense, irrésistible.",           badge:"signature", permanent:true, upcoming:false, visible:true, order:4 },
   { title:"Spéculoos",       category:"tartinage", description:"La pâte de spéculoos dans le kürtős chaud.", badge:"gourmand", permanent:true, upcoming:false, visible:true, order:5 },
   { title:"Gruyère",         category:"salé",      description:"La Hongrie rencontre la Suisse, à la broche.", badge:"salé", permanent:true, upcoming:false, visible:true, order:6 }
 ];
 
 const DEFAULT_GALLERY = [
-  { title:"Stand festival gourmand", image:"assets/images/zia-kurtos-stand.webp",        alt:"Stand Zia Kürtös festival Suisse",          caption:"Le stand en action", category:"stand",      visible:true, featured:true,  order:1 },
-  { title:"Cuisson à la broche",     image:"assets/images/kurtos-cuisson-broche.webp",   alt:"Kürtős artisanal cuit à la broche",         caption:"La broche tourne",  category:"cuisson",    visible:true, featured:true,  order:2 },
-  { title:"Montreux Jazz Festival",  image:"assets/images/zia-kurtos-montreux-jazz.webp", alt:"Zia Kürtös Montreux Jazz Festival",         caption:"Montreux Jazz",     category:"événements", visible:true, featured:true,  order:3 },
-  { title:"Montreux Noël",           image:"assets/images/zia-kurtos-montreux-noel.webp", alt:"Stand Zia Kürtös marché de Noël Montreux",  caption:"Montreux Noël",     category:"hiver",      visible:true, featured:true,  order:4 }
+  { title:"Stand festival gourmand", image:"assets/images/zia-kurtos-stand.webp",         alt:"Stand Zia Kürtös festival Suisse",         caption:"Le stand en action", category:"stand",      visible:true, featured:true, order:1 },
+  { title:"Cuisson à la broche",     image:"assets/images/kurtos-cuisson-broche.webp",    alt:"Kürtős artisanal cuit à la broche",        caption:"La broche tourne",  category:"cuisson",    visible:true, featured:true, order:2 },
+  { title:"Montreux Jazz Festival",  image:"assets/images/zia-kurtos-montreux-jazz.webp", alt:"Zia Kürtös Montreux Jazz Festival",        caption:"Montreux Jazz",     category:"événements", visible:true, featured:true, order:3 },
+  { title:"Montreux Noël",           image:"assets/images/zia-kurtos-montreux-noel.webp", alt:"Stand Zia Kürtös marché de Noël Montreux", caption:"Montreux Noël",     category:"hiver",      visible:true, featured:true, order:4 }
 ];
 
 // Pour réactiver le seeding initial (première mise en ligne uniquement) :
