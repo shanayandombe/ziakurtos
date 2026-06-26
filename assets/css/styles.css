@@ -2170,3 +2170,56 @@ body.contact-page .related-btns {
   .form-full { grid-column: span 1; }
   .event-types-grid { grid-template-columns: 1fr; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   HOME HERO — image de fond pleine largeur
+   ════════════════════════════════════════════════════════════════════════════ */
+
+body.theme-summer .hero,
+html[data-theme="summer"] .hero,
+body.theme-summer .hero-section,
+html[data-theme="summer"] .hero-section,
+body.theme-summer .home-hero,
+html[data-theme="summer"] .home-hero {
+  position: relative;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(23, 33, 61, 0.88) 0%,
+      rgba(23, 33, 61, 0.72) 42%,
+      rgba(92, 121, 184, 0.35) 100%
+    ),
+    url("../images/uploads/zia-kurtos-hero-bg.webp") center center / cover no-repeat !important;
+}
+
+/* Retire le cadre image à droite du hero */
+body.theme-summer .hero-visual,
+html[data-theme="summer"] .hero-visual,
+body.theme-summer .hero-image,
+html[data-theme="summer"] .hero-image,
+body.theme-summer .hero-img,
+html[data-theme="summer"] .hero-img,
+body.theme-summer .hero-card,
+html[data-theme="summer"] .hero-card,
+body.theme-summer .hero-media,
+html[data-theme="summer"] .hero-media {
+  display: none !important;
+}
+
+/* Le contenu texte prend plus de place maintenant que l'image à droite disparaît */
+body.theme-summer .hero-content,
+html[data-theme="summer"] .hero-content,
+body.theme-summer .hero-text,
+html[data-theme="summer"] .hero-text {
+  max-width: 720px !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* Si le hero était en grille avec 2 colonnes, on repasse en une colonne */
+body.theme-summer .hero-inner,
+html[data-theme="summer"] .hero-inner,
+body.theme-summer .hero-grid,
+html[data-theme="summer"] .hero-grid {
+  grid-template-columns: 1fr !important;
+}
