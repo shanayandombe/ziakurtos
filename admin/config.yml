@@ -263,3 +263,30 @@ collections:
             name: footer_credit_url
             widget: string
             default: https://www.instagram.com/web.onit/
+
+    # ── À AJOUTER dans la liste "collections:" de admin/config.yml,
+#    en plus des collections existantes (evenements, saveurs, galerie, settings) ──
+
+  - name: "contact_settings"
+    label: "Paramètres de contact"
+    files:
+      - label: "Contact & réseaux"
+        name: contact
+        file: "content/settings/contact.yml"
+        fields:
+          - label: "Email affiché sur le site"
+            name: contact_display_email
+            widget: string
+            hint: "Cet email s'affiche dans le hero, le footer et les liens 'nous écrire'. ⚠️ Cela ne change PAS l'adresse qui reçoit les messages du formulaire — celle-ci se configure uniquement dans le dashboard Netlify (onglet Forms > Notifications)."
+          - label: "URL Instagram"
+            name: instagram_url
+            widget: string
+          - label: "URL Facebook"
+            name: facebook_url
+            widget: string
+          - label: "Message de succès après envoi du formulaire"
+            name: success_message
+            widget: string
+            hint: "Affiché au visiteur juste après l'envoi de sa demande de contact."
+
+
