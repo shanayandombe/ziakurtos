@@ -2068,3 +2068,105 @@ body.contact-page .related-btns {
     align-items: flex-start;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CONTACT — Formulaire Netlify Forms
+   Ajouté pour remplacer l'iframe GoHighLevel (.ghl-form-card)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.ghl-form-card {
+  background: var(--creme);
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+  padding: 2rem 2rem 2.2rem;
+  position: relative;
+}
+
+/* ── Sélecteur type d'événement ── */
+.event-selector { margin-bottom: 2.2rem; }
+.event-selector-label {
+  font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--caramel); margin-bottom: 1rem; display: block;
+}
+.event-types-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem; }
+.event-type-card {
+  padding: .75rem 1rem; border-radius: 3px; border: 1.5px solid var(--color-border);
+  background: var(--blanc); cursor: pointer; transition: all .25s;
+  display: flex; align-items: center; gap: .7rem; text-align: left;
+}
+.event-type-card:hover { border-color: var(--caramel); transform: translateY(-2px); }
+.event-type-card.selected { border-color: var(--color-primary); background: rgba(166,66,42,.06); }
+.event-type-card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.event-type-icon { flex-shrink: 0; opacity: .5; transition: opacity .2s; }
+.event-type-card.selected .event-type-icon,
+.event-type-card:hover .event-type-icon { opacity: 1; }
+.event-type-name { font-size: .8rem; font-weight: 600; color: var(--texte); line-height: 1.2; }
+
+/* ── Formulaire ── */
+.form-title {
+  font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700;
+  color: var(--texte); margin-bottom: 1.4rem;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-full { grid-column: span 2; }
+.field { display: flex; flex-direction: column; gap: .4rem; }
+.field label {
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--caramel);
+}
+.field input, .field select, .field textarea {
+  font-family: 'DM Sans', sans-serif; font-size: .9rem; color: var(--texte);
+  background: var(--blanc); border: 1.5px solid var(--color-border); border-radius: 2px;
+  padding: .7rem .9rem; transition: border-color .22s, box-shadow .22s; outline: none; width: 100%;
+}
+.field input:focus, .field select:focus, .field textarea:focus,
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible {
+  border-color: var(--caramel); box-shadow: 0 0 0 3px rgba(182,106,44,.12);
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(74,43,26,.3); }
+.field select {
+  appearance: none; cursor: pointer; padding-right: 2.5rem;
+  background-repeat: no-repeat; background-position: right .9rem center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B66A2C' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.field textarea { resize: vertical; min-height: 120px; }
+
+.req { color: var(--rouge, var(--color-primary)); margin-left: .15rem; }
+
+/* Honeypot — invisible mais accessible aux bots non, masqué aux humains */
+.ohnohoney { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+
+.form-note {
+  font-size: .75rem; color: var(--gris); line-height: 1.55; margin-top: 1rem; font-style: italic;
+}
+.form-submit { margin-top: 1.6rem; }
+.form-submit .btn { width: 100%; text-align: center; display: block; padding: 1rem; }
+.form-submit .btn[disabled] { opacity: .6; cursor: not-allowed; transform: none !important; }
+
+/* ── Message de succès ── */
+.form-success {
+  display: none; padding: 2.4rem 1.5rem; background: rgba(23,63,53,.08);
+  border: 1px solid rgba(23,63,53,.22); border-radius: 3px; text-align: center;
+}
+.form-success.show { display: block; animation: formSuccessIn .4s ease; }
+.form-success h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700;
+  color: var(--sapin); margin-bottom: .5rem;
+}
+.form-success p { font-size: .88rem; color: var(--gris); line-height: 1.6; max-width: 360px; margin: 0 auto; }
+
+@keyframes formSuccessIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Fallback no-JS : le formulaire natif fonctionne quand même via Netlify ── */
+.no-js .form-success { display: none !important; }
+
+/* ── Responsive ── */
+@media (max-width: 620px) {
+  .ghl-form-card { padding: 1.5rem 1.2rem 1.8rem; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-full { grid-column: span 1; }
+  .event-types-grid { grid-template-columns: 1fr; }
+}
