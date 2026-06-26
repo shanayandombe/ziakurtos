@@ -116,10 +116,10 @@ const DEFAULT_SETTINGS = {
 // Email affiché sur le site uniquement.
 // L'email qui reçoit les notifications Netlify Forms se règle dans Netlify.
 const DEFAULT_CONTACT_SETTINGS = {
-  contact_display_email: 'ndombe.shanaya@gmail.com',
+  contact_display_email: 'info@ziakurtos.com',
   instagram_url:          'https://www.instagram.com/ziakurtos/',
   facebook_url:           'https://www.facebook.com/zia.kurtos/',
-  success_message:        'Merci pour votre demande. Nous vous répondons dans les plus brefs délais.'
+  success_message:        'Merci beaucoup pour votre message. Nous avons bien reçu votre demande et nous réjouissons de vous répondre très bientôt.'
 };
 
 // ── THÈMES ────────────────────────────────────────────────────────────────────
