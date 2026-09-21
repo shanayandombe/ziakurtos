@@ -6,7 +6,6 @@
 <title>Nos Kürtös – Gâteaux cheminée, chimney cakes et saveurs artisanales | Zia Kürtös</title>
 <meta name="description" content="Découvrez les kürtös de Zia Kürtös : gâteaux cheminée cuits à la broche, caramélisés, croustillants dehors et moelleux dedans, en versions sucrées et salées.">
 <meta property="og:title" content="Nos Kürtös – Chimney cakes artisanaux, saveurs sucrées et salées">
-<meta property="og:description" content="Kürtős artisanaux Zia Kürtös : sucre cannelle, spéculoos, gruyère, amandes — cuits à la broche en Suisse.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ziakurtos.com/nos-kurtos.html">
 <link rel="canonical" href="https://ziakurtos.com/nos-kurtos.html">
@@ -23,7 +22,6 @@ h1{font-size:clamp(2.4rem,5.5vw,4.8rem);font-weight:900}
 h2{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700}
 h3{font-size:clamp(1rem,2vw,1.3rem);font-weight:700}
 p{line-height:1.78}em{font-style:italic}
-
 .btn{display:inline-block;padding:.88rem 2.1rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.07em;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:all .28s ease;border:2px solid transparent}
 .btn-primary{background:var(--rouge);color:var(--blanc);border-color:var(--rouge)}
 .btn-primary:hover{background:var(--rouge2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(166,66,42,.3)}
@@ -31,10 +29,8 @@ p{line-height:1.78}em{font-style:italic}
 .btn-secondary:hover{background:var(--brun);color:var(--blanc);transform:translateY(-3px)}
 .btn-ghost{background:transparent;color:var(--blanc);border-color:rgba(255,246,232,.4)}
 .btn-ghost:hover{background:rgba(255,246,232,.1);transform:translateY(-3px)}
-
 .announcement{background:var(--dore);color:var(--brun);text-align:center;padding:.6rem 2rem;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:none}
 .announcement.visible{display:block}
-
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(255,246,232,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(182,106,44,.1);transition:box-shadow .3s,padding .3s}
 nav.scrolled{box-shadow:0 4px 28px rgba(74,43,26,.1);padding:.7rem 5%}
 .nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--brun);text-decoration:none}
@@ -52,8 +48,7 @@ nav.scrolled{box-shadow:0 4px 28px rgba(74,43,26,.1);padding:.7rem 5%}
 .mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--brun);text-decoration:none}
 .mobile-menu a:hover{color:var(--rouge)}
 .mobile-menu-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;color:var(--brun)}
-
-/* page hero */
+/* hero */
 .page-hero{min-height:80vh;background:var(--brun);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:calc(72px + 4rem) 8% 5rem;position:relative;overflow:hidden}
 .hero-bg-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(216,155,40,.13) 0%,transparent 65%);top:-15%;right:-10%;pointer-events:none}
 .hero-noise{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.45;pointer-events:none}
@@ -68,101 +63,84 @@ nav.scrolled{box-shadow:0 4px 28px rgba(74,43,26,.1);padding:.7rem 5%}
 .hero-stat{border-left:2px solid rgba(216,155,40,.3);padding-left:1.2rem}
 .hero-stat-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--dore);line-height:1}
 .hero-stat-label{font-size:.7rem;color:rgba(255,246,232,.4);letter-spacing:.06em;text-transform:uppercase;margin-top:.2rem}
-
-.marquee-bar{background:var(--rouge);padding:.9rem 0;overflow:hidden;border-top:2px solid var(--rouge2)}
-.marquee-track{display:flex;width:max-content;animation:mq 28s linear infinite}
+/* marquee */
+.marquee-bar{background:var(--rouge);padding:.9rem 0;overflow:hidden;width:100%;max-width:100vw;border-top:2px solid var(--rouge2)}
+.marquee-track{display:flex;flex-wrap:nowrap;width:max-content;animation:mq 28s linear infinite;will-change:transform}
 .marquee-bar:hover .marquee-track{animation-play-state:paused}
-.marquee-item{white-space:nowrap;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blanc);padding:0 2.5rem;display:flex;align-items:center;gap:1.5rem}
+.marquee-item{white-space:nowrap;flex-shrink:0;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blanc);padding:0 2.5rem;display:inline-flex;align-items:center;gap:1.5rem}
 .marquee-sep{width:3px;height:3px;background:rgba(255,246,232,.45);border-radius:50%;flex-shrink:0}
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
+/* sections */
 section{padding:7rem 5%}
 .container{max-width:1200px;margin:0 auto}
 .s-label{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--caramel);margin-bottom:.8rem;display:block}
 .s-title{margin-bottom:1.4rem}
-.ph-text{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(74,43,26,.25);font-weight:500;text-align:center;padding:0 1rem}
-
-/* timeline cuisson */
+/* timeline processus */
 .timeline{background:var(--blanc)}
 .timeline-inner{max-width:1200px;margin:0 auto}
+/* 4 colonnes par défaut, 5 avec .steps-5 sur desktop */
 .timeline-steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:4rem}
-.timeline-steps::before{content:'';position:absolute;top:52px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(to right,var(--dore),var(--caramel),var(--dore),var(--caramel));z-index:0}
-.tl-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 1rem;position:relative;z-index:1;cursor:pointer}
+.timeline-steps.steps-5{grid-template-columns:repeat(5,1fr)}
+.timeline-steps::before{content:'';position:absolute;top:52px;left:10%;right:10%;height:2px;background:linear-gradient(to right,var(--dore),var(--caramel),var(--dore),var(--caramel));z-index:0}
+.timeline-steps.steps-5::before{left:10%;right:10%}
+.tl-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 .6rem;position:relative;z-index:1;cursor:pointer}
 .tl-step.active .tl-icon-wrap{background:var(--dore);border-color:var(--dore);transform:scale(1.1)}
 .tl-icon-wrap{width:106px;height:106px;border-radius:50%;border:2px solid var(--beige);background:var(--creme);display:flex;align-items:center;justify-content:center;transition:all .35s;margin:0 auto 1.2rem}
+/* smaller icon for step 5 to fit */
+.timeline-steps.steps-5 .tl-icon-wrap{width:90px;height:90px}
 .tl-step:hover .tl-icon-wrap{border-color:var(--dore);background:rgba(216,155,40,.08)}
 .tl-num{font-family:'Playfair Display',serif;font-size:.75rem;font-weight:700;color:var(--caramel);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
-.tl-step h3{font-size:1rem;margin-bottom:.4rem;color:var(--brun)}
-.tl-step p{font-size:.8rem;color:var(--gris);line-height:1.55}
+.tl-step h3{font-size:.95rem;margin-bottom:.4rem;color:var(--brun)}
+.timeline-steps.steps-5 .tl-step h3{font-size:.85rem}
+.tl-step p{font-size:.78rem;color:var(--gris);line-height:1.55}
 .tl-detail{background:var(--creme);border-radius:3px;border:1px solid rgba(182,106,44,.12);padding:2.5rem;margin-top:3rem;display:grid;grid-template-columns:1fr 2fr;gap:3rem;align-items:center;min-height:220px}
-.tl-detail-img{aspect-ratio:1;background:var(--beige);border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;border:1px solid rgba(182,106,44,.12)}
+.tl-detail-img{aspect-ratio:1;background:var(--beige);border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;border:1px solid rgba(182,106,44,.12);position:relative;overflow:hidden}
+.tl-detail-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .tl-detail-txt h4{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:.8rem;color:var(--brun)}
 .tl-detail-txt p{color:var(--gris);line-height:1.75;font-size:.95rem}
 .tl-detail-tag{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dore);background:rgba(216,155,40,.1);padding:.2rem .7rem;border-radius:2px;margin-bottom:.8rem}
-
-/* produit */
-.produit-text{background:var(--creme)}
-.produit-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
-.produit-img{aspect-ratio:3/4;background:var(--beige);border-radius:3px;border:1px solid rgba(182,106,44,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;position:relative;overflow:hidden}
-.produit-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(216,155,40,.06) 0%,transparent 55%)}
-.produit-txt p{color:var(--gris);font-size:1rem;line-height:1.8;margin-bottom:1.1rem}
-.produit-highlight{background:var(--blanc);border-radius:3px;border-left:3px solid var(--dore);padding:1.2rem 1.5rem;margin:1.5rem 0}
-.produit-highlight p{margin:0;font-size:.92rem;color:var(--brun);line-height:1.7}
-
+.ph-text{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(74,43,26,.25);font-weight:500;text-align:center;padding:0 1rem;position:relative;z-index:1}
 /* texture strip */
 .texture-strip{background:var(--brun);padding:4rem 5%;text-align:center;position:relative;overflow:hidden}
 .texture-strip::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(216,155,40,.03) 0,rgba(216,155,40,.03) 1px,transparent 0,transparent 20px)}
 .texture-strip p{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,2.2rem);font-style:italic;color:var(--blanc);position:relative;z-index:1;max-width:680px;margin:0 auto}
 .texture-strip em{color:var(--dore)}
-
-/* saveurs section */
+/* saveurs */
 .saveurs-section{background:var(--sapin)}
 .saveurs-section .s-label{color:var(--dore)}
 .saveurs-section .s-title{color:var(--blanc)}
 .filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
 .filter-btn{font-family:'DM Sans',sans-serif;padding:.5rem 1.5rem;border-radius:2px;border:1.5px solid rgba(255,246,232,.18);background:transparent;color:rgba(255,246,232,.55);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .2s}
 .filter-btn.active,.filter-btn:hover{background:var(--dore);border-color:var(--dore);color:var(--brun)}
-
-/* saveur cards (rendered by main.js) */
+/* saveur cards (injectées par main.js) */
 .saveurs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.2rem}
-.saveur-card{background:rgba(255,246,232,.05);border:1px solid rgba(255,246,232,.09);border-radius:3px;padding:1.8rem 1.5rem 1.5rem;transition:all .32s;position:relative;overflow:hidden;transform-origin:center bottom}
-.saveur-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0;background:rgba(216,155,40,.1);transition:height .35s}
-.saveur-card:hover{border-color:rgba(216,155,40,.5);transform:translateY(-5px) rotate(.3deg);box-shadow:0 14px 36px rgba(0,0,0,.28)}
-.saveur-card:hover::after{height:4px}
-.saveur-card.is-upcoming{opacity:.7}
+.saveur-card{background:rgba(255,246,232,.05);border:1px solid rgba(255,246,232,.09);border-radius:3px;padding:1.8rem 1.5rem 1.5rem;transition:all .32s;position:relative;overflow:hidden}
+.saveur-card:hover{border-color:rgba(216,155,40,.5);transform:translateY(-5px);box-shadow:0 14px 36px rgba(0,0,0,.28)}
 .saveur-badge{position:absolute;top:.9rem;right:.9rem;font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .5rem;border-radius:2px}
 .badge-classique{background:rgba(255,246,232,.08);color:rgba(255,246,232,.4)}
 .badge-signature{background:rgba(216,155,40,.25);color:var(--dore)}
-.badge-gourmand{background:rgba(201,143,190,.2);color:#D4A0CB}
-.badge-reconfortant{background:rgba(182,106,44,.2);color:var(--caramel)}
+.badge-sale{background:rgba(126,191,170,.12);color:#7EBFAA}
 .badge-saisonnier{background:rgba(255,255,255,.06);color:rgba(255,255,255,.35)}
-.badge-salé{background:rgba(126,191,170,.12);color:#7EBFAA}
 .saveur-tag{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .65rem;border-radius:2px;margin-bottom:.9rem;display:inline-block;font-weight:600}
 .tag-sucre{background:rgba(216,155,40,.18);color:var(--dore)}
-.tag-tartinage{background:rgba(166,66,42,.2);color:#E8917A;border:1px solid rgba(166,66,42,.2)}
-.tag-signature{background:rgba(216,155,40,.28);color:var(--dore);border:1px solid rgba(216,155,40,.3)}
 .tag-sale{background:rgba(126,191,170,.1);color:#7EBFAA;border:1px solid rgba(126,191,170,.2)}
-.tag-saisonnier{background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);border:1px dashed rgba(255,255,255,.2)}
-.tag-upcoming{background:rgba(255,255,255,.05);color:rgba(255,255,255,.35);border:1px dashed rgba(255,255,255,.15)}
 .saveur-card h3{color:var(--blanc);font-size:.95rem;margin-bottom:.35rem}
 .saveur-card p{font-size:.78rem;color:rgba(255,246,232,.45);line-height:1.5}
 .upcoming-note{font-size:.7rem;color:rgba(255,255,255,.35);font-style:italic;margin-top:.4rem}
 .saveur-reveal{position:absolute;bottom:0;left:0;right:0;padding:.7rem 1rem;background:rgba(216,155,40,.15);border-top:1px solid rgba(216,155,40,.2);font-size:.72rem;color:var(--dore);font-weight:500;transform:translateY(100%);transition:transform .3s;letter-spacing:.03em}
 .saveur-card:hover .saveur-reveal{transform:translateY(0)}
 .saveurs-note{font-size:.82rem;color:rgba(255,246,232,.35);font-style:italic;margin-top:1.8rem;line-height:1.55}
-
-/* empty state */
-.empty-state{text-align:center;padding:4rem 2rem;color:rgba(255,246,232,.4)}
-.empty-state p{margin-bottom:1.5rem;font-size:.95rem;line-height:1.75}
-
-/* CTA */
+.empty-state{text-align:center;padding:4rem 2rem;grid-column:1/-1}
+.empty-state h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:.8rem;color:var(--blanc)}
+.empty-state p{font-size:.95rem;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:1.5rem}
+/* cta */
 .cta-section{background:var(--rouge);padding:6rem 5%;text-align:center;position:relative;overflow:hidden}
 .cta-section::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,246,232,.025) 0,rgba(255,246,232,.025) 1px,transparent 0,transparent 18px)}
 .cta-section>*{position:relative;z-index:1}
 .cta-section h2{color:var(--blanc);max-width:600px;margin:0 auto 1rem}
 .cta-section p{color:rgba(255,246,232,.7);max-width:420px;margin:0 auto 2.5rem}
 .cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-
+/* footer */
 footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
 .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2.5fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
 .footer-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--blanc);text-decoration:none;display:block;margin-bottom:.9rem}
@@ -179,20 +157,17 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
 .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,246,232,.07);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:.75rem;flex-wrap:wrap;gap:.8rem}
 .footer-credit a{color:rgba(255,246,232,.4);text-decoration:none;transition:color .2s}
 .footer-credit a:hover{color:var(--dore)}
-
+/* reveal */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-left{opacity:0;transform:translateX(-24px);transition:opacity .65s ease,transform .65s ease}
 .reveal-left.visible{opacity:1;transform:translateX(0)}
 @media(prefers-reduced-motion:reduce){.reveal,.reveal-left{opacity:1;transform:none;transition:none}.marquee-track{animation:none}.tl-step{cursor:default}}
-
 @media(max-width:960px){
-  .timeline-steps{grid-template-columns:1fr 1fr;gap:2rem}
+  .timeline-steps,.timeline-steps.steps-5{grid-template-columns:1fr 1fr;gap:2rem}
   .timeline-steps::before{display:none}
   .tl-detail{grid-template-columns:1fr}
   .tl-detail-img{aspect-ratio:16/9}
-  .produit-inner{grid-template-columns:1fr}
-  .produit-img{aspect-ratio:16/9}
   .footer-inner{grid-template-columns:1fr 1fr}
   .nav-links,.nav-cta-wrap{display:none}
   .burger{display:flex}
@@ -200,24 +175,13 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
 @media(max-width:620px){
   section{padding:4.5rem 5%}
   .page-hero{padding:calc(72px + 2.5rem) 6% 3.5rem}
-  .timeline-steps{grid-template-columns:1fr}
+  .timeline-steps,.timeline-steps.steps-5{grid-template-columns:1fr}
   .saveurs-grid{grid-template-columns:1fr}
   .hero-stats{gap:1.5rem}
   .footer-inner{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;text-align:center}
 }
 </style>
-<link rel="stylesheet" href="assets/css/styles.css">
-
-<script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[
-  {"@type":"Organization","@id":"https://ziakurtos.com/#org","name":"Zia Kürtös","url":"https://ziakurtos.com","email":"info@ziakurtos.com"},
-  {"@type":"BreadcrumbList","itemListElement":[
-    {"@type":"ListItem","position":1,"name":"Accueil","item":"https://ziakurtos.com/"},
-    {"@type":"ListItem","position":2,"name":"Nos Kürtös","item":"https://ziakurtos.com/nos-kurtos.html"}
-  ]}
-]}
-</script>
 </head>
 <body>
 
@@ -259,9 +223,9 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   <span class="hero-bg-word" aria-hidden="true">Saveurs</span>
   <div class="ph-label"><span class="ph-dot" aria-hidden="true"></span>Produits &amp; saveurs</div>
   <h1>Nos kürtös, <em>dorés à la broche</em><br>et préparés avec gourmandise</h1>
-  <p class="page-hero-sub">Le kürtős est une brioche hongroise en forme de gâteau cheminée. Cuite à la broche, caramélisée, croustillante dehors, moelleuse dedans — et préparée devant vous, sur place, à chaque événement.</p>
+  <p class="page-hero-sub">Le kürtős est une spécialité hongroise en forme de gâteau cheminée. Cuit à la broche, caramélisé, croustillant dehors, moelleux dedans — et préparé devant vous, sur place, à chaque événement.</p>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-val">13+</div><div class="hero-stat-label">Saveurs</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">11</div><div class="hero-stat-label">Saveurs</div></div>
     <div class="hero-stat"><div class="hero-stat-val">100%</div><div class="hero-stat-label">Fait sur place</div></div>
     <div class="hero-stat"><div class="hero-stat-val">2</div><div class="hero-stat-label">Catégories</div></div>
   </div>
@@ -288,94 +252,107 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   </div>
 </div>
 
-<!-- Timeline de cuisson (éditoriale) -->
+<!-- PROCESSUS — 5 étapes, sans "pâte levée" -->
 <section class="timeline" aria-labelledby="timeline-title">
   <div class="timeline-inner">
     <span class="s-label">Le processus</span>
     <h2 class="s-title reveal" id="timeline-title">De la <em>pâte</em> au kürtős chaud</h2>
-    <p class="reveal" style="color:var(--gris);max-width:560px;font-size:1rem">Chaque kürtős suit le même chemin — simple, artisanal, fait devant vous. Quatre étapes, une odeur inoubliable.</p>
+    <p class="reveal" style="color:var(--gris);max-width:560px;font-size:1rem">Chaque kürtős suit le même chemin — simple, artisanal, fait devant vous. Cinq étapes, une odeur inoubliable.</p>
 
-    <div class="timeline-steps" role="tablist" aria-label="Étapes de cuisson du kürtős">
-      <div class="tl-step active" role="tab" aria-selected="true" tabindex="0" data-step="0" onclick="setStep(0)" onkeydown="if(event.key==='Enter'||event.key===' ')setStep(0)">
-        <div class="tl-icon-wrap" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#B66A2C" stroke-width="1.3"><path d="M20 6 C28 8 32 14 30 22 C28 30 20 34 12 30 C4 26 4 16 12 10" stroke-linecap="round"/></svg></div>
-        <span class="tl-num">Étape 1</span><h3>La pâte enroulée</h3>
-        <p>Un ruban de pâte levée, enroulé à la main autour d'un cylindre en bois.</p>
-      </div>
-      <div class="tl-step" role="tab" aria-selected="false" tabindex="0" data-step="1" onclick="setStep(1)" onkeydown="if(event.key==='Enter'||event.key===' ')setStep(1)">
-        <div class="tl-icon-wrap" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#B66A2C" stroke-width="1.3"><rect x="14" y="4" width="12" height="32" rx="6"/><line x1="20" y1="1" x2="20" y2="4" stroke-linecap="round" stroke-width="1.8"/></svg></div>
-        <span class="tl-num">Étape 2</span><h3>La broche tourne</h3>
-        <p>La broche tourne lentement sur la chaleur. La pâte gonfle et dore.</p>
-      </div>
-      <div class="tl-step" role="tab" aria-selected="false" tabindex="0" data-step="2" onclick="setStep(2)" onkeydown="if(event.key==='Enter'||event.key===' ')setStep(2)">
-        <div class="tl-icon-wrap" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#B66A2C" stroke-width="1.3"><circle cx="20" cy="20" r="12"/><path d="M14 20 C16 16 20 14 24 16 C28 18 28 24 24 26" stroke="#D89B28" stroke-linecap="round" opacity=".7"/></svg></div>
-        <span class="tl-num">Étape 3</span><h3>Le sucre caramélise</h3>
-        <p>Le sucre fond et forme une croûte craquante dorée à la surface.</p>
-      </div>
-      <div class="tl-step" role="tab" aria-selected="false" tabindex="0" data-step="3" onclick="setStep(3)" onkeydown="if(event.key==='Enter'||event.key===' ')setStep(3)">
-        <div class="tl-icon-wrap" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#B66A2C" stroke-width="1.3"><path d="M8 32 L20 8 L32 32 Z"/><line x1="14" y1="24" x2="26" y2="24" opacity=".6"/></svg></div>
-        <span class="tl-num">Étape 4</span><h3>Servi chaud</h3>
-        <p>Le kürtős est retiré, garni de la saveur choisie, et servi encore chaud.</p>
-      </div>
-    </div>
+    <!-- 5 étapes -->
+    <div class="timeline-steps steps-5" role="tablist" aria-label="Étapes de préparation du kürtős">
 
+      <div class="tl-step active" role="tab" aria-selected="true" tabindex="0" data-step="0"
+           onclick="setStep(0)" onkeydown="if(event.key==='Enter'||event.key===' ')setStep(0)">
+        <div class="tl-icon-wrap" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#B66A2C" stroke-width="1.3"><path d="M18 6 C26 8 30 14 28 22 C26 30 18 34 10 30 C2 26 2 16 10 10" stroke-linecap="round"/></svg>
+        </div>
+        <span class="tl-num">Étape 1</span>
+        <h3>La pâte enroulée</h3>
+        <p>Enroulée à la main autour d'un rouleau de bois ou d'inox.</p>
+      </div>
+
+      <div class="tl-step" role="tab" aria-selected="false" tabindex="0" data-step="1"
+           onclick="setStep(1)" onkeydown="if(event.key==='Enter'||event.key===' ')setStep(1)">
+        <div class="tl-icon-wrap" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#B66A2C" stroke-width="1.3"><rect x="13" y="4" width="10" height="28" rx="5"/><line x1="18" y1="1" x2="18" y2="4" stroke-linecap="round" stroke-width="1.8"/></svg>
+        </div>
+        <span class="tl-num">Étape 2</span>
+        <h3>La broche tourne</h3>
+        <p>Cuite au-dessus du grill. La pâte gonfle et dore.</p>
+      </div>
+
+      <!-- ÉTAPE 3 MISE À JOUR -->
+      <div class="tl-step" role="tab" aria-selected="false" tabindex="0" data-step="2"
+           onclick="setStep(2)" onkeydown="if(event.key==='Enter'||event.key===' ')setStep(2)">
+        <div class="tl-icon-wrap" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#B66A2C" stroke-width="1.3"><circle cx="18" cy="18" r="11"/><path d="M12 18 C14 14 18 12 22 14 C26 16 26 22 22 24" stroke="#D89B28" stroke-linecap="round" opacity=".7"/></svg>
+        </div>
+        <span class="tl-num">Étape 3</span>
+        <h3>Moelleux à l'intérieur</h3>
+        <p>Le sucre caramélise dehors, la pâte reste tendre dedans.</p>
+      </div>
+
+      <!-- ÉTAPE 4 MISE À JOUR -->
+      <div class="tl-step" role="tab" aria-selected="false" tabindex="0" data-step="3"
+           onclick="setStep(3)" onkeydown="if(event.key==='Enter'||event.key===' ')setStep(3)">
+        <div class="tl-icon-wrap" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#B66A2C" stroke-width="1.3"><path d="M6 30 L18 6 L30 30 Z"/><line x1="12" y1="22" x2="24" y2="22" opacity=".6"/></svg>
+        </div>
+        <span class="tl-num">Étape 4</span>
+        <h3>Gourmandise au choix</h3>
+        <p>Sucre, cannelle, amandes ou tartinage à l'intérieur.</p>
+      </div>
+
+      <!-- ÉTAPE 5 — NOUVELLE -->
+      <div class="tl-step" role="tab" aria-selected="false" tabindex="0" data-step="4"
+           onclick="setStep(4)" onkeydown="if(event.key==='Enter'||event.key===' ')setStep(4)">
+        <div class="tl-icon-wrap" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#B66A2C" stroke-width="1.3"><rect x="7" y="13" width="22" height="16" rx="2" fill="none"/><path d="M7 13 L18 5 L29 13" stroke="#EAD7B7" stroke-width="1.1" fill="none" opacity=".6"/><line x1="13" y1="21" x2="23" y2="21" stroke="#D89B28" stroke-width=".9" opacity=".7"/></svg>
+        </div>
+        <span class="tl-num">Étape 5</span>
+        <h3>Version salée</h3>
+        <p>Gruyère ou olives &amp; Gruyère — gratiné à la broche.</p>
+      </div>
+
+    </div><!-- /timeline-steps -->
+
+    <!-- Panneau détail interactif -->
     <div class="tl-detail" id="tl-detail" role="tabpanel">
       <div class="tl-detail-img" role="img" id="tl-detail-img" aria-label="Étape 1 — La pâte enroulée">
-        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:.3" aria-hidden="true"><path d="M26 6 C34 8 40 14 38 24 C36 34 26 40 16 36 C6 32 4 20 12 12" stroke="#B66A2C" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
-        <span class="ph-text" id="tl-detail-ph">kurtos-cuisson-broche.webp</span>
+        <img id="tl-detail-photo" src="assets/images/kurtos-cuisson-broche.webp" alt="Pâte kürtős enroulée à la main sur un rouleau de bois" loading="lazy" onerror="this.style.display='none'">
+        <span class="ph-text" id="tl-detail-ph" style="display:none">kurtos-cuisson-broche.webp</span>
       </div>
       <div class="tl-detail-txt">
-        <span class="tl-detail-tag" id="tl-detail-tag">Étape 1 sur 4</span>
+        <span class="tl-detail-tag" id="tl-detail-tag">Étape 1 sur 5</span>
         <h4 id="tl-detail-title">La pâte est enroulée autour du cylindre</h4>
-        <p id="tl-detail-desc">La pâte levée, légèrement sucrée, est étirée en un long ruban et enroulée à la main autour d'un cylindre en bois. Chaque tour est précis, régulier — pour que la cuisson soit uniforme et la texture parfaite. C'est lui qui donne au kürtős sa forme en spirale si reconnaissable.</p>
+        <p id="tl-detail-desc">Pâte moelleuse, enroulée à la main en petites bandes autour d'un rouleau de bois ou d'inox. Chaque tour est précis pour que la cuisson soit uniforme et la texture parfaite.</p>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- Texte produit (éditorial) -->
-<section class="produit-text" aria-labelledby="produit-title">
-  <div class="produit-inner">
-    <div class="produit-img reveal-left" role="img" aria-label="Kürtős artisanal Zia Kürtös gâteau cheminée cuit à la broche en Suisse">
-      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="opacity:.22" aria-hidden="true"><rect x="20" y="6" width="24" height="52" rx="12" stroke="#B66A2C" stroke-width="1.3" fill="none"/><rect x="26" y="12" width="12" height="40" rx="6" stroke="#D89B28" stroke-width=".9" fill="none" opacity=".6"/></svg>
-      <span class="ph-text">assets/images/kurtos-cuisson-broche.webp</span>
-    </div>
-    <div class="reveal">
-      <span class="s-label">Le produit</span>
-      <h2 class="s-title" id="produit-title">Un gâteau cheminée, <em>une tradition</em></h2>
-      <div class="produit-txt">
-        <p>Le kürtős — aussi appelé kürtőskalács ou chimney cake — est l'une des pâtisseries les plus anciennes et les plus appréciées de Hongrie. Sa forme cylindrique et creuse rappelle une cheminée, d'où son surnom de gâteau cheminée.</p>
-        <p>La pâte est enroulée à la main autour d'un cylindre en bois, saupoudrée de sucre, puis cuite lentement à la broche jusqu'à obtenir une croûte caramélisée et craquante.</p>
-        <div class="produit-highlight">
-          <p>Le résultat : croustillant à l'extérieur, moelleux à l'intérieur, une odeur chaude qui attire naturellement les curieux. Chaud, doré, généreux.</p>
-        </div>
-        <p>Zia Kürtös fait découvrir cette spécialité hongroise en Suisse romande sur les festivals, marchés et événements — avec une sélection de saveurs sucrées, salées et en tartinage, préparées sur place à chaque fois.</p>
-      </div>
-      <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap">
-        <a href="galerie.html" class="btn btn-secondary">Voir nos photos de cuisson</a>
-        <a href="evenements.html" class="btn btn-primary">Voir nos présences festivals</a>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ★ SECTION "LE PRODUIT" SUPPRIMÉE ★ -->
 
 <div class="texture-strip" aria-hidden="true">
   <p>"Croustillant dehors, <em>moelleux dedans</em> — chaud, doré, et préparé devant vous."</p>
 </div>
 
-<!-- ★ SAVEURS CMS ★ -->
+<!-- SAVEURS — filtres Sucré / Salé uniquement -->
 <section class="saveurs-section" aria-labelledby="saveurs-title">
   <div class="container">
     <span class="s-label">Nos créations</span>
     <h2 class="s-title reveal" id="saveurs-title" style="color:var(--blanc)">Choisissez <em>votre saveur</em></h2>
-    <p class="reveal" style="color:rgba(255,246,232,.6);font-size:1rem;max-width:540px;margin-bottom:2rem;line-height:1.75">Des saveurs sucrées classiques, des tartinaisons généreuses, et des versions salées pour sortir des sentiers battus. Préparées sur place, à chaque événement.</p>
+    <p class="reveal" style="color:rgba(255,246,232,.6);font-size:1rem;max-width:540px;margin-bottom:2rem;line-height:1.75">
+      Des saveurs sucrées, croustillantes ou gourmandes, et des versions salées originales — préparées sur place selon les événements et les saisons.
+    </p>
 
-    <!-- Filtres — gérés par main.js via data-filter-flavors -->
+    <!-- FILTRES : Sucré / Salé uniquement -->
     <div class="filter-bar reveal" role="group" aria-label="Filtrer les saveurs">
       <button class="filter-btn active" data-filter-flavors="all" aria-pressed="true">Toutes les saveurs</button>
       <button class="filter-btn" data-filter-flavors="sucré" aria-pressed="false">Sucrées</button>
-      <button class="filter-btn" data-filter-flavors="tartinage" aria-pressed="false">Tartinage</button>
       <button class="filter-btn" data-filter-flavors="salé" aria-pressed="false">Salées</button>
-      <button class="filter-btn" data-filter-flavors="signature" aria-pressed="false">Signature</button>
     </div>
 
     <!-- ★ Saveurs injectées par main.js → renderFlavorsPage() ★ -->
@@ -385,7 +362,7 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   </div>
 </section>
 
-<section class="cta-section kurtos-cta-light" aria-labelledby="cta-title">
+<section class="cta-section" aria-labelledby="cta-title">
   <h2 id="cta-title">Envie de retrouver Zia Kürtös&nbsp;?</h2>
   <p>Retrouvez le stand sur les festivals et marchés de Suisse — ou invitez-le directement à votre événement.</p>
   <div class="cta-btns">
@@ -400,10 +377,10 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
       <a href="index.html" class="footer-logo">Zia <span>Kürtös</span></a>
       <p>Kürtős artisanaux, dorés à la broche. Chimney cakes sucrés et salés sur les festivals et marchés de Suisse romande.</p>
       <div class="footer-socials">
-        <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Zia Kürtös" data-instagram><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-        <a href="https://www.facebook.com/zia.kurtos/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Zia Kürtös" data-facebook><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-        <a href="#" aria-label="TikTok Zia Kürtös" data-tiktok><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
-        <a href="mailto:info@ziakurtos.com" aria-label="Email Zia Kürtös" data-email><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></a>
+        <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-instagram><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.facebook.com/zia.kurtos/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" data-facebook><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="TikTok" data-tiktok><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+        <a href="mailto:info@ziakurtos.com" aria-label="Email" data-email><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></a>
       </div>
     </div>
     <div class="footer-col">
@@ -431,27 +408,63 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   <div class="footer-bottom">
     <span>&copy; 2025 Zia Kürtös — Tous droits réservés — Chimney cake artisanal Suisse romande</span>
     <span class="footer-credit" id="footerCredit">
-      <a href="https://www.instagram.com/web.onit/" target="_blank" rel="noopener noreferrer">Site créé par Web On It !</a>
+      <a href="https://la-malice.ch/" target="_blank" rel="noopener noreferrer">la-malice.ch</a>
     </span>
   </div>
 </footer>
 
 <script>
-/* Timeline (page-specific interactive) */
-const tlData=[
-  {tag:'Étape 1 sur 4',title:'La pâte est enroulée autour du cylindre',desc:"La pâte levée, légèrement sucrée, est étirée en un long ruban et enroulée à la main autour d'un cylindre en bois. Chaque tour est précis et régulier — pour que la cuisson soit uniforme et la texture parfaite. C'est un geste simple, mais c'est lui qui donne au kürtős sa forme en spirale si reconnaissable.",ph:'assets/images/kurtos-cuisson-broche.webp',alt:'Pâte kürtős enroulée à la main sur un cylindre en bois'},
-  {tag:'Étape 2 sur 4',title:'Le kürtős tourne lentement à la broche',desc:"La broche est mise en rotation au-dessus de la chaleur. La pâte commence à gonfler doucement, à prendre de la couleur, à développer ses arômes. Cette étape demande de la patience — et c'est là que la magie opère. La broche qui tourne est un spectacle en soi.",ph:'assets/images/kurtos-cuisson-broche.webp',alt:'Kürtős artisanal qui tourne lentement à la broche'},
-  {tag:'Étape 3 sur 4',title:'Le sucre caramélise à la surface',desc:"C'est le moment le plus gourmand. Le sucre saupoudré sur la pâte fond lentement sous la chaleur et forme une croûte dorée, craquante, caramélisée. L'odeur qui se dégage est immédiatement reconnaissable — sucrée, chaude, légèrement grillée. C'est elle qui attire les curieux à plusieurs mètres de distance.",ph:'assets/images/kurtos-sucre-cannelle.webp',alt:'Sucre caramélisé sur un chimney cake gâteau cheminée'},
-  {tag:'Étape 4 sur 4',title:'Le gâteau est servi chaud avec la saveur choisie',desc:"Le kürtős est retiré de la broche, encore chaud et croustillant. Il est alors roulé dans la garniture choisie ou tartiné généreusement selon la saveur sélectionnée. Il est servi immédiatement, encore fumant. C'est ce moment — simple, généreux, artisanal — qui fait revenir.",ph:'assets/images/kurtos-nutella.webp',alt:'Kürtős servi chaud avec garniture au choix'}
+/* ── Données des 5 étapes (plus de "pâte levée") ── */
+const tlData = [
+  {
+    tag: 'Étape 1 sur 5',
+    title: 'La pâte est enroulée autour du cylindre',
+    desc: "Pâte moelleuse, enroulée à la main en petites bandes autour d'un rouleau de bois ou d'inox. Chaque tour est précis et régulier — pour que la cuisson soit uniforme et la texture parfaite.",
+    ph: 'assets/images/kurtos-cuisson-broche.webp',
+    alt: 'Pâte kürtős enroulée à la main sur un rouleau de bois'
+  },
+  {
+    tag: 'Étape 2 sur 5',
+    title: 'Le kürtős tourne lentement à la broche',
+    desc: "Recouverte de sucre pour la version sucrée, elle est ensuite cuite au-dessus du grill. La broche tourne lentement. La pâte gonfle et dore progressivement jusqu'à former une belle surface caramélisée.",
+    ph: 'assets/images/kurtos-cuisson-broche.webp',
+    alt: 'Kürtős artisanal qui tourne à la broche au-dessus du grill'
+  },
+  {
+    tag: 'Étape 3 sur 5',
+    title: 'Moelleux à l\'intérieur',
+    desc: "Lors de sa cuisson, le sucre se caramélise à l'extérieur pour former un film croustillant tout en laissant place à une pâte tendre à l'intérieur.",
+    ph: 'assets/images/kurtos-sucre-cannelle.webp',
+    alt: 'Sucre caramélisé sur un chimney cake gâteau cheminée'
+  },
+  {
+    tag: 'Étape 4 sur 5',
+    title: 'Gourmandise au choix',
+    desc: "Choisis ton extérieur : sucre, sucre-cannelle ou amandes grillées, puis ton tartinage à l'intérieur.",
+    ph: 'assets/images/kurtos-nutella.webp',
+    alt: 'Kürtős servi chaud avec garniture au choix'
+  },
+  {
+    tag: 'Étape 5 sur 5',
+    title: 'Version salée',
+    desc: "Pour le salé, la pâte neutre est roulée dans du Gruyère ou des olives & Gruyère, puis grillée pour obtenir de délicieux petits pains salés bien gratinés.",
+    ph: 'assets/images/uploads/saveur-gruyere.webp',
+    alt: 'Kürtős salé au Gruyère gratiné Zia Kürtös'
+  }
 ];
-function setStep(i){
-  document.querySelectorAll('.tl-step').forEach((s,j)=>{s.classList.toggle('active',j===i);s.setAttribute('aria-selected',j===i)});
-  const d=tlData[i];
-  document.getElementById('tl-detail-tag').textContent=d.tag;
-  document.getElementById('tl-detail-title').textContent=d.title;
-  document.getElementById('tl-detail-desc').textContent=d.desc;
-  document.getElementById('tl-detail-ph').textContent=d.ph;
-  document.getElementById('tl-detail-img').setAttribute('aria-label',d.alt);
+
+function setStep(i) {
+  document.querySelectorAll('.tl-step').forEach((s, j) => {
+    s.classList.toggle('active', j === i);
+    s.setAttribute('aria-selected', j === i);
+  });
+  const d = tlData[i];
+  document.getElementById('tl-detail-tag').textContent   = d.tag;
+  document.getElementById('tl-detail-title').textContent = d.title;
+  document.getElementById('tl-detail-desc').textContent  = d.desc;
+  const photo = document.getElementById('tl-detail-photo');
+  if (photo) { photo.src = d.ph; photo.alt = d.alt; photo.style.display = ''; }
+  document.getElementById('tl-detail-img').setAttribute('aria-label', d.alt);
 }
 </script>
 <script src="assets/js/zia-data.js" defer></script>
