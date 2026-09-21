@@ -6,7 +6,6 @@
 <title>Zia Kürtös pour événements – Stand gourmand, festivals et marchés en Suisse</title>
 <meta name="description" content="Invitez Zia Kürtös à votre festival, marché, événement d'entreprise ou fête privée. Un stand de chimney cakes artisanaux, visuel, chaleureux et mémorable en Suisse romande.">
 <meta property="og:title" content="Zia Kürtös pour événements – Stand gourmand festivals et marchés Suisse">
-<meta property="og:description" content="Stand de kürtős artisanaux pour festivals, marchés de Noël, événements d'entreprise et fêtes privées en Suisse.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ziakurtos.com/evenements.html">
 <link rel="canonical" href="https://ziakurtos.com/evenements.html">
@@ -14,7 +13,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-/* ── page-specific only — shared vars/components come from styles.css via main.js theme ── */
 :root{--creme:#FFF6E8;--beige:#EAD7B7;--dore:#D89B28;--caramel:#B66A2C;--brun:#4A2B1A;--sapin:#173F35;--rouge:#A6422A;--rouge2:#7F2F20;--blanc:#FFFBF3;--texte:#2C1810;--gris:#6B4435}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -24,20 +22,13 @@ h1{font-size:clamp(2.4rem,5.5vw,4.8rem);font-weight:900}
 h2{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700}
 h3{font-size:clamp(1rem,2vw,1.3rem);font-weight:700}
 p{line-height:1.78}em{font-style:italic}
-
 .btn{display:inline-block;padding:.88rem 2.1rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.07em;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:all .28s ease;border:2px solid transparent}
 .btn-primary{background:var(--rouge);color:var(--blanc);border-color:var(--rouge)}
 .btn-primary:hover{background:var(--rouge2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(166,66,42,.3)}
-.btn-secondary{background:transparent;color:var(--brun);border-color:var(--brun)}
-.btn-secondary:hover{background:var(--brun);color:var(--blanc);transform:translateY(-3px)}
 .btn-ghost{background:transparent;color:var(--blanc);border-color:rgba(255,246,232,.4)}
 .btn-ghost:hover{background:rgba(255,246,232,.12);transform:translateY(-3px)}
-
-/* announcement */
 .announcement{background:var(--dore);color:var(--brun);text-align:center;padding:.6rem 2rem;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:none}
 .announcement.visible{display:block}
-
-/* nav */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(255,246,232,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(182,106,44,.1);transition:box-shadow .3s,padding .3s}
 nav.scrolled{box-shadow:0 4px 28px rgba(74,43,26,.1);padding:.7rem 5%}
 .nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--brun);text-decoration:none}
@@ -55,7 +46,6 @@ nav.scrolled{box-shadow:0 4px 28px rgba(74,43,26,.1);padding:.7rem 5%}
 .mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--brun);text-decoration:none}
 .mobile-menu a:hover{color:var(--rouge)}
 .mobile-menu-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;color:var(--brun)}
-
 /* hero */
 .page-hero{min-height:85vh;background:var(--sapin);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:calc(72px + 4rem) 8% 5rem;position:relative;overflow:hidden}
 .hero-noise{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.4;pointer-events:none}
@@ -69,22 +59,18 @@ nav.scrolled{box-shadow:0 4px 28px rgba(74,43,26,.1);padding:.7rem 5%}
 .page-hero h1 em{color:var(--dore)}
 .page-hero-sub{color:rgba(255,246,232,.6);font-size:1.05rem;max-width:580px;margin-top:1.5rem;line-height:1.75;position:relative;z-index:1}
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;position:relative;z-index:1}
-
 /* marquee */
-.marquee-bar{background:var(--dore);padding:.9rem 0;overflow:hidden}
-.marquee-track{display:flex;width:max-content;animation:mq 24s linear infinite}
+.marquee-bar{background:var(--dore);padding:.9rem 0;overflow:hidden;width:100%;max-width:100vw}
+.marquee-track{display:flex;flex-wrap:nowrap;width:max-content;animation:mq 24s linear infinite;will-change:transform}
 .marquee-bar:hover .marquee-track{animation-play-state:paused}
-.marquee-item{white-space:nowrap;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brun);padding:0 2.5rem;display:flex;align-items:center;gap:1.5rem}
+.marquee-item{white-space:nowrap;flex-shrink:0;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brun);padding:0 2.5rem;display:inline-flex;align-items:center;gap:1.5rem}
 .marquee-sep{width:3px;height:3px;background:rgba(74,43,26,.35);border-radius:50%;flex-shrink:0}
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
 /* sections */
 section{padding:7rem 5%}
 .container{max-width:1200px;margin:0 auto}
 .s-label{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--caramel);margin-bottom:.8rem;display:block}
 .s-title{margin-bottom:1.4rem}
-.ph-text{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(74,43,26,.25);font-weight:500;text-align:center;padding:0 1rem}
-
 /* season filter */
 .season-filter{background:var(--blanc);padding:1.5rem 5%;border-bottom:1px solid rgba(182,106,44,.12)}
 .season-filter-inner{max-width:1200px;margin:0 auto;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
@@ -93,19 +79,35 @@ section{padding:7rem 5%}
 .season-pill:hover,.season-pill.active{background:var(--dore);border-color:var(--dore);color:var(--brun)}
 .event-count{margin-left:auto;font-size:.72rem;color:var(--gris);font-weight:500}
 .event-count span{color:var(--rouge);font-weight:700}
-
-/* events list (CMS-rendered) */
+/* timeline prochain événement */
+.events-timeline{background:var(--blanc);padding:1.5rem 5%;border-bottom:1px solid rgba(182,106,44,.08);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tl-track{display:flex;align-items:flex-start;position:relative;min-width:max-content;padding:.5rem 0 1rem}
+.tl-track::before{content:'';position:absolute;top:23px;left:2rem;right:2rem;height:2px;background:rgba(182,106,44,.1);z-index:0}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex:1;min-width:100px;max-width:150px;position:relative;z-index:1;padding:0 .5rem;text-align:center}
+.tl-dot{width:24px;height:24px;border-radius:50%;border:2px solid rgba(182,106,44,.2);background:var(--blanc);margin-bottom:.5rem;flex-shrink:0;transition:all .3s}
+.tl-past .tl-dot{background:rgba(182,106,44,.15);border-color:rgba(182,106,44,.15)}
+.tl-next .tl-dot{background:var(--dore);border-color:var(--dore);box-shadow:0 0 0 5px rgba(216,155,40,.2);animation:tl-pulse 2s ease infinite}
+@keyframes tl-pulse{0%,100%{box-shadow:0 0 0 5px rgba(216,155,40,.2)}50%{box-shadow:0 0 0 9px rgba(216,155,40,.08)}}
+.tl-dot-label{font-size:.65rem;color:var(--gris);line-height:1.3;max-width:90px}
+.tl-next .tl-dot-label{color:var(--brun);font-weight:700}
+.tl-past .tl-dot-label{opacity:.5}
+.tl-dot-date{font-size:.58rem;color:var(--gris);opacity:.65;margin-top:.2rem;line-height:1.3}
+.tl-next .tl-dot-date{color:var(--caramel);opacity:1;font-weight:600}
+.tl-next-badge{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brun);background:var(--dore);padding:.15rem .55rem;border-radius:2px;margin-bottom:.35rem;flex-shrink:0}
+/* next event card highlight */
+.next-event-banner{background:var(--dore);color:var(--brun);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.4rem 1rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.event-card-h.is-next-event{border:1px solid rgba(216,155,40,.45);box-shadow:0 0 0 3px rgba(216,155,40,.12)}
+/* events list */
 .events-presences{background:var(--blanc)}
 .events-list{display:flex;flex-direction:column;gap:1.5rem;margin-top:2rem}
 .event-card-h{background:var(--creme);border-radius:3px;border:1px solid rgba(182,106,44,.12);overflow:hidden;display:grid;grid-template-columns:260px 1fr;transition:all .3s}
 .event-card-h:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(74,43,26,.1);border-color:rgba(182,106,44,.3)}
-.event-card-h.featured{border-left:4px solid var(--dore)}
-.event-img{background:var(--beige);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;padding:1.5rem;position:relative;overflow:hidden;min-height:200px}
-.event-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(182,106,44,.08) 0%,transparent 60%);pointer-events:none}
+.event-img{background:var(--beige);display:flex;align-items:center;justify-content:center;min-height:200px;position:relative;overflow:hidden}
 .event-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:rgba(74,43,26,.2);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;text-align:center;padding:1rem}
 .event-body{padding:1.8rem 2rem}
 .event-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.6rem;flex-wrap:wrap}
-.event-tag{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--caramel);font-weight:700;margin-bottom:.45rem;display:block}
+.event-tag{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--caramel);font-weight:700}
 .event-dates{font-size:.78rem;color:var(--caramel);font-weight:600;margin-bottom:.4rem;font-style:italic}
 .event-card-h h3{font-size:1.05rem;margin-bottom:.4rem;color:var(--texte)}
 .event-card-h p{font-size:.82rem;color:var(--gris);line-height:1.6}
@@ -119,38 +121,20 @@ section{padding:7rem 5%}
 .event-city-tag{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--gris);font-weight:500}
 .event-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700;color:var(--rouge);text-decoration:none;letter-spacing:.05em;text-transform:uppercase;margin-left:auto;transition:gap .2s}
 .event-card-h:hover .event-link{gap:.7rem}
-.img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:rgba(74,43,26,.25);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;text-align:center;padding:1rem}
-
 /* empty state */
 .empty-state{text-align:center;padding:4rem 2rem;color:var(--gris)}
-.empty-state p{margin-bottom:1.5rem;font-size:.95rem;line-height:1.75}
-
-/* festival timeline */
-.festival-timeline{background:var(--creme);padding:6rem 5%}
-.ft-inner{max-width:1100px;margin:0 auto}
-.ft-track{position:relative;display:flex;gap:0;margin-top:4rem;overflow-x:auto;padding-bottom:1rem}
-.ft-track::before{content:'';position:absolute;top:28px;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--dore),var(--caramel),var(--dore),transparent);z-index:0}
-.ft-item{flex:1;min-width:160px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 .8rem;position:relative;z-index:1}
-.ft-dot{width:14px;height:14px;border-radius:50%;background:var(--blanc);border:2px solid var(--dore);margin:0 auto 1.2rem;flex-shrink:0;transition:all .3s}
-.ft-item:hover .ft-dot{background:var(--dore);transform:scale(1.3)}
-.ft-season{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dore);margin-bottom:.4rem}
-.ft-item h4{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:.3rem;color:var(--brun)}
-.ft-item p{font-size:.76rem;color:var(--gris);line-height:1.5}
-
+.empty-state h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:.8rem;color:var(--texte)}
+.empty-state p{font-size:.95rem;line-height:1.75;margin-bottom:1.5rem}
 /* types */
 .types{background:var(--brun)}
 .types .s-label{color:var(--dore)}
 .types .s-title{color:var(--blanc)}
 .types-intro{color:rgba(255,246,232,.6);font-size:1rem;max-width:540px;margin-bottom:3rem;line-height:1.75}
 .types-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.1rem}
-.type-card{background:rgba(255,246,232,.05);border:1px solid rgba(255,246,232,.09);border-radius:3px;padding:1.6rem 1.3rem;transition:all .3s;position:relative;overflow:hidden}
-.type-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:0;background:rgba(216,155,40,.12);transition:height .35s}
-.type-card:hover{border-color:rgba(216,155,40,.45);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.25)}
-.type-card:hover::before{height:3px}
-.type-icon{margin-bottom:1rem}
+.type-card{background:rgba(255,246,232,.05);border:1px solid rgba(255,246,232,.09);border-radius:3px;padding:1.6rem 1.3rem;transition:all .3s}
+.type-card:hover{border-color:rgba(216,155,40,.45);transform:translateY(-4px)}
 .type-card h3{color:var(--blanc);font-size:.95rem;margin-bottom:.4rem}
 .type-card p{font-size:.78rem;color:rgba(255,246,232,.45);line-height:1.55}
-
 /* organisateurs */
 .organisateurs{background:var(--creme)}
 .org-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
@@ -161,23 +145,22 @@ section{padding:7rem 5%}
 .org-benefit-txt strong{font-weight:700;font-size:.9rem;display:block;margin-bottom:.2rem;color:var(--brun)}
 .org-benefit-txt p{font-size:.82rem;color:var(--gris);line-height:1.55}
 .org-visual{background:var(--beige);border-radius:3px;border:1px solid rgba(182,106,44,.15);aspect-ratio:4/5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;position:relative;overflow:hidden}
-.org-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(216,155,40,.06) 0%,transparent 55%)}
-
-/* devis CTA */
+.org-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph-text{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(74,43,26,.25);font-weight:500;text-align:center;padding:0 1rem;position:relative;z-index:1}
+/* devis */
 .devis{background:var(--rouge);padding:7rem 5%;position:relative;overflow:hidden}
 .devis::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,246,232,.025) 0,rgba(255,246,232,.025) 1px,transparent 0,transparent 18px)}
-.devis-spiral{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.05;pointer-events:none}
 .devis-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1}
 .devis-txt h2{color:var(--blanc);margin-bottom:1rem}
 .devis-txt p{color:rgba(255,246,232,.7);font-size:1rem;line-height:1.75;margin-bottom:2rem}
 .devis-checks{display:flex;flex-direction:column;gap:.6rem}
 .devis-check{display:flex;align-items:center;gap:.8rem;color:rgba(255,246,232,.75);font-size:.88rem}
-.check-icon{flex-shrink:0}
 .devis-contact{background:rgba(255,246,232,.08);border:1px solid rgba(255,246,232,.15);border-radius:3px;padding:2rem}
-.devis-contact-items{display:flex;flex-direction:column;gap:1rem;margin:1.2rem 0 1.8rem}
+.devis-contact h3{color:var(--blanc);margin-bottom:.8rem;font-family:'Playfair Display',serif;font-size:1.15rem}
+.devis-contact p{color:rgba(255,246,232,.55);font-size:.88rem;line-height:1.65;margin-bottom:1.2rem}
+.devis-contact-items{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem}
 .devis-contact-item{display:flex;gap:.8rem;align-items:center;font-size:.88rem;color:rgba(255,246,232,.65)}
 .devis-contact-item a{color:var(--dore);text-decoration:none;font-weight:600}
-
 /* footer */
 footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
 .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2.5fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
@@ -195,8 +178,7 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
 .footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,246,232,.07);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:.75rem;flex-wrap:wrap;gap:.8rem}
 .footer-credit a{color:rgba(255,246,232,.4);text-decoration:none;transition:color .2s}
 .footer-credit a:hover{color:var(--dore)}
-
-/* animations */
+/* reveal */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-left{opacity:0;transform:translateX(-24px);transition:opacity .65s ease,transform .65s ease}
@@ -204,7 +186,6 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
 .reveal-right{opacity:0;transform:translateX(24px);transition:opacity .65s ease,transform .65s ease}
 .reveal-right.visible{opacity:1;transform:translateX(0)}
 @media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right{opacity:1;transform:none;transition:none}.marquee-track{animation:none}}
-
 @media(max-width:960px){
   .event-card-h{grid-template-columns:1fr}
   .event-img{min-height:180px;aspect-ratio:16/9}
@@ -214,6 +195,7 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   .footer-inner{grid-template-columns:1fr 1fr}
   .nav-links,.nav-cta-wrap{display:none}
   .burger{display:flex}
+  .tl-track::before{left:.5rem;right:.5rem}
 }
 @media(max-width:620px){
   section{padding:4.5rem 5%}
@@ -223,8 +205,6 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   .footer-bottom{flex-direction:column;text-align:center}
 }
 </style>
-<link rel="stylesheet" href="assets/css/styles.css">
-
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
   {"@type":"Organization","@id":"https://ziakurtos.com/#org","name":"Zia Kürtös","url":"https://ziakurtos.com","email":"info@ziakurtos.com"},
@@ -270,14 +250,16 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   <a href="contact.html" class="btn btn-primary" data-cta-contact>Inviter Zia Kürtös</a>
 </div>
 
+<!-- HERO — sous-titre mis à jour -->
 <header class="page-hero" role="banner">
   <div class="hero-noise" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-grid-deco" aria-hidden="true"></div>
   <span class="hero-bg-word" aria-hidden="true">Festivals</span>
   <div class="ph-label"><span class="ph-dot" aria-hidden="true"></span>Festivals · Marchés · Événements</div>
-  <h1>Zia Kürtös sur les <em>festivals, marchés</em><br>et événements</h1>
-  <p class="page-hero-sub">Le stand se déplace sur les rendez-vous gourmands de Suisse. La cuisson à la broche crée l'animation. L'odeur de sucre caramélisé attire les visiteurs. Le kürtős fait le reste.</p>
+  <h1>Zia Kürtös sur les festivals,<br><em>marchés et événements</em></h1>
+  <!-- SOUS-TITRE MIS À JOUR -->
+  <p class="page-hero-sub">Été comme hiver, le stand Zia Kürtös s'adapte à chaque événement. Le kürtős chaud est aussi à l'aise sous le soleil d'un festival estival que sous les lumières d'un marché de Noël — et marque les esprits avec son goût délicieux et sa préparation 100&nbsp;% sur place.</p>
   <div class="hero-ctas">
     <a href="contact.html" class="btn btn-primary" data-cta-contact>Inviter Zia Kürtös à mon événement</a>
     <a href="nos-kurtos.html" class="btn btn-ghost">Découvrir nos kürtös artisanaux</a>
@@ -305,12 +287,14 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   </div>
 </div>
 
-<!-- ★ ÉVÉNEMENTS CMS ★ -->
-<section class="events-presences" aria-labelledby="presences-title">
+<!-- SECTION ÉVÉNEMENTS CMS — sans "Présences saisonnières" -->
+<section class="events-presences" style="background:var(--blanc);padding:5rem 0 4rem" aria-labelledby="presences-title">
   <div class="container">
     <span class="s-label">Où nous retrouver</span>
     <h2 class="s-title reveal" id="presences-title">Zia Kürtös sur les plus <em>beaux événements</em> de Suisse</h2>
-    <p class="reveal" style="color:var(--gris);max-width:580px;font-size:1rem">Zia Kürtös est présent sur différents festivals, marchés et événements selon la saison en Suisse romande. Le stand attire avec la cuisson visible, retient avec l'odeur, et marque les esprits avec des kürtős préparés sur place.</p>
+    <p class="reveal" style="color:var(--gris);max-width:580px;font-size:1rem">
+      Le stand attire par sa préparation en direct sous vos yeux, séduit par le parfum du sucre caramélisé ou le fromage gratiné, et marque les esprits par son goût irrésistible.
+    </p>
   </div>
 
   <!-- Filtre saison -->
@@ -326,54 +310,27 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
     </div>
   </div>
 
+  <!-- ★ Timeline prochain événement — générée automatiquement par main.js ★ -->
+  <div id="eventsTimeline" class="events-timeline" aria-label="Calendrier des événements"></div>
+
   <div class="container" style="padding-top:0">
     <!-- ★ Événements injectés par main.js → renderEventsPage() ★ -->
     <div id="eventsList" class="events-list"></div>
 
-    <p style="font-size:.82rem;color:var(--gris);font-style:italic;margin-top:2rem">Zia Kürtös est présent sur différents festivals, marchés et événements selon la saison. <a href="contact.html" style="color:var(--rouge);font-weight:600;text-decoration:none">Contactez-nous</a> pour connaître les prochaines présences.</p>
-
+    <p style="font-size:.82rem;color:var(--gris);font-style:italic;margin-top:2rem">
+      Les présences varient selon les saisons et les invitations.
+      <a href="contact.html" style="color:var(--rouge);font-weight:600;text-decoration:none">Contactez-nous</a>
+      pour inviter Zia Kürtös à votre événement.
+    </p>
     <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap">
       <a href="contact.html" class="btn btn-primary" data-cta-contact>Inviter Zia Kürtös à mon événement</a>
     </div>
   </div>
 </section>
 
-<!-- Timeline saisonnière (éditoriale) -->
-<section class="festival-timeline" aria-labelledby="ft-title">
-  <div class="ft-inner">
-    <span class="s-label">Présences saisonnières</span>
-    <h2 class="s-title reveal" id="ft-title">Un stand <em>toutes saisons</em></h2>
-    <p class="reveal" style="color:var(--gris);max-width:520px;font-size:1rem">Été comme hiver, le stand Zia Kürtös s'adapte à chaque événement. Le kürtős chaud est aussi à l'aise sous le soleil d'un festival estival que sous les lumières d'un marché de Noël.</p>
-    <div class="ft-track" role="list" aria-label="Présences saisonnières Zia Kürtös">
-      <div class="ft-item" role="listitem">
-        <div class="ft-dot" aria-hidden="true"></div>
-        <span class="ft-season">Printemps</span>
-        <h4>Marchés gourmands</h4>
-        <p>Food festivals de saison, marchés artisanaux et premiers événements en plein air.</p>
-      </div>
-      <div class="ft-item" role="listitem">
-        <div class="ft-dot" aria-hidden="true"></div>
-        <span class="ft-season">Été</span>
-        <h4>Montreux Jazz & Beach Food</h4>
-        <p>Festivals estivaux sur les rives du lac Léman, bord de plage et fêtes de village.</p>
-      </div>
-      <div class="ft-item" role="listitem">
-        <div class="ft-dot" aria-hidden="true"></div>
-        <span class="ft-season">Automne</span>
-        <h4>Miam Festival & food events</h4>
-        <p>Lausanne à Table, food festivals d'automne, événements d'entreprise en saison.</p>
-      </div>
-      <div class="ft-item" role="listitem">
-        <div class="ft-dot" aria-hidden="true"></div>
-        <span class="ft-season">Hiver</span>
-        <h4>Montreux Noël & marchés</h4>
-        <p>Marchés de Noël enchantés, chalets gourmands, soirées d'entreprise de fin d'année.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ★ SECTION "PRÉSENCES SAISONNIÈRES" SUPPRIMÉE ★ -->
 
-<!-- Types d'événements (éditorial) -->
+<!-- Pour quel événement ? -->
 <section class="types" aria-labelledby="types-title">
   <div class="container">
     <span class="s-label">Pour quel événement ?</span>
@@ -381,42 +338,34 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
     <p class="types-intro reveal">Des festivals aux mariages, des marchés de Noël aux événements d'entreprise — le stand Zia Kürtös apporte une expérience visuelle, olfactive et gourmande unique à chaque type d'événement.</p>
     <div class="types-grid">
       <article class="type-card reveal">
-        <div class="type-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 30 L18 6 L30 30 Z" stroke="#D89B28" stroke-width="1.3" fill="none"/><line x1="12" y1="23" x2="24" y2="23" stroke="#D89B28" stroke-width=".9" opacity=".7"/></svg></div>
         <h3>Festivals</h3>
         <p>Food festivals, festivals de musique, festivals culturels. Le stand attire et crée l'animation.</p>
       </article>
       <article class="type-card reveal">
-        <div class="type-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 4 L21 13 L31 13 L23 18 L26 27 L18 22 L10 27 L13 18 L5 13 L15 13 Z" stroke="#D89B28" stroke-width="1.2" fill="none"/></svg></div>
         <h3>Marchés de Noël</h3>
         <p>Chalets enchantés, lumières et kürtős chauds. L'alliance parfaite pour les marchés hivernaux.</p>
       </article>
       <article class="type-card reveal">
-        <div class="type-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="6" y="14" width="24" height="16" rx="2" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M6 14 L18 6 L30 14" stroke="#EAD7B7" stroke-width="1.2" fill="none" opacity=".6"/></svg></div>
         <h3>Marchés gourmands</h3>
         <p>Marchés artisanaux, marchés du terroir, halles gourmandes — le kürtős y trouve sa place naturellement.</p>
       </article>
       <article class="type-card reveal">
-        <div class="type-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="8" y="10" width="20" height="16" rx="2" stroke="#D89B28" stroke-width="1.2" fill="none"/><line x1="8" y1="16" x2="28" y2="16" stroke="#D89B28" stroke-width=".8" opacity=".6"/></svg></div>
         <h3>Événements d'entreprise</h3>
         <p>Séminaires, soirées de fin d'année, team buildings — un stand original et convivial pour vos collaborateurs.</p>
       </article>
       <article class="type-card reveal">
-        <div class="type-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 8 C22 4 28 6 28 12 C28 20 18 28 18 28 C18 28 8 20 8 12 C8 6 14 4 18 8Z" stroke="#D89B28" stroke-width="1.2" fill="none"/></svg></div>
         <h3>Mariages</h3>
         <p>Une animation gourmande et mémorable pour votre mariage. Sucré, salé, personnalisé selon vos envies.</p>
       </article>
       <article class="type-card reveal">
-        <div class="type-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="12" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M12 22 C14 17 22 17 24 22" stroke="#D89B28" stroke-width="1.1" fill="none" stroke-linecap="round" opacity=".7"/><circle cx="18" cy="13" r="4" stroke="#D89B28" stroke-width="1" fill="none"/></svg></div>
         <h3>Fêtes privées</h3>
         <p>Anniversaires, fêtes de famille, réceptions — le stand Zia Kürtös apporte une note gourmande et conviviale.</p>
       </article>
       <article class="type-card reveal">
-        <div class="type-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 26 C10 18 18 14 26 18 C30 20 32 24 30 28" stroke="#D89B28" stroke-width="1.2" fill="none" stroke-linecap="round"/><circle cx="18" cy="28" r="5" stroke="#D89B28" stroke-width="1.1" fill="none"/></svg></div>
         <h3>Fêtes communales</h3>
         <p>Fêtes de village, journées portes ouvertes, événements culturels — le stand crée de la convivialité.</p>
       </article>
       <article class="type-card reveal">
-        <div class="type-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="6" y="12" width="24" height="16" rx="2" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M6 12 L18 4 L30 12" stroke="#EAD7B7" stroke-width="1.1" fill="none" opacity=".5"/></svg></div>
         <h3>Événements culturels</h3>
         <p>Vernissages, expositions, événements artistiques — un stand food original dans un contexte culturel.</p>
       </article>
@@ -424,7 +373,7 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   </div>
 </section>
 
-<!-- Organisateurs (éditorial) -->
+<!-- Pour les organisateurs -->
 <section class="organisateurs" aria-labelledby="org-title">
   <div class="org-inner container">
     <div class="reveal">
@@ -432,43 +381,62 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
       <h2 class="s-title" id="org-title">Pourquoi inviter <em>Zia Kürtös</em>&nbsp;?</h2>
       <p style="color:var(--gris);font-size:1rem;max-width:480px;line-height:1.78">Le stand Zia Kürtös n'est pas un stand food comme les autres. C'est une expérience — visuelle, olfactive, gustative — qui crée de l'animation et marque les visiteurs.</p>
       <div class="org-benefits">
-        <div class="org-benefit"><div class="org-benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M7 11 l3 3 5-5" stroke="#D89B28" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="org-benefit-txt"><strong>Stand visuel et spectaculaire</strong><p>La broche qui tourne est un spectacle en soi. Les visiteurs s'arrêtent, regardent, photographient et partagent sur les réseaux.</p></div></div>
-        <div class="org-benefit"><div class="org-benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M7 11 l3 3 5-5" stroke="#D89B28" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="org-benefit-txt"><strong>L'odeur qui attire les curieux</strong><p>Le sucre caramélisé se répand naturellement autour du stand. C'est le meilleur marketing : ça sent bon avant même de voir le stand.</p></div></div>
-        <div class="org-benefit"><div class="org-benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M7 11 l3 3 5-5" stroke="#D89B28" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="org-benefit-txt"><strong>Produit artisanal, fait sur place</strong><p>Chaque kürtős est préparé devant le public. Pas de réchauffage, pas d'industriel — un produit sincère et généreux.</p></div></div>
-        <div class="org-benefit"><div class="org-benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M7 11 l3 3 5-5" stroke="#D89B28" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="org-benefit-txt"><strong>Fort potentiel photo et réseaux sociaux</strong><p>Le kürtős est photogénique, coloré, visuel. Les visiteurs partagent spontanément — une visibilité organique précieuse pour votre événement.</p></div></div>
+        <div class="org-benefit">
+          <div class="org-benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M7 11 l3 3 5-5" stroke="#D89B28" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+          <div class="org-benefit-txt">
+            <strong>Stand visuel et spectaculaire</strong>
+            <p>Le roulage de la pâte, la broche qui tourne, la surface qui caramélise — la préparation est un spectacle en soi. Les visiteurs s'arrêtent, regardent, photographient et partagent.</p>
+          </div>
+        </div>
+        <div class="org-benefit">
+          <div class="org-benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M7 11 l3 3 5-5" stroke="#D89B28" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+          <div class="org-benefit-txt">
+            <strong>L'odeur qui attire les curieux</strong>
+            <p>Le sucre caramélisé et le Gruyère gratiné se répandent naturellement autour du stand. Ça sent bon avant même de voir le stand.</p>
+          </div>
+        </div>
+        <div class="org-benefit">
+          <div class="org-benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M7 11 l3 3 5-5" stroke="#D89B28" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+          <div class="org-benefit-txt">
+            <strong>Produit artisanal, préparé sur place</strong>
+            <p>La pâte fraîche est roulée à la main, puis chaque Kürtös est cuit en direct devant le public. Pas de réchauffage, pas d'industriel — un produit sincère et généreux.</p>
+          </div>
+        </div>
+        <div class="org-benefit">
+          <div class="org-benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#D89B28" stroke-width="1.2" fill="none"/><path d="M7 11 l3 3 5-5" stroke="#D89B28" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+          <div class="org-benefit-txt">
+            <strong>Fort potentiel photo &amp; réseaux sociaux</strong>
+            <p>Un produit visuel, gourmand, coloré et naturellement photogénique. Les visiteurs partagent spontanément — une visibilité organique précieuse pour votre événement.</p>
+          </div>
+        </div>
       </div>
       <div style="margin-top:2.5rem">
         <a href="contact.html" class="btn btn-primary" data-cta-contact>Inviter Zia Kürtös à mon événement</a>
       </div>
     </div>
-    <div class="org-visual reveal-right" role="img" aria-label="Stand Zia Kürtös lors d'un festival gourmand suisse">
-      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style="opacity:.25;position:relative;z-index:1" aria-hidden="true"><rect x="8" y="28" width="64" height="38" rx="2" stroke="#D89B28" stroke-width="1.4" fill="none"/><path d="M8 28 L40 10 L72 28" stroke="#EAD7B7" stroke-width="1.4" fill="none"/><rect x="28" y="44" width="24" height="22" rx="1" stroke="#EAD7B7" stroke-width="1" fill="none" opacity=".5"/></svg>
-      <span class="ph-text" style="position:relative;z-index:1">assets/images/zia-kurtos-stand.webp</span>
+    <div class="org-visual reveal-right" role="img" aria-label="Stand Zia Kürtös lors d'un festival gourmand">
+      <img src="assets/images/uploads/zia-kurtos-stand-preparation.webp" alt="Stand Zia Kürtös — roulage et cuisson à la broche en direct lors d'un festival" loading="lazy" onerror="this.style.display='none'">
+      <span class="ph-text">assets/images/uploads/zia-kurtos-stand-preparation.webp</span>
     </div>
   </div>
 </section>
 
 <!-- Devis / Contact -->
 <section class="devis" aria-labelledby="devis-title">
-  <svg class="devis-spiral" width="500" height="500" viewBox="0 0 500 500" fill="none" aria-hidden="true">
-    <path d="M250,250 m0,-180 a180,180 0 1,1 -0.1,0" stroke="white" stroke-width="1.3" fill="none"/>
-    <path d="M250,250 m0,-130 a130,130 0 1,1 -0.1,0" stroke="white" stroke-width="1" fill="none"/>
-    <path d="M250,250 m0,-80 a80,80 0 1,1 -0.1,0" stroke="white" stroke-width=".7" fill="none"/>
-  </svg>
   <div class="devis-inner">
     <div>
       <h2 id="devis-title" style="color:var(--blanc)">Inviter Zia Kürtös à <em>votre événement</em></h2>
       <p style="color:rgba(255,246,232,.7);font-size:1rem;line-height:1.78;margin-bottom:2rem">Vous organisez un festival, un marché, une soirée d'entreprise, un mariage ou une fête privée ? Contactez Zia Kürtös pour discuter de votre projet et recevoir une réponse personnalisée.</p>
       <div class="devis-checks">
-        <div class="devis-check"><div class="check-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="rgba(255,246,232,.4)" stroke-width="1"/><path d="M5 9 l3 3 5-5" stroke="#D89B28" stroke-width="1.2" stroke-linecap="round"/></svg></div>Réponse rapide et personnalisée</div>
-        <div class="devis-check"><div class="check-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="rgba(255,246,232,.4)" stroke-width="1"/><path d="M5 9 l3 3 5-5" stroke="#D89B28" stroke-width="1.2" stroke-linecap="round"/></svg></div>Stand adapté à chaque type d'événement</div>
-        <div class="devis-check"><div class="check-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="rgba(255,246,232,.4)" stroke-width="1"/><path d="M5 9 l3 3 5-5" stroke="#D89B28" stroke-width="1.2" stroke-linecap="round"/></svg></div>Expérience festivals et marchés en Suisse romande</div>
+        <div class="devis-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7" stroke="rgba(255,246,232,.4)" stroke-width="1"/><path d="M5 9 l3 3 5-5" stroke="#D89B28" stroke-width="1.2" stroke-linecap="round"/></svg>Réponse rapide et personnalisée</div>
+        <div class="devis-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7" stroke="rgba(255,246,232,.4)" stroke-width="1"/><path d="M5 9 l3 3 5-5" stroke="#D89B28" stroke-width="1.2" stroke-linecap="round"/></svg>Stand adapté à chaque type d'événement</div>
+        <div class="devis-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7" stroke="rgba(255,246,232,.4)" stroke-width="1"/><path d="M5 9 l3 3 5-5" stroke="#D89B28" stroke-width="1.2" stroke-linecap="round"/></svg>Expérience festivals et marchés en Suisse romande</div>
       </div>
       <div style="margin-top:2.5rem"><a href="contact.html" class="btn" style="background:var(--blanc);color:var(--rouge);border:2px solid var(--blanc)">Demander une présence à mon événement</a></div>
     </div>
     <div class="devis-contact">
-      <h3 style="color:var(--blanc);margin-bottom:1rem;font-family:'Playfair Display',serif;font-size:1.15rem">Contact direct</h3>
-      <p style="color:rgba(255,246,232,.55);font-size:.88rem;line-height:1.65;margin-bottom:1.2rem">Pour toute demande d'événement ou question, contactez Zia Kürtös directement.</p>
+      <h3>Contact direct</h3>
+      <p>Pour toute demande d'événement ou question, contactez Zia Kürtös directement.</p>
       <div class="devis-contact-items">
         <div class="devis-contact-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="4" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.1"/><path d="M2 7l7 4 7-4" stroke="currentColor" stroke-width="1.1"/></svg><a href="mailto:info@ziakurtos.com" data-email>info@ziakurtos.com</a></div>
         <div class="devis-contact-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="2" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.1"/><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.1"/></svg><a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" data-instagram>@ziakurtos</a></div>
@@ -484,10 +452,10 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
       <a href="index.html" class="footer-logo">Zia <span>Kürtös</span></a>
       <p>Stand de kürtős artisanaux pour festivals, marchés de Noël et événements en Suisse romande. Chimney cakes cuits à la broche, faits sur place.</p>
       <div class="footer-socials">
-        <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Zia Kürtös" data-instagram><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-        <a href="https://www.facebook.com/zia.kurtos/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Zia Kürtös" data-facebook><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-        <a href="#" aria-label="TikTok Zia Kürtös" data-tiktok><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
-        <a href="mailto:info@ziakurtos.com" aria-label="Email Zia Kürtös" data-email><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></a>
+        <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-instagram><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.facebook.com/zia.kurtos/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" data-facebook><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="TikTok" data-tiktok><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+        <a href="mailto:info@ziakurtos.com" aria-label="Email" data-email><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></a>
       </div>
     </div>
     <div class="footer-col">
@@ -515,7 +483,7 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   <div class="footer-bottom">
     <span>&copy; 2025 Zia Kürtös — Tous droits réservés — Stand gourmand Suisse romande</span>
     <span class="footer-credit" id="footerCredit">
-      <a href="https://www.instagram.com/web.onit/" target="_blank" rel="noopener noreferrer">Site créé par Web On It !</a>
+      <a href="https://la-malice.ch/" target="_blank" rel="noopener noreferrer">la-malice.ch</a>
     </span>
   </div>
 </footer>
