@@ -9,11 +9,31 @@ Le site est conçu pour :
 * afficher les événements à venir ;
 * présenter une galerie photo ;
 * permettre aux organisateurs de contacter Zia Kürtös ;
-* permettre la modification de certains contenus depuis une interface admin simple.
+* permettre la modification des contenus courants depuis une interface admin simple, sans toucher au code.
 
 ---
 
-## Structure du projet
+## Aide-mémoire : où modifier quoi ?
+
+| Je veux changer… | Où ? |
+| --- | --- |
+| **Les couleurs** | `assets/css/styles.css` |
+| **Une saveur** | `/admin/` ou `content/saveurs/` |
+| **Un événement** | `/admin/` ou `content/evenements/` |
+| **Une photo de galerie** | `/admin/` ou `content/galerie/` |
+| **Réseaux sociaux, boutons (CTA), bandeau d’annonce, crédit footer** | `/admin/` → Réglages du site, ou `content/settings/site.yml` |
+| **Email affiché, liens de contact, message de succès du formulaire** | `/admin/` → Paramètres de contact, ou `content/settings/contact.yml` |
+| **La structure d’une page** | le fichier HTML de la page |
+| **Une interaction (menu, filtres, FAQ, lightbox…)** | `assets/js/main.js` |
+| **L’email qui reçoit les demandes du formulaire** | Dashboard Netlify → Forms (pas dans le site) |
+
+> ⚠️ **NE PAS MODIFIER MANUELLEMENT : `assets/js/zia-data.js`** — ce fichier est généré automatiquement par `build.js`. Toute modification manuelle sera écrasée au prochain build.
+
+---
+
+## 1. Architecture du site
+
+Le site est **statique** : pas de serveur, pas de base de données. Le principe est d’avoir **une seule source de vérité par type de donnée**.
 
 ```text
 .
@@ -27,62 +47,310 @@ Le site est conçu pour :
 ├── build.js
 ├── README.md
 ├── admin/
-│   ├── index.html
-│   └── config.yml
+│   ├── index.html          ← chargeur Decap CMS (ne pas confondre avec /index.html)
+│   └── config.yml          ← configuration du CMS
 ├── assets/
 │   ├── css/
-│   │   └── styles.css
+│   │   └── styles.css      ← TOUS les styles du site
 │   ├── js/
-│   │   ├── main.js
-│   │   └── zia-data.js
+│   │   ├── main.js         ← TOUTES les interactions + application des réglages
+│   │   └── zia-data.js     ← GÉNÉRÉ par build.js — ne jamais modifier
 │   └── images/
-│       └── uploads/
+│       └── uploads/        ← images ajoutées via le CMS
 └── content/
-    ├── evenements/
-    ├── saveurs/
-    ├── galerie/
+    ├── evenements/         ← un fichier .yml par événement
+    ├── saveurs/            ← un fichier .yml par saveur
+    ├── galerie/            ← un fichier .yml par photo (créé au premier ajout)
     └── settings/
-        ├── site.yml
-        └── contact.yml
+        ├── site.yml        ← réglages généraux
+        └── contact.yml     ← réglages de contact
 ```
+
+| Rôle | Fichier |
+| --- | --- |
+| Structure et textes propres à chaque page | les fichiers `.html` |
+| Design (couleurs, typographie, composants, responsive) | `assets/css/styles.css` |
+| Interactions et affichage des données | `assets/js/main.js` |
+| Contenus modifiables (événements, saveurs, galerie, réglages) | `content/` |
+| Interface d’édition | `/admin/` (Decap CMS) |
+| Génération des données | `build.js` |
+| Données générées | `assets/js/zia-data.js` |
+
+Les pages HTML ne contiennent **pas** de bloc `<style>` ni de gros scripts inline : le design est dans `styles.css`, le comportement dans `main.js`.
 
 ---
 
-## Fonctionnement général
+## 2. Modifier les couleurs
 
-Le site est un site statique.
-
-Les contenus modifiables sont stockés dans le dossier `content/`, puis transformés automatiquement en données JavaScript grâce au fichier `build.js`.
-
-Le fichier généré est :
+Pour changer une couleur du site :
 
 ```text
-assets/js/zia-data.js
+assets/css/styles.css
 ```
 
-Ce fichier est généré automatiquement et ne doit pas être modifié manuellement.
+Les palettes **summer** et **winter** sont définies **uniquement** dans ce fichier (variables CSS, en tête du fichier).
+
+* `content/settings/site.yml` ne fait que **choisir** le thème actif :
+
+```yml
+active_theme: summer
+```
+
+ou
+
+```yml
+active_theme: winter
+```
+
+* `main.js` se contente de poser l’attribut `data-theme` sur la page ; il ne contient aucune couleur.
+* `build.js` **ne contient plus aucune palette** de couleurs : il transmet simplement `active_theme`.
+
+Pour modifier une couleur précise, il suffit donc de changer la variable correspondante dans `styles.css`.
 
 ---
 
-## Commande de build
+## 3. Modifier les saveurs
 
-Pour générer les données du site :
+Via l’admin :
+
+```text
+/admin/ → Saveurs
+```
+
+ou directement dans :
+
+```text
+content/saveurs/
+```
+
+Champs gérables :
+
+* titre ;
+* description ;
+* catégorie ;
+* badge (optionnel) ;
+* image (optionnelle) ;
+* permanent ;
+* upcoming (prochainement) ;
+* visible ;
+* order (ordre d’affichage).
+
+Les saveurs sont **affichées dynamiquement** sur la page d’accueil (toutes les saveurs disponibles, avec filtres Sucré / Salé) et sur `nos-kurtos.html` par `main.js`. Une saveur « prochainement » (`upcoming`) n’apparaît pas sur l’accueil.
+
+> **Ne pas modifier `nos-kurtos.html` pour changer une saveur** : les saveurs n’y sont pas écrites en dur.
+
+Badges disponibles : `classique`, `gourmand`, `reconfortant`, `signature`, `sale` (ou aucun).
+
+---
+
+## 4. Modifier les événements
+
+Via l’admin :
+
+```text
+/admin/ → Événements
+```
+
+ou directement dans :
+
+```text
+content/evenements/
+```
+
+Champs : titre, date de début, date de fin, ville, lieu, catégorie, saison, description, texte et URL du lien, photo, visible, mis en avant, ordre d’affichage.
+
+Les événements sont **affichés dynamiquement** (page d’accueil et `evenements.html`).
+
+**Le prochain événement est calculé automatiquement** par `main.js` à partir des dates de début / fin et de la date du jour :
+
+* tous les événements visibles restent affichés ;
+* seul le prochain événement à venir est mis en avant : parmi les événements non terminés, celui dont la date de début est la plus proche (un événement en cours compte comme « prochain »). Le champ « ordre d’affichage » ne change pas ce calcul, il ne sert qu’à trier la liste ;
+* les événements passés et les suivants restent neutres ;
+* s’il n’y a plus aucun événement à venir, aucun « prochain » n’est affiché.
+
+> **Ne pas ajouter de champ manuel « prochain événement »** : le calcul est entièrement automatique.
+
+Si `visible` est désactivé, l’événement reste dans l’admin mais n’apparaît pas sur le site.
+
+---
+
+## 5. Galerie
+
+La galerie est gérée via l’admin :
+
+```text
+/admin/ → Galerie photos
+```
+
+Les fichiers créés sont stockés dans :
+
+```text
+content/galerie/
+```
+
+Le dossier `content/galerie/` **n’existe pas encore dans le dépôt** (aucune photo n’a été créée). Ce n’est pas un problème pour le site : `build.js` gère ce cas (la galerie et la mosaïque d’accueil affichent alors un message « Les images arrivent bientôt »), ne lit ensuite que les fichiers `.yml` / `.yaml` et ignore tout le reste (par exemple un `.gitkeep`).
+
+**Création de la première photo depuis `/admin/` — état de la vérification :**
+
+* Vérifié dans le code source de Decap CMS (paquets `decap-cms-backend-github` 3.8.3 et `decap-cms-backend-git-gateway` 3.7.3) : lister un dossier absent est prévu (l’erreur 404 est interceptée et la collection s’affiche vide), et l’enregistrement d’un fichier passe par l’API « git tree » de GitHub, qui crée les dossiers manquants ; le code ne vérifie pas l’existence préalable du dossier.
+* **Non testé en conditions réelles** (pas d’accès à un site déployé avec Netlify Identity) : à confirmer après déploiement en ajoutant une première photo depuis `/admin/` → Galerie photos, puis en vérifiant qu’un fichier apparaît dans `content/galerie/` et que la photo s’affiche sur `galerie.html` après le redéploiement.
+* Un fichier `content/galerie/.gitkeep` (vide) est possible mais pas nécessaire d’après le code de Decap ; il est sans danger si vous préférez que le dossier existe dès le départ.
+
+Les images uploadées vont dans :
+
+```text
+assets/images/uploads/
+```
+
+Format recommandé : `.webp`.
+
+Champs : titre, image, texte alternatif SEO, légende, catégorie, mise en avant, visible, ordre, date.
+
+> **Ne pas écrire les photos du CMS en dur dans `galerie.html`** : la page et la mosaïque de la page d’accueil sont remplies automatiquement par `main.js`.
+
+---
+
+## 6. Réglages généraux
+
+Via l’admin :
+
+```text
+/admin/ → Réglages du site
+```
+
+ou directement dans :
+
+```text
+content/settings/site.yml
+```
+
+Permet de modifier :
+
+* l’email général ;
+* les liens Instagram, Facebook et TikTok ;
+* le thème actif (`summer` ou `winter`) ;
+* le texte du bouton principal (CTA principal) ;
+* le texte du bouton de contact (CTA contact) ;
+* le bandeau d’annonce ;
+* le crédit du footer.
+
+Crédit footer actuel :
+
+```yml
+footer_credit_text: la-malice.ch
+footer_credit_url: https://la-malice.ch/
+```
+
+---
+
+## 7. Paramètres de contact
+
+Via l’admin :
+
+```text
+/admin/ → Paramètres de contact
+```
+
+ou directement dans :
+
+```text
+content/settings/contact.yml
+```
+
+Permet de modifier :
+
+* l’email affiché sur le site ;
+* le lien Instagram ;
+* le lien Facebook ;
+* le message de succès affiché après l’envoi du formulaire.
+
+Exemple :
+
+```yml
+contact_display_email: "info@ziakurtos.com"
+instagram_url: "https://www.instagram.com/ziakurtos/"
+facebook_url: "https://www.facebook.com/zia.kurtos/"
+success_message: "Merci beaucoup pour votre message. Nous avons bien reçu votre demande et nous réjouissons de vous répondre très bientôt."
+```
+
+Écrire l’email en clair (`info@ziakurtos.com`), **sans** syntaxe Markdown ni `mailto:`.
+
+Les valeurs de `contact.yml` sont prioritaires pour l’email et les réseaux affichés ; si l’un de ces champs est vide dans `contact.yml`, la valeur correspondante de `site.yml` est utilisée.
+
+### Email affiché ≠ email qui reçoit les demandes
+
+* **L’email affiché sur le site** (liens « nous écrire », hero, footer) se change depuis Decap CMS.
+* **L’adresse qui reçoit réellement les notifications du formulaire** (Netlify Forms) se configure **dans Netlify**, pas dans Decap :
+  1. ouvrir le projet Netlify ;
+  2. onglet **Forms** → vérifier que le formulaire `contact` est détecté ;
+  3. **Settings & webhooks → Form notifications** → ajouter une notification email ;
+  4. y saisir l’adresse qui doit recevoir les demandes.
+
+| Élément | Où le modifier ? |
+| --- | --- |
+| Email affiché sur le site | Admin Decap CMS |
+| Email qui reçoit les formulaires | Dashboard Netlify |
+| Message de succès du formulaire | Admin Decap CMS |
+| Liens Instagram / Facebook | Admin Decap CMS |
+
+---
+
+## 8. Structure des pages
+
+Pour changer la structure ou les textes propres à une page, modifier le fichier HTML correspondant :
+
+* `index.html` — accueil
+* `a-propos.html`
+* `nos-kurtos.html`
+* `evenements.html`
+* `galerie.html`
+* `faq.html`
+* `contact.html`
+
+> Attention : `/index.html` est la page d’accueil du site. `/admin/index.html` est uniquement le chargeur de Decap CMS : ne jamais les confondre.
+
+Les styles restent dans `styles.css` : un HTML n’a besoin que de choisir les bonnes classes (par exemple `page-hero--apropos`, `page-hero--evenements`, `nav-transparent`, `nav-dark`, `mobile-menu--dark`…).
+
+---
+
+## 9. Interactions
+
+Pour modifier une interaction, utiliser :
+
+```text
+assets/js/main.js
+```
+
+Il centralise notamment :
+
+* les réglages (email, réseaux, CTA, annonce, crédit footer) et le thème ;
+* le menu mobile et la barre de navigation au scroll ;
+* les animations d’apparition et le bandeau défilant ;
+* les filtres (saveurs, saisons, galerie) ;
+* l’affichage des saveurs, des événements, de la galerie et de la mosaïque d’accueil ;
+* le calcul du prochain événement et la timeline ;
+* la lightbox de la galerie ;
+* le processus en 5 étapes de `nos-kurtos.html` ;
+* la FAQ (accordéons et navigation par catégories) ;
+* le sélecteur de type d’événement et le formulaire de contact (message de succès).
+
+`main.js` fonctionne page par page : si un élément n’existe pas sur la page, la fonction correspondante ne fait simplement rien.
+
+---
+
+## 10. Build et déploiement
+
+Commande de build :
 
 ```bash
 node build.js
 ```
 
-Cette commande lit les fichiers du dossier `content/` et génère automatiquement :
+Elle lit `content/` et génère `assets/js/zia-data.js`. Aucune dépendance externe (Node.js uniquement) : il n’y a pas de `package.json` ni de `npm install`.
 
-```text
-assets/js/zia-data.js
-```
+Les textes longs peuvent être écrits normalement dans l’admin : le lecteur YAML de `build.js` comprend les valeurs repliées sur plusieurs lignes par Decap, les guillemets, les apostrophes, les accents et les « : » dans un texte.
 
----
-
-## Déploiement Netlify
-
-Paramètres recommandés sur Netlify :
+Paramètres Netlify :
 
 ```text
 Build command: node build.js
@@ -90,462 +358,143 @@ Publish directory: .
 Base directory: laisser vide
 ```
 
-À chaque déploiement, Netlify lance `node build.js`, puis publie le site.
+Chaîne de fonctionnement complète :
+
+```text
+/admin/ (la cliente modifie un contenu)
+→ fichier YAML dans content/
+→ GitHub
+→ Netlify
+→ node build.js
+→ assets/js/zia-data.js
+→ main.js
+→ site mis à jour
+```
+
+Après « Publier » dans l’admin, attendre le redéploiement Netlify (quelques instants) avant de voir le changement.
+
+`build.js` :
+
+* lit les fichiers `.yml` / `.yaml` de `content/` (tout autre fichier est ignoré) ;
+* affiche des avertissements (sans bloquer le build) si une valeur n’est pas comprise par `main.js` : catégorie ou badge de saveur inconnu, saison inconnue, date invalide, saveur en double ;
+* crée `content/settings/site.yml` et `content/settings/contact.yml` **uniquement s’ils sont absents** ;
+* ne réécrit jamais les contenus existants et n’ajoute aucun faux événement, saveur ou photo ;
+* ne contient aucune palette de couleurs.
 
 ---
 
-## Interface admin
+## 11. Interface admin (Decap CMS) et accès
 
-Le site utilise **Decap CMS** pour permettre la modification de certains contenus sans toucher au code.
-
-L’interface admin est accessible à cette adresse :
+Le site utilise **Decap CMS**, accessible à l’adresse :
 
 ```text
 /admin/
 ```
 
-Exemple :
+Configuration Netlify Identity et Git Gateway :
 
-```text
-https://votre-site.netlify.app/admin/
-```
+1. Ouvrir le projet Netlify → **Identity** → activer **Netlify Identity**.
+2. **Identity → Services** → activer **Git Gateway**.
+3. Mettre les inscriptions en mode **Invite only**.
+4. Inviter l’utilisatrice avec son email.
+5. Une fois invitée, elle accède à `/admin/`.
 
----
-
-## Configuration Netlify Identity et Git Gateway
-
-Pour activer l’admin :
-
-1. Aller dans le projet Netlify.
-2. Ouvrir **Identity**.
-3. Activer **Netlify Identity**.
-4. Aller dans **Identity > Services**.
-5. Activer **Git Gateway**.
-6. Mettre les inscriptions en mode **Invite only**.
-7. Inviter l’utilisatrice du site avec son email.
-8. Une fois invitée, elle pourra accéder à `/admin/`.
+Pour modifier un contenu : `/admin/` → se connecter → choisir la collection → modifier → **Publier**.
 
 ---
 
-## Contenus modifiables depuis l’admin
+## 12. Netlify Forms
 
-### Événements
-
-Les événements sont stockés dans :
-
-```text
-content/evenements/
-```
-
-Ils permettent d’afficher les présences de Zia Kürtös sur les festivals, marchés, événements saisonniers ou autres rendez-vous.
-
-Champs principaux :
-
-* titre ;
-* date de début ;
-* date de fin ;
-* ville ;
-* lieu ;
-* catégorie ;
-* saison ;
-* description ;
-* image ;
-* lien externe ;
-* événement mis en avant ;
-* visible ou non ;
-* ordre d’affichage.
-
----
-
-### Saveurs
-
-Les saveurs sont stockées dans :
-
-```text
-content/saveurs/
-```
-
-Elles permettent d’afficher les différents kürtős proposés.
-
-Champs principaux :
-
-* nom de la saveur ;
-* catégorie ;
-* description ;
-* image ;
-* badge optionnel ;
-* saveur permanente ;
-* prochainement disponible ;
-* visible ou non ;
-* ordre d’affichage.
-
-Catégories utilisées :
-
-```text
-sucre
-tartinage
-signature
-sale
-```
-
-Badges optionnels recommandés :
-
-```text
-classique
-gourmand
-reconfortant
-signature
-```
-
----
-
-### Galerie
-
-Les images de galerie sont stockées dans :
-
-```text
-content/galerie/
-```
-
-Elles permettent d’alimenter la page galerie, la mosaïque photo et certains aperçus visuels du site.
-
-Champs principaux :
-
-* titre ;
-* image ;
-* texte alternatif SEO ;
-* légende ;
-* catégorie ;
-* image mise en avant ;
-* visible ou non ;
-* ordre d’affichage.
-
----
-
-### Paramètres généraux du site
-
-Les paramètres généraux sont stockés dans :
-
-```text
-content/settings/site.yml
-```
-
-Ils permettent de modifier :
-
-* l’email général ;
-* les liens Instagram, Facebook et TikTok ;
-* le thème actif ;
-* les textes des boutons principaux ;
-* le bandeau d’annonce ;
-* le crédit footer.
-
-Ne pas modifier directement `assets/js/zia-data.js`. Les changements doivent être faits dans l’admin ou dans les fichiers `content/`.
-
----
-
-## Paramètres de contact
-
-Les paramètres de contact sont stockés dans :
-
-```text
-content/settings/contact.yml
-```
-
-Ils permettent de modifier :
-
-* l’email affiché sur le site ;
-* le lien Instagram ;
-* le lien Facebook ;
-* le message de succès du formulaire.
-
-Exemple :
-
-```yml
-contact_display_email: "ndombe.shanaya@gmail.com"
-instagram_url: "https://www.instagram.com/ziakurtos/"
-facebook_url: "https://www.facebook.com/zia.kurtos/"
-success_message: "Merci pour votre demande. Nous vous répondons dans les plus brefs délais."
-```
-
----
-
-## Formulaire de contact — Netlify Forms
-
-Le formulaire de contact de la page `contact.html` utilise **Netlify Forms**.
-
-Lorsqu’une personne remplit le formulaire, les informations sont envoyées à Netlify et apparaissent dans l’onglet **Forms** du projet Netlify.
-
-Le formulaire permet de recevoir des demandes pour :
-
-* inviter Zia Kürtös à un événement ;
-* poser une question générale ;
-* proposer une collaboration ;
-* faire une demande presse ou partenariat.
-
----
-
-## Email affiché sur le site
-
-L’email affiché sur le site peut être modifié depuis l’interface admin Decap CMS.
-
-Chemin dans l’admin :
-
-```text
-Paramètres de contact
-```
-
-Champ à modifier :
-
-```text
-Email affiché sur le site
-```
-
-Ce champ modifie les liens `mailto:` et l’email visible sur la page contact et dans le footer.
-
-Par défaut, l’email de test est :
-
-```text
-ndombe.shanaya@gmail.com
-```
-
----
-
-## Email qui reçoit les formulaires
-
-Attention : l’email affiché sur le site et l’email qui reçoit les formulaires ne sont pas forcément la même chose.
-
-Avec Netlify Forms, l’email de réception des notifications doit être configuré directement dans le dashboard Netlify.
-
-Pour configurer l’email de réception :
-
-1. Aller dans le projet Netlify.
-2. Ouvrir l’onglet **Forms**.
-3. Vérifier que le formulaire `contact` est bien détecté.
-4. Aller dans les paramètres de notification du formulaire.
-5. Ajouter une notification email.
-6. Pour le test, utiliser :
-
-```text
-ndombe.shanaya@gmail.com
-```
-
-7. Plus tard, remplacer cet email par l’adresse finale de Zia Kürtös si nécessaire.
-
----
-
-## Différence importante entre les emails
-
-| Élément                          | Où le modifier ?  |
-| -------------------------------- | ----------------- |
-| Email affiché sur le site        | Admin Decap CMS   |
-| Email qui reçoit les formulaires | Dashboard Netlify |
-| Message de succès du formulaire  | Admin Decap CMS   |
-| Liens Instagram / Facebook       | Admin Decap CMS   |
-
----
-
-## Test du formulaire
-
-Après chaque modification importante :
-
-1. Déployer le site sur Netlify.
-2. Ouvrir la page :
-
-```text
-/contact.html
-```
-
-3. Remplir le formulaire avec une adresse email de test.
-4. Envoyer le formulaire.
-5. Vérifier que le message de succès s’affiche.
-6. Vérifier que la soumission apparaît dans **Netlify > Forms**.
-7. Vérifier que l’email de notification est bien reçu.
-
----
-
-## Note technique sur Netlify Forms
-
-Le formulaire doit rester présent directement dans le fichier :
+Le formulaire de contact utilise **Netlify Forms** et doit rester **physiquement dans** :
 
 ```text
 contact.html
 ```
 
-Il ne doit pas être généré uniquement en JavaScript, sinon Netlify risque de ne pas le détecter correctement au moment du build.
+Il ne doit pas être généré en JavaScript, sinon Netlify ne le détecte pas au build.
 
-Le champ email du visiteur doit garder :
+**Ne jamais supprimer ni renommer, sans vérifier, ces éléments :**
 
-```html
-name="email"
-```
+* `data-netlify="true"` sur le `<form>` ;
+* `<input type="hidden" name="form-name" value="contact">` ;
+* le honeypot (`netlify-honeypot="bot-field"` et le champ `bot-field`) ;
+* `name="email"` sur le champ email du visiteur (permet de répondre directement à la personne).
 
-Cela permet de faciliter la réponse directe à la personne qui a rempli le formulaire.
+Test après toute modification importante :
+
+1. déployer ;
+2. ouvrir `/contact.html` et envoyer une demande avec une adresse de test ;
+3. vérifier que le message de succès s’affiche ;
+4. vérifier que la soumission apparaît dans **Netlify → Forms** ;
+5. vérifier que l’email de notification est bien reçu.
 
 ---
 
-## Images
+## 13. Images
 
-Les images ajoutées depuis l’admin sont stockées dans :
+Dossier des images ajoutées via le CMS :
 
 ```text
 assets/images/uploads/
 ```
 
-Formats recommandés :
-
-```text
-.webp
-.jpg
-.png
-```
-
 Recommandations :
 
-* privilégier `.webp` pour les performances ;
-* compresser les images avant upload ;
-* utiliser des noms de fichiers clairs ;
-* éviter les accents et espaces dans les noms de fichiers.
+* format `.webp` (performances) ;
+* noms en **minuscules**, **descriptifs**, **sans accents**, **sans espaces** ;
+* compresser les images avant l’envoi.
 
-Exemple :
+Exemples :
 
 ```text
-zia-kurtos-montreux-jazz.webp
+zia-kurtos-stand-preparation.webp
 kurtos-sucre-cannelle.webp
-stand-zia-kurtos-festival.webp
+kurtos-creme-pistache.webp
+zia-kurtos-montreux-jazz.webp
 ```
 
 ---
 
-## Modifier les contenus
+## 14. Compatibilité admin / YAML / main.js
 
-Pour modifier un contenu :
+Les valeurs techniques enregistrées dans les YAML doivent rester **compatibles avec `main.js`**. Le CMS ne doit pas proposer de valeur que `main.js` ne sait pas afficher.
 
-1. Aller sur `/admin/`.
-2. Se connecter.
-3. Choisir la collection souhaitée :
+### Catégories de saveurs
 
-   * Événements ;
-   * Saveurs ;
-   * Galerie ;
-   * Paramètres du site ;
-   * Paramètres de contact.
-4. Modifier le contenu.
-5. Cliquer sur **Publier**.
-6. Attendre le redéploiement Netlify.
+Valeurs techniques (sans accents) proposées par le CMS et affichage public :
 
----
+| Valeur dans le YAML | Affichage public |
+| --- | --- |
+| `sucre` | Sucré |
+| `tartinage` | Sucré |
+| `signature` | Sucré |
+| `sale` | Salé |
 
-## Ajouter un événement
+Côté public, les filtres se limitent à **Sucré / Salé**. Les catégories internes `tartinage` et `signature` restent compatibles (elles sont utilisées par les saveurs existantes) et s’affichent simplement comme « Sucré ».
 
-Dans l’admin :
+Badges possibles (optionnels) : `classique`, `gourmand`, `reconfortant`, `signature`, `sale`.
 
-```text
-Événements > Nouveau
-```
+### Saisons des événements
 
-Remplir les champs nécessaires :
+Les saisons concernent uniquement les **événements** (pas les saveurs) :
 
-* titre ;
-* dates ;
-* ville ;
-* lieu ;
-* catégorie ;
-* description ;
-* image ;
-* saison ;
-* visible ;
-* mis en avant ;
-* ordre d’affichage.
+| Valeur dans le YAML | Affichage |
+| --- | --- |
+| `printemps` | Printemps |
+| `ete` | Été |
+| `automne` | Automne |
+| `hiver` | Hiver |
+| `annuel` | Annuel |
 
-Si `visible` est désactivé, l’événement reste dans l’admin mais n’apparaît pas sur le site.
+`main.js` ignore les accents et la casse pour comparer catégories, saisons et filtres : `ete` (CMS) et « été » (filtre du HTML) se correspondent.
 
----
+### Autres valeurs
 
-## Ajouter une saveur
+* Catégories d’événements : `festival`, `marche`, `marche de Noel`, `food festival`, `evenement prive`, `fete communale`, `autre`.
+* Catégories de galerie : `cuisson`, `saveurs`, `stand`, `evenements`, `ete`, `hiver`, `Montreux Jazz`, `Montreux Noel`, `autres`.
+* Thème : `summer` ou `winter`.
 
-Dans l’admin :
-
-```text
-Saveurs > Nouveau
-```
-
-Remplir les champs nécessaires :
-
-* titre ;
-* catégorie ;
-* description ;
-* image optionnelle ;
-* badge optionnel ;
-* prochainement disponible ;
-* visible ;
-* ordre d’affichage.
-
-Si `prochainement disponible` est activé, la saveur peut être affichée comme saveur à venir selon le design prévu.
-
----
-
-## Ajouter une image à la galerie
-
-Dans l’admin :
-
-```text
-Galerie > Nouveau
-```
-
-Remplir les champs :
-
-* titre ;
-* image ;
-* texte alternatif ;
-* légende ;
-* catégorie ;
-* visible ;
-* mise en avant ;
-* ordre d’affichage.
-
-Le texte alternatif est important pour le référencement et l’accessibilité.
-
----
-
-## Fichiers à ne pas modifier manuellement
-
-Ne pas modifier manuellement :
-
-```text
-assets/js/zia-data.js
-```
-
-Ce fichier est généré automatiquement par :
-
-```text
-build.js
-```
-
-Toute modification faite directement dans `zia-data.js` sera écrasée au prochain build.
-
----
-
-## Fichiers principaux à modifier si nécessaire
-
-### Style du site
-
-```text
-assets/css/styles.css
-```
-
-### Interactions JavaScript
-
-```text
-assets/js/main.js
-```
-
-### Génération des données
-
-```text
-build.js
-```
-
-### Configuration admin
+Configuration du CMS :
 
 ```text
 admin/config.yml
@@ -553,57 +502,40 @@ admin/config.yml
 
 ---
 
-## Vérification avant mise en ligne
+## 15. Fichiers à ne pas modifier manuellement
 
-Avant de livrer le site :
+**NE PAS MODIFIER MANUELLEMENT :**
 
-* vérifier toutes les pages sur mobile ;
-* vérifier les liens du menu ;
-* vérifier les liens Instagram/Facebook/TikTok ;
-* vérifier le formulaire de contact ;
-* vérifier les images ;
-* vérifier les textes SEO ;
-* vérifier que `node build.js` fonctionne ;
-* vérifier que `assets/js/zia-data.js` est bien généré ;
-* vérifier que les contenus admin apparaissent correctement sur le site.
+```text
+assets/js/zia-data.js
+```
+
+Ce fichier est généré par `build.js` à chaque build. Toute modification directe sera écrasée. Pour changer les données affichées, passer par `/admin/` ou par les fichiers de `content/`.
 
 ---
 
-## Commandes utiles
+## 16. Vérification avant mise en ligne
 
-Générer les données :
-
-```bash
-node build.js
-```
-
-Vérifier rapidement que le fichier généré existe :
-
-```bash
-ls assets/js/zia-data.js
-```
+* lancer `node build.js` et vérifier qu’il se termine sans erreur ;
+* vérifier que `assets/js/zia-data.js` est bien régénéré ;
+* vérifier les 7 pages sur ordinateur et mobile ;
+* vérifier les liens du menu, les CTA, le footer et les réseaux ;
+* vérifier que les saveurs, les événements et la galerie s’affichent depuis le CMS ;
+* tester le formulaire de contact (voir section Netlify Forms) ;
+* vérifier les images et les textes SEO.
 
 ---
 
-## Notes pour la maintenance
+## 17. Notes de maintenance
 
-Pour garder le site propre :
-
-* ajouter les contenus depuis l’admin dès que possible ;
-* éviter de modifier directement les données générées ;
+* privilégier `/admin/` pour toutes les modifications courantes ;
+* ne jamais éditer les données générées ;
 * garder des noms d’images propres ;
-* tester le formulaire après chaque changement important ;
-* ne pas donner accès à Netlify à une personne non technique sauf nécessité ;
-* privilégier l’admin Decap pour les modifications courantes.
+* ne pas remettre de gros blocs `<style>` dans les pages HTML : tout le design va dans `assets/css/styles.css` ;
+* ne pas donner accès à Netlify à une personne non technique sauf nécessité.
 
 ---
 
 ## Crédit
 
-Site créé par **Web On It !**
-
-Instagram :
-
-```text
-https://www.instagram.com/web.onit/
-```
+Site réalisé par **la-malice.ch** — <https://la-malice.ch/>

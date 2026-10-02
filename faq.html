@@ -1,11 +1,3 @@
-<!-- ══════════════════════════════════════════════════════════════
-     faq.html — VERSION CORRIGÉE
-     Changements vs déployé :
-     ① Q1 : suppression "pâte levée"
-     ② Q10 allergènes : retrait des œufs, ajout "ne contient pas d'œuf"
-     ③ Ajout Q0 "Qui est derrière Zia Kürtös ?" (avant Q1)
-     ④ Footer : la-malice.ch (static + id="footerCredit")
-     ══════════════════════════════════════════════════════════════ -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,132 +13,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
-<style>
-:root{--creme:#FFF6E8;--beige:#EAD7B7;--dore:#D89B28;--caramel:#B66A2C;--brun:#4A2B1A;--sapin:#173F35;--rouge:#A6422A;--rouge2:#7F2F20;--blanc:#FFFBF3;--texte:#2C1810;--gris:#6B4435}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--creme);color:var(--texte);overflow-x:hidden}
-h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.15}
-h1{font-size:clamp(2.4rem,5.5vw,4.8rem);font-weight:900}
-h2{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700}
-p{line-height:1.78}em{font-style:italic}
-.btn{display:inline-block;padding:.88rem 2.1rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.07em;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:all .28s ease;border:2px solid transparent}
-.btn-primary{background:var(--rouge);color:var(--blanc);border-color:var(--rouge)}
-.btn-primary:hover{background:var(--rouge2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(166,66,42,.3)}
-.btn-ghost{background:transparent;color:var(--blanc);border-color:rgba(255,246,232,.4)}
-.btn-ghost:hover{background:rgba(255,246,232,.1);transform:translateY(-3px)}
-.announcement{background:var(--dore);color:var(--brun);text-align:center;padding:.6rem 2rem;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:none}
-.announcement.visible{display:block}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(255,246,232,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(182,106,44,.1);transition:box-shadow .3s,padding .3s}
-nav.scrolled{box-shadow:0 4px 28px rgba(74,43,26,.1);padding:.7rem 5%}
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--brun);text-decoration:none}
-.nav-logo span{color:var(--rouge)}
-.nav-links{display:flex;gap:2.2rem;list-style:none}
-.nav-links a{text-decoration:none;color:var(--brun);font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;position:relative;transition:color .2s}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--rouge);transition:width .25s;border-radius:1px}
-.nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--rouge)}
-.nav-links a:hover::after,.nav-links a[aria-current="page"]::after{width:100%}
-.nav-cta-btn{padding:.6rem 1.5rem;font-size:.75rem}
-.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.burger span{width:24px;height:2px;background:var(--brun);border-radius:2px;display:block}
-.mobile-menu{display:none;position:fixed;inset:0;background:var(--creme);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:2rem;padding:2rem}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--brun);text-decoration:none}
-.mobile-menu a:hover{color:var(--rouge)}
-.mobile-menu-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;color:var(--brun)}
-/* page hero */
-.page-hero{min-height:62vh;background:var(--brun);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:calc(72px + 3.5rem) 8% 4.5rem;position:relative;overflow:hidden}
-.hero-noise{position:absolute;inset:0;opacity:.4;pointer-events:none;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
-.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(216,155,40,.12) 0%,transparent 65%);top:-15%;right:-5%;pointer-events:none}
-.hero-deco{position:absolute;font-family:'Playfair Display',serif;font-size:clamp(10rem,25vw,22rem);font-weight:900;color:rgba(255,246,232,.03);right:5%;bottom:-2rem;pointer-events:none;user-select:none}
-.ph-label{display:inline-flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--dore);margin-bottom:2rem;padding:.35rem 1rem;border:1px solid rgba(216,155,40,.3);border-radius:2px}
-.ph-dot{width:5px;height:5px;background:var(--dore);border-radius:50%;animation:blink 2s ease infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.page-hero h1{color:var(--blanc);position:relative;z-index:1}
-.page-hero h1 em{color:var(--dore)}
-.page-hero-sub{color:rgba(255,246,232,.55);font-size:1rem;max-width:500px;margin-top:1.2rem;line-height:1.75;position:relative;z-index:1}
-.hero-quick{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;position:relative;z-index:1}
-.hero-quick-pill{font-size:.7rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,246,232,.45);background:rgba(255,246,232,.06);padding:.32rem .9rem;border-radius:20px;border:1px solid rgba(255,246,232,.1);cursor:pointer;transition:all .2s;text-decoration:none}
-.hero-quick-pill:hover{background:rgba(216,155,40,.12);border-color:rgba(216,155,40,.3);color:var(--dore)}
-/* marquee */
-.marquee-bar-caramel{background:var(--caramel);padding:.75rem 0;overflow:hidden;width:100%;max-width:100vw}
-.marquee-track{display:flex;flex-wrap:nowrap;width:max-content;animation:mq 28s linear infinite;will-change:transform}
-.marquee-bar-caramel:hover .marquee-track{animation-play-state:paused}
-.marquee-item{white-space:nowrap;flex-shrink:0;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blanc);padding:0 2.5rem;display:inline-flex;align-items:center;gap:1.5rem}
-.marquee-sep{width:3px;height:3px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
-@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-/* cat nav */
-.cat-nav{background:var(--blanc);padding:1.5rem 5%;border-bottom:1px solid rgba(182,106,44,.1);position:sticky;top:72px;z-index:100}
-.cat-nav-inner{max-width:1000px;margin:0 auto;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
-.cat-nav-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--caramel);margin-right:.5rem}
-.cat-pill{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.35rem 1.1rem;border-radius:20px;border:1.5px solid rgba(182,106,44,.15);background:transparent;color:var(--gris);cursor:pointer;transition:all .2s;text-decoration:none}
-.cat-pill:hover,.cat-pill.active{background:var(--dore);border-color:var(--dore);color:var(--brun)}
-/* faq */
-.faq-section{background:var(--blanc);padding:4rem 5% 5rem}
-.faq-section .container{max-width:1000px;margin:0 auto}
-.faq-group{margin-bottom:3.5rem}
-.faq-group-title{font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--caramel);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid rgba(182,106,44,.1);display:flex;align-items:center;gap:.7rem}
-.faq-item{border:1px solid rgba(182,106,44,.12);border-radius:3px;margin-bottom:.8rem;overflow:hidden;transition:border-color .25s;background:var(--creme)}
-.faq-item.open{border-color:rgba(216,155,40,.4)}
-.faq-q{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.4rem 1.5rem;cursor:pointer;background:transparent;border:none;width:100%;text-align:left;transition:background .2s}
-.faq-q:hover{background:rgba(216,155,40,.04)}
-.faq-item.open .faq-q{background:rgba(216,155,40,.06)}
-.faq-q-text{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--brun);line-height:1.3;flex:1}
-.faq-q-num{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--dore);flex-shrink:0;width:24px}
-.faq-icon{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(182,106,44,.2);display:flex;align-items:center;justify-content:center;transition:all .3s;color:var(--caramel)}
-.faq-item.open .faq-icon{background:var(--dore);border-color:var(--dore);color:var(--brun);transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
-.faq-item.open .faq-a{max-height:600px}
-.faq-a-inner{padding:0 1.5rem 1.5rem 4rem}
-.faq-a-inner p{font-size:.92rem;color:var(--gris);line-height:1.8;margin-bottom:.8rem}
-.faq-a-inner p:last-child{margin-bottom:0}
-.faq-a-inner a{color:var(--rouge);text-decoration:none;font-weight:600}
-.faq-a-inner a:hover{text-decoration:underline}
-.faq-a-inner ul{padding-left:1.2rem;margin-top:.5rem}
-.faq-a-inner ul li{font-size:.9rem;color:var(--gris);line-height:1.7;margin-bottom:.3rem}
-/* faq cta */
-.faq-cta{background:var(--sapin);padding:5rem 5%;text-align:center;position:relative;overflow:hidden}
-.faq-cta::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(216,155,40,.03) 0,rgba(216,155,40,.03) 1px,transparent 0,transparent 18px)}
-.faq-cta>*{position:relative;z-index:1}
-.faq-cta h2{color:var(--blanc);margin-bottom:.8rem}
-.faq-cta p{color:rgba(255,246,232,.6);max-width:420px;margin:0 auto 2rem;font-size:.95rem}
-.faq-cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-.faq-cta-email{font-size:.85rem;color:rgba(255,246,232,.45);margin-top:1.2rem}
-.faq-cta-email a{color:var(--dore);text-decoration:none;font-weight:600}
-/* related */
-.related-section{background:var(--creme);padding:4rem 5%}
-.related-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
-.related-card{background:var(--blanc);border-radius:3px;border:1px solid rgba(182,106,44,.12);padding:1.5rem 1.3rem;text-decoration:none;display:block;transition:all .28s}
-.related-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(74,43,26,.08);border-color:rgba(182,106,44,.25)}
-.related-card-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--caramel);margin-bottom:.5rem;display:block}
-.related-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--brun);margin-bottom:.4rem}
-.related-card p{font-size:.8rem;color:var(--gris);line-height:1.55}
-.related-card-arrow{display:inline-flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;color:var(--rouge);text-transform:uppercase;letter-spacing:.06em;margin-top:.8rem;transition:gap .2s}
-.related-card:hover .related-card-arrow{gap:.7rem}
-/* footer */
-footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
-.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2.5fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
-.footer-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--blanc);text-decoration:none;display:block;margin-bottom:.9rem}
-.footer-logo span{color:var(--dore)}
-.footer-brand p{font-size:.84rem;line-height:1.7;max-width:290px}
-.footer-socials{display:flex;gap:.8rem;margin-top:1.5rem}
-.footer-socials a{width:38px;height:38px;border-radius:2px;border:1px solid rgba(255,246,232,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,246,232,.4);text-decoration:none;transition:all .2s}
-.footer-socials a:hover{border-color:var(--dore);color:var(--dore)}
-[data-tiktok]{display:none}
-.footer-col h4{font-family:'DM Sans',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dore);margin-bottom:1.2rem}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
-.footer-col ul a{text-decoration:none;color:rgba(255,246,232,.45);font-size:.84rem;transition:color .2s}
-.footer-col ul a:hover{color:var(--blanc)}
-.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,246,232,.07);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:.75rem;flex-wrap:wrap;gap:.8rem}
-.footer-credit a{color:rgba(255,246,232,.4);text-decoration:none;transition:color .2s}
-.footer-credit a:hover{color:var(--dore)}
-/* reveal */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.marquee-track{animation:none}}
-@media(max-width:960px){.related-inner{grid-template-columns:1fr 1fr}.cat-nav{top:60px}.nav-links,.nav-cta-wrap{display:none}.burger{display:flex}}
-@media(max-width:620px){.faq-section{padding:3rem 5% 4rem}.page-hero{padding:calc(72px + 2rem) 6% 3.5rem}.related-inner{grid-template-columns:1fr}.faq-a-inner{padding-left:2.5rem}.footer-inner{grid-template-columns:1fr}.footer-bottom{flex-direction:column;text-align:center}}
-</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
   {"@type":"Organization","@id":"https://ziakurtos.com/#org","name":"Zia Kürtös","url":"https://ziakurtos.com","email":"info@ziakurtos.com"},
@@ -168,7 +34,7 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
 <div id="announcement" class="announcement" role="alert" aria-live="polite"></div>
 
 <nav id="navbar" role="navigation" aria-label="Navigation principale">
-  <a href="index.html" class="nav-logo">Zia <span>Kürtös</span></a>
+  <a href="index.html" class="nav-logo logo-box" data-logo-box><img class="logo-img" src="assets/images/logo.webp" alt="Zia Kürtös" onload="imgFallback(this)" onerror="imgFallback(this)"><span class="logo-text">Zia <span>Kürtös</span></span></a>
   <ul class="nav-links" role="list">
     <li><a href="a-propos.html">À propos</a></li>
     <li><a href="nos-kurtos.html">Nos Kürtös</a></li>
@@ -197,7 +63,7 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   <a href="contact.html" class="btn btn-primary" data-cta-contact>Inviter Zia Kürtös</a>
 </div>
 
-<header class="page-hero" role="banner">
+<header class="page-hero page-hero--faq" role="banner">
   <div class="hero-noise" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
   <span class="hero-deco" aria-hidden="true">?</span>
@@ -263,7 +129,7 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
         </div>
       </article>
 
-      <!-- ② Q2 — Qu'est-ce qu'un kürtős ? (suppression "pâte levée") -->
+      <!-- ② Q2 — Qu'est-ce qu'un kürtős ? -->
       <article class="faq-item">
         <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
           <span class="faq-q-num" aria-hidden="true">2</span>
@@ -488,7 +354,7 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="index.html" class="footer-logo">Zia <span>Kürtös</span></a>
+      <a href="index.html" class="footer-logo logo-box" data-logo-box><img class="logo-img" src="assets/images/logo.webp" alt="Zia Kürtös" onload="imgFallback(this)" onerror="imgFallback(this)"><span class="logo-text">Zia <span>Kürtös</span></span></a>
       <p>Kürtős artisanaux, chimney cakes cuits à la broche sur les festivals et marchés de Suisse romande.</p>
       <div class="footer-socials">
         <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-instagram><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
@@ -528,24 +394,6 @@ footer{background:var(--brun);padding:4rem 5% 2rem;color:rgba(255,246,232,.45)}
   </div>
 </footer>
 
-<script>
-function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(i => {
-    i.classList.remove('open');
-    i.querySelector('.faq-q').setAttribute('aria-expanded','false');
-  });
-  if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
-}
-const _groups = { produit: document.getElementById('produit'), 'evenements-faq': document.getElementById('evenements-faq'), pratique: document.getElementById('pratique') };
-const _pills = document.querySelectorAll('.cat-pill');
-window.addEventListener('scroll', () => {
-  let active = 'produit';
-  Object.entries(_groups).forEach(([k,el]) => { if (el && el.getBoundingClientRect().top < 200) active = k; });
-  _pills.forEach(p => p.classList.toggle('active', p.getAttribute('href') === '#' + active));
-}, { passive: true });
-</script>
 <script src="assets/js/zia-data.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>

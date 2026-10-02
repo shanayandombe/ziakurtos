@@ -136,6 +136,8 @@ collections:
             value: reconfortant
           - label: Signature
             value: signature
+          - label: Sale
+            value: sale
       - label: Saveur permanente
         name: permanent
         widget: boolean
@@ -258,35 +260,30 @@ collections:
           - label: Mention du createur du site
             name: footer_credit_text
             widget: string
-            default: Site cree par Web On It
+            default: la-malice.ch
           - label: Lien du createur
             name: footer_credit_url
             widget: string
-            default: https://www.instagram.com/web.onit/
-
-    # ── À AJOUTER dans la liste "collections:" de admin/config.yml,
-#    en plus des collections existantes (evenements, saveurs, galerie, settings) ──
+            default: https://la-malice.ch/
 
   - name: "contact_settings"
-    label: "Paramètres de contact"
+    label: "Parametres de contact"
     files:
-      - label: "Contact & réseaux"
+      - label: "Contact & reseaux"
         name: contact
         file: "content/settings/contact.yml"
         fields:
-          - label: "Email affiché sur le site"
+          - label: "Email affiche sur le site"
             name: contact_display_email
             widget: string
-            hint: "Cet email s'affiche dans le hero, le footer et les liens 'nous écrire'. ⚠️ Cela ne change PAS l'adresse qui reçoit les messages du formulaire — celle-ci se configure uniquement dans le dashboard Netlify (onglet Forms > Notifications)."
+            hint: "Cet email s'affiche dans le hero, le footer et les liens 'nous ecrire'. Cela ne change PAS l'adresse qui recoit les messages du formulaire — celle-ci se configure uniquement dans le dashboard Netlify (onglet Forms > Notifications)."
           - label: "URL Instagram"
             name: instagram_url
             widget: string
           - label: "URL Facebook"
             name: facebook_url
             widget: string
-          - label: "Message de succès après envoi du formulaire"
+          - label: "Message de succes apres envoi du formulaire"
             name: success_message
             widget: string
-            hint: "Affiché au visiteur juste après l'envoi de sa demande de contact."
-
-
+            hint: "Affiche au visiteur juste apres l'envoi de sa demande de contact."

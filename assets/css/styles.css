@@ -117,11 +117,6 @@ a  { color: inherit; }
 .text-light  { color: rgba(255,246,232,.6); }
 .text-sm     { font-size: .88rem; }
 .text-xs     { font-size: .78rem; }
-.ph-text {
-  font-size: .62rem; letter-spacing: .08em; text-transform: uppercase;
-  color: rgba(74,43,26,.25); font-weight: 500; text-align: center; padding: 0 1rem;
-  position: relative; z-index: 1;
-}
 .empty-state {
   text-align: center; padding: 4rem 2rem; grid-column: 1 / -1;
 }
@@ -129,9 +124,15 @@ a  { color: inherit; }
   font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700;
   margin-bottom: .8rem; color: var(--blanc);
 }
-.empty-state p { font-size: .95rem; color: rgba(255,255,255,.5); line-height: 1.75; margin-bottom: 1.5rem; }
-.empty-state--light h3 { color: var(--texte); }
-.empty-state--light p  { color: var(--gris); }
+.empty-state p  { font-size: .95rem; color: rgba(255,255,255,.5); line-height: 1.75; margin-bottom: 1.5rem; }
+.empty-state .btn { margin-top: .5rem; }
+
+/* Variante fond clair */
+.empty-state--light h3  { color: var(--texte); }
+.empty-state--light p   { color: var(--gris); }
+
+/* Icône SVG centrée dans les états vides (injectée par main.js) */
+.empty-state-icon { margin: 0 auto 1.5rem; display: block; opacity: .35; }
 @keyframes blink    { 0%,100%{opacity:1} 50%{opacity:.3} }
 @keyframes blink-dot{ 0%,100%{opacity:1} 50%{opacity:.3} }
 
@@ -181,10 +182,19 @@ nav.nav-transparent.scrolled {
 .nav-logo {
   font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 900;
   color: var(--brun); text-decoration: none; transition: color .3s;
+  display: flex; align-items: center; gap: .65rem;
 }
 nav.nav-transparent .nav-logo { color: var(--blanc); }
 nav.nav-transparent.scrolled .nav-logo { color: var(--brun); }
 .nav-logo span { color: var(--dore); }
+
+/* Logo image + texte affichés ensemble (image à gauche, texte "Zia Kürtös" à
+   droite). Si le fichier venait à manquer, seul le texte reste affiché — voir
+   imgFallback() dans main.js. [data-logo-box] se comporte à l'inverse de
+   [data-img-box] : au lieu de masquer tout le bloc, seule l'image en échec
+   est cachée ; le lien et son texte restent donc toujours visibles. */
+.logo-box .logo-img  { height: 3rem; width: auto; display: block; }
+.logo-box.is-missing .logo-img { display: none; }
 
 .nav-links { display: flex; gap: 2.2rem; list-style: none; }
 .nav-links a {
@@ -215,6 +225,19 @@ nav.nav-transparent .nav-links a:hover { color: var(--blanc); }
 }
 nav.nav-transparent .burger span { background: var(--blanc); }
 nav.nav-transparent.scrolled .burger span { background: var(--brun); }
+
+/* Nav toujours sombre (galerie : fond brun sur toute la page, jamais de fond clair) */
+nav.nav-dark {
+  background: rgba(74,43,26,.97);
+  backdrop-filter: blur(12px);
+  border-bottom-color: rgba(216,155,40,.15);
+}
+nav.nav-dark.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,.3); }
+nav.nav-dark .nav-logo { color: var(--blanc); }
+nav.nav-dark .nav-links a { color: rgba(255,246,232,.65); }
+nav.nav-dark .nav-links a:hover,
+nav.nav-dark .nav-links a[aria-current="page"] { color: var(--blanc); }
+nav.nav-dark .burger span { background: var(--blanc); }
 
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -357,9 +380,11 @@ footer {
 }
 .footer-logo {
   font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900;
-  color: var(--blanc); text-decoration: none; display: block; margin-bottom: .9rem;
+  color: var(--blanc); text-decoration: none; margin-bottom: .9rem;
+  display: flex; align-items: center; gap: .65rem;
 }
 .footer-logo span { color: var(--dore); }
+.footer-logo .logo-img { height: 3.4rem; }
 .footer-brand p   { font-size: .84rem; line-height: 1.7; max-width: 290px; }
 
 .footer-socials { display: flex; gap: .8rem; margin-top: 1.5rem; }
@@ -599,6 +624,19 @@ section { padding: 7rem 5%; }
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
 }
 
+/* Fallback générique image manquante — voir imgFallback() dans main.js.
+   Tout conteneur [data-img-box] se masque proprement (jamais de cadre vide
+   ni de chemin de fichier visible) tant que son image ne charge pas, et
+   réapparaît automatiquement dès que le fichier existe au même chemin. */
+[data-img-box].is-missing { display: none; }
+
+.presence-strip-inner:has(.presence-img.is-missing) { grid-template-columns: 1fr; }
+.stand-inner:has(.stand-visual.is-missing)           { grid-template-columns: 1fr; }
+.univers-inner:has(.univers-img.is-missing)          { grid-template-columns: 1fr; }
+.qui-inner:has(.qui-img.is-missing)                  { grid-template-columns: 1fr; }
+.org-inner:has(.org-visual.is-missing)               { grid-template-columns: 1fr; }
+.tl-detail:has(.tl-detail-img.is-missing)            { grid-template-columns: 1fr; }
+
 
 /* ══════════════════════════════════════════════════════════════════════════
    13. HOME — index.html
@@ -609,6 +647,8 @@ section { padding: 7rem 5%; }
   min-height: 100vh; background: var(--brun);
   display: flex; flex-direction: column; justify-content: center;
   padding: calc(72px + 3rem) 8% 4rem; position: relative; overflow: hidden;
+  background-image: linear-gradient(135deg, rgba(20,12,6,.7), rgba(20,12,6,.5)), url('../images/hero-home.webp');
+  background-size: cover; background-position: center;
 }
 .hero-grid {
   position: absolute; inset: 0; pointer-events: none;
@@ -756,6 +796,8 @@ section { padding: 7rem 5%; }
 .page-hero--apropos {
   min-height: 92vh;
   padding: 8rem 8% 5rem;
+  background-image: linear-gradient(135deg, rgba(20,12,6,.7), rgba(20,12,6,.5)), url('../images/hero-a-propos.webp');
+  background-size: cover; background-position: center;
 }
 .hero-bg-glow2 {
   position: absolute; width: 400px; height: 400px; border-radius: 50%;
@@ -852,7 +894,6 @@ blockquote em { color: var(--dore); }
 .img-strip-item:hover { flex: 2; }
 .img-strip-item-label { position: absolute; bottom: 1rem; left: 0; right: 0; text-align: center; font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,246,232,.4); font-weight: 600; opacity: 0; transform: translateY(6px); transition: all .3s; }
 .img-strip-item:hover .img-strip-item-label { opacity: 1; transform: translateY(0); }
-.img-ph { font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,246,232,.2); font-weight: 500; text-align: center; padding: 0 .8rem; position: relative; z-index: 1; }
 
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -863,6 +904,13 @@ blockquote em { color: var(--dore); }
 .page-hero--nos-kurtos {
   min-height: 80vh;
   padding: calc(72px + 4rem) 8% 5rem;
+  background-image: linear-gradient(135deg, rgba(20,12,6,.7), rgba(20,12,6,.5)), url('../images/hero-nos-kurtos.webp');
+  background-size: cover; background-position: center;
+}
+.hero-bg-glow {
+  position: absolute; width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(216,155,40,.13) 0%, transparent 65%);
+  top: -15%; right: -10%; pointer-events: none;
 }
 .hero-stats          { display: flex; gap: 2.5rem; margin-top: 2.5rem; flex-wrap: wrap; }
 .hero-stat           { border-left: 2px solid rgba(216,155,40,.3); padding-left: 1.2rem; }
@@ -913,6 +961,8 @@ blockquote em { color: var(--dore); }
   min-height: 85vh;
   padding: calc(72px + 4rem) 8% 5rem;
   background: var(--sapin);
+  background-image: linear-gradient(135deg, rgba(20,12,6,.7), rgba(20,12,6,.5)), url('../images/hero-evenements.webp');
+  background-size: cover; background-position: center;
 }
 .page-hero--evenements .page-hero-sub { max-width: 580px; }
 .hero-grid-deco { position: absolute; inset: 0; background-image: linear-gradient(rgba(216,155,40,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(216,155,40,.04) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
@@ -994,6 +1044,8 @@ blockquote em { color: var(--dore); }
   min-height: 60vh;
   padding: calc(72px + 3rem) 8% 4rem;
   background: var(--brun);
+  background-image: linear-gradient(135deg, rgba(20,12,6,.7), rgba(20,12,6,.5)), url('../images/hero-galerie.webp');
+  background-size: cover; background-position: center;
 }
 
 /* Grille masonry */
@@ -1043,6 +1095,8 @@ blockquote em { color: var(--dore); }
 /* Stats galerie */
 .stats-strip--galerie { background: rgba(255,246,232,.04); border-top: 1px solid rgba(255,246,232,.06); border-bottom: 1px solid rgba(255,246,232,.06); padding: 2.5rem 5%; }
 .stats-strip--galerie .stats-inner { max-width: 800px; }
+.stats-strip--galerie .stat-val    { font-size: 2.2rem; }
+.stats-strip--galerie .stat-label  { font-size: .7rem; letter-spacing: .1em; }
 
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -1053,6 +1107,8 @@ blockquote em { color: var(--dore); }
 .page-hero--faq {
   min-height: 62vh;
   padding: calc(72px + 3.5rem) 8% 4.5rem;
+  background-image: linear-gradient(135deg, rgba(20,12,6,.7), rgba(20,12,6,.5)), url('../images/hero-faq.webp');
+  background-size: cover; background-position: center;
 }
 .hero-deco { position: absolute; font-family: 'Playfair Display', serif; font-size: clamp(10rem, 25vw, 22rem); font-weight: 900; color: rgba(255,246,232,.03); right: 5%; bottom: -2rem; pointer-events: none; user-select: none; }
 .hero-quick     { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; position: relative; z-index: 1; }
@@ -1119,7 +1175,9 @@ blockquote em { color: var(--dore); }
 
 /* Hero split */
 .page-hero--contact  { min-height: 90vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 72px; }
-.hero-left           { background: var(--brun); display: flex; flex-direction: column; justify-content: center; padding: 5rem 6% 5rem 8%; position: relative; overflow: hidden; }
+.hero-left           { background: var(--brun); display: flex; flex-direction: column; justify-content: center; padding: 5rem 6% 5rem 8%; position: relative; overflow: hidden;
+  background-image: linear-gradient(135deg, rgba(20,12,6,.72), rgba(20,12,6,.55)), url('../images/hero-contact.webp');
+  background-size: cover; background-position: center; }
 .hero-left::before   { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .4; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); }
 .hero-left > *       { position: relative; z-index: 1; }
 .hero-left h1        { color: var(--blanc); margin-bottom: 1.2rem; font-size: clamp(2rem, 4vw, 3.8rem); }

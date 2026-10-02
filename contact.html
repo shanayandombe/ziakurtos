@@ -67,7 +67,7 @@
 <div id="announcement" class="announcement" role="alert" aria-live="polite"></div>
 
 <nav id="navbar" role="navigation" aria-label="Navigation principale">
-  <a href="index.html" class="nav-logo">Zia <span>Kürtös</span></a>
+  <a href="index.html" class="nav-logo logo-box" data-logo-box><img class="logo-img" src="assets/images/logo.webp" alt="Zia Kürtös" onload="imgFallback(this)" onerror="imgFallback(this)"><span class="logo-text">Zia <span>Kürtös</span></span></a>
 
   <ul class="nav-links" role="list">
     <li><a href="a-propos.html">À propos</a></li>
@@ -105,215 +105,171 @@
   <a href="contact.html">Contact</a>
 </div>
 
-<header class="contact-hero" role="banner">
-  <div class="contact-hero-inner">
-    <div class="contact-hero-content">
-      <div class="ph-label">
-        <span class="ph-dot" aria-hidden="true"></span>
-        Contactez-nous
-      </div>
+<header class="page-hero page-hero--contact" role="banner">
+  <div class="hero-left">
+    <div class="ph-label">
+      <span class="ph-dot" aria-hidden="true"></span>
+      Contactez-nous
+    </div>
 
-      <h1>Inviter <em>Zia Kürtös</em><br>ou nous contacter</h1>
+    <h1>Inviter <em>Zia Kürtös</em><br>ou nous contacter</h1>
 
-      <p>
-        Vous organisez un festival, un marché, un événement d'entreprise, une fête privée ou un rendez-vous gourmand&nbsp;?
-        Zia Kürtös peut apporter une expérience chaude, artisanale et visuelle à votre public, avec des kürtős préparés sur place.
-      </p>
+    <p>
+      Vous organisez un festival, un marché, un événement d'entreprise, une fête privée ou un rendez-vous gourmand&nbsp;?
+      Zia Kürtös peut apporter une expérience chaude, artisanale et visuelle à votre public, avec des kürtős préparés sur place.
+    </p>
 
-      <div class="contact-direct-row" aria-label="Coordonnées directes">
-        <a href="mailto:info@ziakurtos.com" class="contact-direct-link" data-email>info@ziakurtos.com</a>
-        <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" class="contact-direct-link" data-instagram>@ziakurtos</a>
-        <a href="https://www.facebook.com/zia.kurtos/" target="_blank" rel="noopener noreferrer" class="contact-direct-link" data-facebook>zia.kurtos</a>
-      </div>
+    <div class="hero-contact-direct" aria-label="Coordonnées directes">
+      <a href="mailto:info@ziakurtos.com" class="contact-item" data-email>info@ziakurtos.com</a>
+      <a href="https://www.instagram.com/ziakurtos/" target="_blank" rel="noopener noreferrer" class="contact-item" data-instagram>@ziakurtos</a>
+      <a href="https://www.facebook.com/zia.kurtos/" target="_blank" rel="noopener noreferrer" class="contact-item" data-facebook>zia.kurtos</a>
+    </div>
 
-      <div class="contact-hero-actions">
-        <a href="evenements.html" class="btn btn-ghost">Voir nos événements</a>
-        <a href="faq.html" class="btn btn-ghost">FAQ</a>
+    <div class="hero-ctas">
+      <a href="evenements.html" class="btn btn-ghost">Voir nos événements</a>
+      <a href="faq.html" class="btn btn-ghost">FAQ</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+
+    <!-- Message de succès — affiché après envoi -->
+    <div class="form-success" id="formSuccess" role="alert">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin:0 auto 1rem;display:block" aria-hidden="true">
+        <circle cx="20" cy="20" r="17" stroke="#173F35" stroke-width="1.5" fill="none"/>
+        <path d="M13 20 l5 5 9-11" stroke="#173F35" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Message envoyé !</h3>
+      <p id="formSuccessText">Merci pour votre demande. Nous vous répondons dans les plus brefs délais.</p>
+    </div>
+
+    <!-- Sélecteur type d'événement (optionnel, pré-remplit le select) -->
+    <div class="event-selector">
+      <span class="event-selector-label">Pour quel événement souhaitez-vous nous inviter&nbsp;?</span>
+      <div class="event-types-grid" role="group" aria-label="Sélectionner le type d'événement">
+        <button type="button" class="event-type-card" data-event-type="Festival" aria-pressed="false">
+          <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15 L9 3 L15 15 Z" stroke="#B66A2C" stroke-width="1.2" fill="none"/><line x1="6" y1="11" x2="12" y2="11" stroke="#B66A2C" stroke-width=".9" opacity=".7"/></svg></span>
+          <span class="event-type-name">Festival</span>
+        </button>
+        <button type="button" class="event-type-card" data-event-type="Marché de Noël" aria-pressed="false">
+          <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2 L11 7 L16 7 L12 10 L14 15 L9 12 L4 15 L6 10 L2 7 L7 7 Z" stroke="#B66A2C" stroke-width="1.1" fill="none"/></svg></span>
+          <span class="event-type-name">Marché de Noël</span>
+        </button>
+        <button type="button" class="event-type-card" data-event-type="Événement d'entreprise" aria-pressed="false">
+          <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="9" rx="1" stroke="#B66A2C" stroke-width="1.1" fill="none"/><path d="M3 7 L9 3 L15 7" stroke="#B66A2C" stroke-width="1" fill="none" opacity=".7"/></svg></span>
+          <span class="event-type-name">Événement d'entreprise</span>
+        </button>
+        <button type="button" class="event-type-card" data-event-type="Fête privée" aria-pressed="false">
+          <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3" stroke="#B66A2C" stroke-width="1.1" fill="none"/><path d="M3 17 C3 13 5.5 11 9 11 C12.5 11 15 13 15 17" stroke="#B66A2C" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg></span>
+          <span class="event-type-name">Fête privée</span>
+        </button>
+        <button type="button" class="event-type-card" data-event-type="Mariage" aria-pressed="false">
+          <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 4 C11 1.5 15 3 15 7 C15 11 9 15 9 15 C9 15 3 11 3 7 C3 3 7 1.5 9 4Z" stroke="#B66A2C" stroke-width="1.1" fill="none"/></svg></span>
+          <span class="event-type-name">Mariage</span>
+        </button>
+        <button type="button" class="event-type-card" data-event-type="Fête communale" aria-pressed="false">
+          <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 14 C6 9 9 7 12 9 C14 10 15 12 14 14" stroke="#B66A2C" stroke-width="1.1" fill="none" stroke-linecap="round"/><circle cx="9" cy="13" r="3" stroke="#B66A2C" stroke-width="1" fill="none"/></svg></span>
+          <span class="event-type-name">Fête communale</span>
+        </button>
+        <button type="button" class="event-type-card" data-event-type="Autre événement" aria-pressed="false" style="grid-column:span 2">
+          <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#B66A2C" stroke-width="1.1" fill="none"/><line x1="9" y1="5" x2="9" y2="9" stroke="#B66A2C" stroke-width="1.2" stroke-linecap="round"/><circle cx="9" cy="12.5" r=".8" fill="#B66A2C"/></svg></span>
+          <span class="event-type-name">Autre événement</span>
+        </button>
       </div>
     </div>
+
+    <!-- ★ Formulaire Netlify Forms ★ -->
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm" novalidate action="/contact.html">
+      <input type="hidden" name="form-name" value="contact">
+
+      <!-- Honeypot anti-spam -->
+      <p class="ohnohoney">
+        <label>Ne pas remplir si vous êtes humain : <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+      </p>
+
+      <p class="form-title">Votre demande</p>
+      <p>Décrivez votre événement, la date souhaitée, le lieu et le nombre approximatif de personnes. L’équipe vous répondra prochainement avec plus d’informations.</p>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="nom">Nom <span class="req" aria-label="requis">*</span></label>
+          <input type="text" id="nom" name="nom" placeholder="Votre nom" required autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="email">Email <span class="req" aria-label="requis">*</span></label>
+          <input type="email" id="email" name="email" placeholder="votre@email.com" required autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="telephone">Téléphone</label>
+          <input type="tel" id="telephone" name="telephone" placeholder="+41 xx xxx xx xx" autocomplete="tel">
+        </div>
+
+        <div class="field">
+          <label for="type-demande">Type de demande <span class="req" aria-label="requis">*</span></label>
+          <select id="type-demande" name="type_demande" required>
+            <option value="" disabled selected>Sélectionner...</option>
+            <option value="Inviter Zia Kürtös à un événement">Inviter Zia Kürtös à un événement</option>
+            <option value="Demande de collaboration">Demande de collaboration</option>
+            <option value="Question générale">Question générale</option>
+            <option value="Presse / partenariat">Presse / partenariat</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="type-evenement">Type d'événement</label>
+          <select id="type-evenement" name="type_evenement">
+            <option value="" disabled selected>Sélectionner...</option>
+            <option value="Festival">Festival</option>
+            <option value="Marché / marché de Noël">Marché / marché de Noël</option>
+            <option value="Événement d'entreprise">Événement d'entreprise</option>
+            <option value="Fête privée">Fête privée</option>
+            <option value="Mariage">Mariage</option>
+            <option value="Fête communale">Fête communale</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="date">Date souhaitée</label>
+          <input type="date" id="date" name="date">
+        </div>
+
+        <div class="field">
+          <label for="lieu">Lieu de l'événement</label>
+          <input type="text" id="lieu" name="lieu" placeholder="Ville ou adresse">
+        </div>
+
+        <div class="field">
+          <label for="personnes">Nombre estimé de personnes</label>
+          <select id="personnes" name="personnes">
+            <option value="" disabled selected>Estimation...</option>
+            <option value="Moins de 100">Moins de 100</option>
+            <option value="100 à 500">100 à 500</option>
+            <option value="500 à 1000">500 à 1 000</option>
+            <option value="Plus de 1000">Plus de 1 000</option>
+            <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+          </select>
+        </div>
+
+        <div class="field form-full">
+          <label for="message">Message <span class="req" aria-label="requis">*</span></label>
+          <textarea id="message" name="message" placeholder="Décrivez votre événement, vos besoins ou votre question..." required></textarea>
+        </div>
+
+      </div>
+
+      <p class="form-note">Les champs marqués d'un <span class="req">*</span> sont obligatoires. Vos informations sont utilisées uniquement pour répondre à votre demande.</p>
+
+      <div class="form-submit">
+        <button type="submit" class="btn btn-primary" id="contactSubmitBtn">Envoyer ma demande</button>
+      </div>
+    </form>
+
   </div>
 </header>
-
-<section class="contact-form-section" aria-label="Formulaire de demande d'événement">
-  <div class="contact-form-inner">
-    <div class="contact-form-intro">
-      <span class="s-label">Demande d'événement</span>
-      <h2>Votre demande pour Zia Kürtös</h2>
-      <p>
-        Décrivez votre événement, la date souhaitée, le lieu et le nombre approximatif de personnes.
-        L’équipe vous répondra prochainement avec plus d’informations.
-      </p>
-
-      <div class="ghl-event-tags" aria-label="Types d'événements possibles">
-        <span>Festival</span>
-        <span>Marché de Noël</span>
-        <span>Entreprise</span>
-        <span>Fête privée</span>
-        <span>Mariage</span>
-        <span>Autre événement</span>
-      </div>
-    </div>
-<!-- ★ REMPLACE le bloc .ghl-form-card + iframe par ceci ★ -->
-
-<div class="ghl-form-card" id="contactFormCard">
-
-  <!-- Message de succès — affiché après envoi -->
-  <div class="form-success" id="formSuccess" role="alert">
-    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin:0 auto 1rem;display:block" aria-hidden="true">
-      <circle cx="20" cy="20" r="17" stroke="#173F35" stroke-width="1.5" fill="none"/>
-      <path d="M13 20 l5 5 9-11" stroke="#173F35" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <h3>Message envoyé !</h3>
-    <p id="formSuccessText">Merci pour votre demande. Nous vous répondons dans les plus brefs délais.</p>
-  </div>
-
-  <!-- Sélecteur type d'événement (optionnel, pré-remplit le select) -->
-  <div class="event-selector">
-    <span class="event-selector-label">Pour quel événement souhaitez-vous nous inviter&nbsp;?</span>
-    <div class="event-types-grid" role="group" aria-label="Sélectionner le type d'événement">
-      <button type="button" class="event-type-card" data-event-type="Festival" aria-pressed="false">
-        <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15 L9 3 L15 15 Z" stroke="#B66A2C" stroke-width="1.2" fill="none"/><line x1="6" y1="11" x2="12" y2="11" stroke="#B66A2C" stroke-width=".9" opacity=".7"/></svg></span>
-        <span class="event-type-name">Festival</span>
-      </button>
-      <button type="button" class="event-type-card" data-event-type="Marché de Noël" aria-pressed="false">
-        <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2 L11 7 L16 7 L12 10 L14 15 L9 12 L4 15 L6 10 L2 7 L7 7 Z" stroke="#B66A2C" stroke-width="1.1" fill="none"/></svg></span>
-        <span class="event-type-name">Marché de Noël</span>
-      </button>
-      <button type="button" class="event-type-card" data-event-type="Événement d'entreprise" aria-pressed="false">
-        <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="9" rx="1" stroke="#B66A2C" stroke-width="1.1" fill="none"/><path d="M3 7 L9 3 L15 7" stroke="#B66A2C" stroke-width="1" fill="none" opacity=".7"/></svg></span>
-        <span class="event-type-name">Événement d'entreprise</span>
-      </button>
-      <button type="button" class="event-type-card" data-event-type="Fête privée" aria-pressed="false">
-        <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3" stroke="#B66A2C" stroke-width="1.1" fill="none"/><path d="M3 17 C3 13 5.5 11 9 11 C12.5 11 15 13 15 17" stroke="#B66A2C" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg></span>
-        <span class="event-type-name">Fête privée</span>
-      </button>
-      <button type="button" class="event-type-card" data-event-type="Mariage" aria-pressed="false">
-        <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 4 C11 1.5 15 3 15 7 C15 11 9 15 9 15 C9 15 3 11 3 7 C3 3 7 1.5 9 4Z" stroke="#B66A2C" stroke-width="1.1" fill="none"/></svg></span>
-        <span class="event-type-name">Mariage</span>
-      </button>
-      <button type="button" class="event-type-card" data-event-type="Fête communale" aria-pressed="false">
-        <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 14 C6 9 9 7 12 9 C14 10 15 12 14 14" stroke="#B66A2C" stroke-width="1.1" fill="none" stroke-linecap="round"/><circle cx="9" cy="13" r="3" stroke="#B66A2C" stroke-width="1" fill="none"/></svg></span>
-        <span class="event-type-name">Fête communale</span>
-      </button>
-      <button type="button" class="event-type-card" data-event-type="Autre événement" aria-pressed="false" style="grid-column:span 2">
-        <span class="event-type-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#B66A2C" stroke-width="1.1" fill="none"/><line x1="9" y1="5" x2="9" y2="9" stroke="#B66A2C" stroke-width="1.2" stroke-linecap="round"/><circle cx="9" cy="12.5" r=".8" fill="#B66A2C"/></svg></span>
-        <span class="event-type-name">Autre événement</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- ★ Formulaire Netlify Forms ★ -->
-  <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm" novalidate action="/contact.html">
-    <input type="hidden" name="form-name" value="contact">
-
-    <!-- Honeypot anti-spam -->
-    <p class="ohnohoney">
-      <label>Ne pas remplir si vous êtes humain : <input name="bot-field" tabindex="-1" autocomplete="off"></label>
-    </p>
-
-    <p class="form-title">Votre demande</p>
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label for="nom">Nom <span class="req" aria-label="requis">*</span></label>
-        <input type="text" id="nom" name="nom" placeholder="Votre nom" required autocomplete="name">
-      </div>
-
-      <div class="field">
-        <label for="email">Email <span class="req" aria-label="requis">*</span></label>
-        <input type="email" id="email" name="email" placeholder="votre@email.com" required autocomplete="email">
-      </div>
-
-      <div class="field">
-        <label for="telephone">Téléphone</label>
-        <input type="tel" id="telephone" name="telephone" placeholder="+41 xx xxx xx xx" autocomplete="tel">
-      </div>
-
-      <div class="field">
-        <label for="type-demande">Type de demande <span class="req" aria-label="requis">*</span></label>
-        <select id="type-demande" name="type_demande" required>
-          <option value="" disabled selected>Sélectionner...</option>
-          <option value="Inviter Zia Kürtös à un événement">Inviter Zia Kürtös à un événement</option>
-          <option value="Demande de collaboration">Demande de collaboration</option>
-          <option value="Question générale">Question générale</option>
-          <option value="Presse / partenariat">Presse / partenariat</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="type-evenement">Type d'événement</label>
-        <select id="type-evenement" name="type_evenement">
-          <option value="" disabled selected>Sélectionner...</option>
-          <option value="Festival">Festival</option>
-          <option value="Marché / marché de Noël">Marché / marché de Noël</option>
-          <option value="Événement d'entreprise">Événement d'entreprise</option>
-          <option value="Fête privée">Fête privée</option>
-          <option value="Mariage">Mariage</option>
-          <option value="Fête communale">Fête communale</option>
-          <option value="Autre">Autre</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="date">Date souhaitée</label>
-        <input type="date" id="date" name="date">
-      </div>
-
-      <div class="field">
-        <label for="lieu">Lieu de l'événement</label>
-        <input type="text" id="lieu" name="lieu" placeholder="Ville ou adresse">
-      </div>
-
-      <div class="field">
-        <label for="personnes">Nombre estimé de personnes</label>
-        <select id="personnes" name="personnes">
-          <option value="" disabled selected>Estimation...</option>
-          <option value="Moins de 100">Moins de 100</option>
-          <option value="100 à 500">100 à 500</option>
-          <option value="500 à 1000">500 à 1 000</option>
-          <option value="Plus de 1000">Plus de 1 000</option>
-          <option value="Je ne sais pas encore">Je ne sais pas encore</option>
-        </select>
-      </div>
-
-      <div class="field form-full">
-        <label for="message">Message <span class="req" aria-label="requis">*</span></label>
-        <textarea id="message" name="message" placeholder="Décrivez votre événement, vos besoins ou votre question..." required></textarea>
-      </div>
-
-    </div>
-
-    <p class="form-note">Les champs marqués d'un <span class="req">*</span> sont obligatoires. Vos informations sont utilisées uniquement pour répondre à votre demande.</p>
-
-    <div class="form-submit">
-      <button type="submit" class="btn btn-primary" id="contactSubmitBtn">Envoyer ma demande</button>
-    </div>
-  </form>
-
-</div>
-    
-
-    <p class="ghl-form-note">
-      Les informations transmises sont utilisées uniquement pour répondre à votre demande d’événement.
-    </p>
-  </div>
-</section>
-
-<div class="marquee-bar marquee-bar-contact" aria-hidden="true" role="presentation">
-  <div class="marquee-track">
-    <span class="marquee-item">Un stand qui attire les curieux<span class="marquee-sep"></span></span>
-    <span class="marquee-item">Cuisson à la broche<span class="marquee-sep"></span></span>
-    <span class="marquee-item">Fait sur place<span class="marquee-sep"></span></span>
-    <span class="marquee-item">Festival · Marché · Mariage · Entreprise<span class="marquee-sep"></span></span>
-    <span class="marquee-item">Kürtős artisanal Suisse<span class="marquee-sep"></span></span>
-    <span class="marquee-item">Un stand qui attire les curieux<span class="marquee-sep"></span></span>
-    <span class="marquee-item">Cuisson à la broche<span class="marquee-sep"></span></span>
-    <span class="marquee-item">Fait sur place<span class="marquee-sep"></span></span>
-    <span class="marquee-item">Festival · Marché · Mariage · Entreprise<span class="marquee-sep"></span></span>
-    <span class="marquee-item">Kürtős artisanal Suisse<span class="marquee-sep"></span></span>
-  </div>
-</div>
 
 <section class="avantages-section" aria-labelledby="avantages-title">
   <div class="avantages-inner">
@@ -385,7 +341,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="index.html" class="footer-logo">Zia <span>Kürtös</span></a>
+      <a href="index.html" class="footer-logo logo-box" data-logo-box><img class="logo-img" src="assets/images/logo.webp" alt="Zia Kürtös" onload="imgFallback(this)" onerror="imgFallback(this)"><span class="logo-text">Zia <span>Kürtös</span></span></a>
       <p>Stand de kürtős artisanaux pour festivals, marchés et événements en Suisse romande. Contactez-nous pour votre prochain événement.</p>
 
       <div class="footer-socials">
@@ -445,7 +401,7 @@
   <div class="footer-bottom">
     <span>&copy; 2025 Zia Kürtös — Tous droits réservés — Contact stand gourmand Suisse romande</span>
     <span class="footer-credit" id="footerCredit">
-      <a href="https://www.instagram.com/web.onit/" target="_blank" rel="noopener noreferrer">Site créé par Web On It !</a>
+      <a href="https://la-malice.ch/" target="_blank" rel="noopener noreferrer">la-malice.ch</a>
     </span>
   </div>
 </footer>

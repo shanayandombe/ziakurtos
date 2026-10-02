@@ -1,11 +1,19 @@
 /* ─────────────────────────────────────────────────────────────────────────────
-   Zia Kürtös — assets/js/main.js — Version consolidée
+   Zia Kürtös — assets/js/main.js — Version finale consolidée
    Changements vs version précédente :
-   ① initFilters flavors → Sucré (= sucré+tartinage+signature+saisonnier) / Salé
-   ② renderEventsPage → détecte automatiquement le prochain événement + timeline
-   ③ Nouveau : renderEventsTimeline(), getNextEventIndex()
-   ④ Suppression "pâte levée" de tout contenu éditorial JS
-   ⑤ Footer credit géré par site.yml (inchangé)
+   ① Normalisation accents : les filtres (saveurs / saisons / galerie) et les
+      libellés de saison fonctionnent désormais quels que soient les accents
+      utilisés côté HTML (data-*) ou côté CMS (content/*.yml).
+   ② applyTheme() n'injecte plus de variables CSS en JS : les palettes summer /
+      winter vivent uniquement dans styles.css via [data-theme]. main.js se
+      contente de poser l'attribut data-theme.
+   ③ applySettings() utilise ZIA_CONTACT_SETTINGS en priorité pour l'email et
+      les réseaux sociaux affichés, avec repli sur ZIA_SETTINGS si absent.
+   ④ initContactForm() applique réellement le success_message du CMS.
+   ⑤ Migration dans main.js de setStep() (Nos Kürtös) et toggleFaq() +
+      navigation catégories (FAQ), exposées globalement (window.setStep /
+      window.toggleFaq) pour rester compatibles avec les attributs onclick
+      déjà présents dans le HTML.
 ───────────────────────────────────────────────────────────────────────────── */
 'use strict';
 
@@ -18,6 +26,34 @@ function esc(str) {
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+/** Supprime les accents/diacritiques et met en minuscules.
+ *  Permet de comparer en toute sécurité des valeurs qui peuvent arriver
+ *  accentuées côté HTML (data-filter-season="été") ou non accentuées côté
+ *  CMS (season: ete), sans avoir à synchroniser les deux à la main. */
+function normalize(str) {
+  return String(str || '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().trim();
+}
+
+/* ══ IMAGES STATIQUES OPTIONNELLES (hors CMS) ═══════════════════════════════
+   Certaines images du site (stand, équipe, étapes du processus…) ne sont pas
+   encore fournies par la cliente. Plutôt que de bricoler un onerror différent
+   à chaque endroit, un seul mécanisme générique gère les deux sens :
+     - l'image charge  → le composant s'affiche normalement ;
+     - l'image échoue  → le conteneur porteur de [data-img-box] se masque
+       proprement (jamais de chemin de fichier affiché, jamais de cadre vide) ;
+       le CSS associé (voir styles.css) réorganise la mise en page si besoin.
+   Chaque <img> concernée appelle imgFallback(this) sur onload ET onerror :
+   si le fichier est déposé plus tard au même chemin, l'image et sa mise en
+   page reviennent automatiquement, sans toucher au HTML. ════════════════════ */
+window.imgFallback = function imgFallback(img) {
+  const box = img.closest('[data-img-box], [data-logo-box]');
+  if (!box) return;
+  const ok = img.complete && img.naturalWidth > 0;
+  box.classList.toggle('is-missing', !ok);
+};
+
 function formatDateRange(s, e) {
   if (!s) return '';
   const months = ['jan.','fév.','mars','avr.','mai','juin','juil.','août','sep.','oct.','nov.','déc.'];
@@ -29,17 +65,28 @@ function formatDateRange(s, e) {
   return fmt(s) + ' – ' + fmt(e);
 }
 
-const seasonLabel    = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
-const seasonBadgeCls = s => ({ printemps:'badge-printemps',été:'badge-ete',automne:'badge-automne',hiver:'badge-hiver',annuel:'badge-annuel' }[s] || 'badge-annuel');
+/* ── Saisons événements : libellés + classes, tolérants aux accents ── */
+const SEASON_LABELS = { printemps:'Printemps', ete:'Été', automne:'Automne', hiver:'Hiver', annuel:'Annuel' };
+const SEASON_BADGE_CLS = { printemps:'badge-printemps', ete:'badge-ete', automne:'badge-automne', hiver:'badge-hiver', annuel:'badge-annuel' };
 
-// Catégories regroupées sous "Sucré" côté public
-const SUCRE_CATS = ['sucré','tartinage','signature','saisonnier'];
+function seasonLabel(s) {
+  const n = normalize(s);
+  return SEASON_LABELS[n] || (s ? s.charAt(0).toUpperCase() + s.slice(1) : '');
+}
+function seasonBadgeCls(s) {
+  return SEASON_BADGE_CLS[normalize(s)] || 'badge-annuel';
+}
 
-const flavorTagCls = c => {
-  if (SUCRE_CATS.includes(c)) return 'tag-sucre';
-  if (c === 'salé') return 'tag-sale';
-  return 'tag-sucre';
-};
+/* ── Saveurs : catégories internes → libellé public, tolérant aux accents ──
+   sucre / tartinage / signature / ete → "Sucré" (ou "Été" pour l'affichage)
+   sale                                → "Salé"
+   Côté filtres publics il n'existe que deux boutons : Sucré / Salé. */
+const FLAVOR_LABELS      = { sucre:'Sucré', tartinage:'Sucré', signature:'Sucré', sale:'Salé', ete:'Été' };
+const FLAVOR_SUCRE_GROUP = ['sucre','tartinage','signature','ete'];
+const FLAVOR_SALE_GROUP  = ['sale'];
+
+function flavorPublicLabel(cat) { return FLAVOR_LABELS[normalize(cat)] || ''; }
+function flavorTagCls(cat)      { return normalize(cat) === 'sale' ? 'tag-sale' : 'tag-sucre'; }
 
 const AR = ['tall','sq','xtall','wide','tall','sq','wide','tall','sq','xtall'];
 
@@ -86,15 +133,29 @@ const _emptyGallery = () => `
     class="btn btn-ghost" style="margin-top:1.5rem;display:inline-block">Suivre @ziakurtos</a>
 </div>`;
 
+/* ══ CONTACT INFO — fusion ZIA_CONTACT_SETTINGS (priorité) + ZIA_SETTINGS (repli) ══ */
+
+function getContactInfo() {
+  const S  = window.ZIA_SETTINGS || {};
+  const CS = window.ZIA_CONTACT_SETTINGS || {};
+  return {
+    email:           CS.contact_display_email || S.email || '',
+    instagram_url:   CS.instagram_url || S.instagram_url || '',
+    facebook_url:    CS.facebook_url  || S.facebook_url  || '',
+    success_message: CS.success_message || ''
+  };
+}
+
 /* ══ SETTINGS ════════════════════════════════════════════════════════════════ */
 
 function applySettings() {
-  const S = window.ZIA_SETTINGS || {};
+  const S  = window.ZIA_SETTINGS || {};
+  const CI = getContactInfo();
 
-  if (S.email) {
+  if (CI.email) {
     document.querySelectorAll('[data-email]').forEach(el => {
-      el.href = 'mailto:' + S.email;
-      if (!el.querySelector('*')) el.textContent = S.email;
+      el.href = 'mailto:' + CI.email;
+      if (!el.querySelector('*')) el.textContent = CI.email;
     });
   }
   if (S.tiktok_url) {
@@ -103,8 +164,8 @@ function applySettings() {
       el.style.display = 'flex';
     });
   }
-  if (S.instagram_url) document.querySelectorAll('[data-instagram]').forEach(el => { el.href = S.instagram_url; });
-  if (S.facebook_url)  document.querySelectorAll('[data-facebook]').forEach(el => { el.href = S.facebook_url; });
+  if (CI.instagram_url) document.querySelectorAll('[data-instagram]').forEach(el => { el.href = CI.instagram_url; });
+  if (CI.facebook_url)  document.querySelectorAll('[data-facebook]').forEach(el => { el.href = CI.facebook_url; });
 
   if (S.main_cta_label)    document.querySelectorAll('[data-cta-main]').forEach(el => { el.textContent = S.main_cta_label; });
   if (S.contact_cta_label) document.querySelectorAll('[data-cta-contact]').forEach(el => { el.textContent = S.contact_cta_label; });
@@ -121,23 +182,18 @@ function applySettings() {
     const text = S.footer_credit_text || 'la-malice.ch';
     fc.innerHTML = `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(text)}</a>`;
   }
-
-  const navCta = $('navCta');
-  if (navCta && S.contact_cta_label) navCta.textContent = S.contact_cta_label;
 }
 
-/* ══ THEME ═══════════════════════════════════════════════════════════════════ */
+/* ══ THEME ═══════════════════════════════════════════════════════════════════
+   Les palettes summer / winter vivent uniquement dans styles.css, via
+   :root et [data-theme="summer"] / [data-theme="winter"].
+   main.js se contente de poser l'attribut — aucune couleur n'est dupliquée
+   ni injectée en JS ici. ══════════════════════════════════════════════════ */
 
 function applyTheme() {
   const S = window.ZIA_SETTINGS || {};
   const theme = (S.active_theme === 'winter') ? 'winter' : 'summer';
   document.documentElement.setAttribute('data-theme', theme);
-  const T = window.ZIA_THEME;
-  if (T && typeof T === 'object') {
-    Object.entries(T).forEach(([k, v]) => {
-      if (k.startsWith('--')) document.documentElement.style.setProperty(k, v);
-    });
-  }
 }
 
 /* ══ EVENTS — HELPERS ════════════════════════════════════════════════════════ */
@@ -152,13 +208,30 @@ function getVisibleEvents() {
     });
 }
 
-/** Retourne l'index du prochain événement à venir (start_date OU end_date >= aujourd'hui) */
+/** Date du jour au format YYYY-MM-DD, en heure LOCALE (et non UTC). */
+function todayStr() {
+  const n = new Date(), p = x => String(x).padStart(2, '0');
+  return `${n.getFullYear()}-${p(n.getMonth() + 1)}-${p(n.getDate())}`;
+}
+
+/** Index du prochain événement : parmi les événements non terminés (end_date, ou
+ *  start_date à défaut, >= aujourd'hui), celui dont la date de début est la plus proche.
+ *  Le calcul ne dépend PAS du champ "order" du CMS. Retourne -1 s'il n'y en a plus. */
 function getNextEventIndex(events) {
-  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-  return events.findIndex(ev => {
-    const endOrStart = ev.end_date || ev.start_date || '';
-    return endOrStart >= today;
+  const today = todayStr();
+  let best = -1;
+  events.forEach((ev, i) => {
+    const start = ev.start_date || '';
+    const end   = ev.end_date || start;
+    if (!start && !end) return;
+    if ((end || start) < today) return;
+    if (best === -1) { best = i; return; }
+    const b  = events[best];
+    const bs = b.start_date || '';
+    const be = b.end_date || bs;
+    if (start < bs || (start === bs && end < be)) best = i;
   });
+  return best;
 }
 
 function _imgOrPlaceholder(img, title) {
@@ -171,22 +244,23 @@ function _imgOrPlaceholder(img, title) {
 /* ══ EVENTS — TIMELINE ═══════════════════════════════════════════════════════
    Affiche une bande de points chronologiques au-dessus de la liste.
    Le prochain événement à venir est mis en avant (point doré).
-   Aucune intervention manuelle de la cliente nécessaire.
+   Calcul 100% automatique à partir de start_date / end_date + date du jour —
+   aucune case "prochain événement" côté CMS.
 ═══════════════════════════════════════════════════════════════════════════════ */
 
 function renderEventsTimeline(events) {
   const strip = $('eventsTimeline');
   if (!strip || !events.length) return;
 
-  const today    = new Date().toISOString().split('T')[0];
-  const nextIdx  = getNextEventIndex(events);
+  const today   = todayStr();
+  const nextIdx = getNextEventIndex(events);
 
   const dots = events.map((ev, i) => {
     const endOrStart = ev.end_date || ev.start_date || '';
-    const isPast     = endOrStart < today && endOrStart !== '';
-    const isNext     = i === nextIdx;
-    const cls        = isPast ? 'tl-past' : isNext ? 'tl-next' : 'tl-future';
-    const d          = formatDateRange(ev.start_date, ev.end_date);
+    const isPast      = endOrStart < today && endOrStart !== '';
+    const isNext       = i === nextIdx;
+    const cls          = isPast ? 'tl-past' : isNext ? 'tl-next' : 'tl-future';
+    const d             = formatDateRange(ev.start_date, ev.end_date);
     return `<div class="tl-dot-wrap ${cls}" aria-label="${esc(ev.title)}${isNext ? ' — Prochain événement' : ''}">
       <div class="tl-dot"></div>
       ${isNext ? `<span class="tl-next-badge">Prochain</span>` : ''}
@@ -278,7 +352,6 @@ function renderEventsPage() {
   const cnt = $('eventCountNum');
   if (cnt) cnt.textContent = evs.length;
 
-  // Rendre la timeline
   renderEventsTimeline(evs);
 
   _initRevealIn(c);
@@ -293,20 +366,20 @@ function getVisibleFlavors() {
 }
 
 function flavorCard(f) {
-  // Tag public simplifié : Sucré ou Salé
-  const publicLabel = SUCRE_CATS.includes(f.category) ? 'Sucré' : f.category === 'salé' ? 'Salé' : '';
-  const tagCls      = flavorTagCls(f.category);
-  const badgeCls    = 'badge-' + (f.badge || 'classique');
-  const imgHtml     = f.image
+  const publicLabel  = flavorPublicLabel(f.category);
+  const tagCls       = flavorTagCls(f.category);
+  const badgeCls     = 'badge-' + normalize(f.badge || 'classique');
+  const imgHtml      = f.image
     ? `<img src="${esc(f.image)}" alt="${esc(f.title)} — kürtős Zia Kürtös" loading="lazy" width="200" height="200" onerror="this.style.display='none'">`
     : '';
-  const upcomingNote = f.upcoming ? `<p class="upcoming-note">Prochainement disponible</p>` : '';
-  const revealTxt    = f.upcoming ? 'Bientôt disponible' : `${esc(f.title)} — kürtős artisanal`;
+  const badgeHtml     = f.badge ? `<span class="saveur-badge ${badgeCls}">${esc(f.badge)}</span>` : '';
+  const upcomingNote  = f.upcoming ? `<p class="upcoming-note">Prochainement disponible</p>` : '';
+  const revealTxt     = f.upcoming ? 'Bientôt disponible' : `${esc(f.title)} — kürtős artisanal`;
 
   return `<article class="saveur-card${f.upcoming?' is-upcoming':''} reveal"
     data-type="${esc(f.category||'')}" role="listitem">
     ${imgHtml}
-    <span class="saveur-badge ${badgeCls}">${esc(f.badge||'classique')}</span>
+    ${badgeHtml}
     <span class="saveur-tag ${tagCls}">${publicLabel}</span>
     <h3>${esc(f.title||'')}</h3>
     <p>${esc(f.description||'')}</p>
@@ -318,7 +391,7 @@ function flavorCard(f) {
 function renderFlavorsHome() {
   const c = $('flavorsHome');
   if (!c) return;
-  const fl = getVisibleFlavors().filter(f => !f.upcoming).slice(0,8);
+  const fl = getVisibleFlavors().filter(f => !f.upcoming);
   c.innerHTML = fl.length ? fl.map(flavorCard).join('') : _emptyFlavors();
   _initRevealIn(c);
 }
@@ -396,8 +469,8 @@ function renderGalleryMosaic() {
 function renderInstagramPreview() {
   const c = $('instaGrid');
   if (!c) return;
-  const S    = window.ZIA_SETTINGS || {};
-  const url  = S.instagram_url || 'https://www.instagram.com/ziakurtos/';
+  const CI   = getContactInfo();
+  const url  = CI.instagram_url || 'https://www.instagram.com/ziakurtos/';
   const feed = (window.ZIA_INSTA && window.ZIA_INSTA.length)
     ? window.ZIA_INSTA.slice(0,6)
     : getVisibleGallery().filter(g => g.featured).slice(0,6);
@@ -458,9 +531,11 @@ function _updateLb() {
 }
 
 /* ══ FILTERS ═════════════════════════════════════════════════════════════════
-   ① Saveurs : "Sucré" = sucré+tartinage+signature+saisonnier | "Salé" = salé
+   ① Saveurs : "Sucré" = sucre+tartinage+signature+ete | "Salé" = sale
    ② Saisons : filtrage des cartes événements
    ③ Galerie : filtrage par catégorie
+   Toutes les comparaisons passent par normalize() : peu importe que le HTML
+   utilise "été" ou que le CMS stocke "ete", ça matche.
 ═══════════════════════════════════════════════════════════════════════════════ */
 
 function initFilters() {
@@ -472,12 +547,12 @@ function initFilters() {
         b.classList.remove('active'); b.setAttribute('aria-pressed','false');
       });
       btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
-      const type = btn.dataset.filterFlavors;
+      const type = normalize(btn.dataset.filterFlavors);
       document.querySelectorAll('.saveur-card').forEach(card => {
-        const cat  = card.dataset.type;
+        const cat  = normalize(card.dataset.type);
         const show = type === 'all'
-          || (type === 'sucré' && SUCRE_CATS.includes(cat))
-          || (type === 'salé' && cat === 'salé');
+          || (type === 'sucre' && FLAVOR_SUCRE_GROUP.includes(cat))
+          || (type === 'sale'  && FLAVOR_SALE_GROUP.includes(cat));
         card.style.display = show ? '' : 'none';
       });
     });
@@ -490,10 +565,10 @@ function initFilters() {
         b.classList.remove('active'); b.setAttribute('aria-pressed','false');
       });
       btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
-      const s = btn.dataset.filterSeason;
+      const s = normalize(btn.dataset.filterSeason);
       let n = 0;
       document.querySelectorAll('#eventsList .event-card-h, #eventsList .event-card').forEach(card => {
-        const show = s==='all' || card.dataset.season===s;
+        const show = s==='all' || normalize(card.dataset.season)===s;
         card.style.display = show ? '' : 'none';
         if (show) n++;
       });
@@ -509,10 +584,10 @@ function initFilters() {
         b.classList.remove('active'); b.setAttribute('aria-pressed','false');
       });
       btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
-      const cat = btn.dataset.filterGallery;
+      const cat = normalize(btn.dataset.filterGallery);
       let n = 0;
       document.querySelectorAll('#galleryGrid .masonry-item').forEach(item => {
-        const show = cat==='all' || item.dataset.cat===cat;
+        const show = cat==='all' || normalize(item.dataset.cat)===cat;
         item.style.display = show ? '' : 'none';
         if (show) n++;
       });
@@ -639,8 +714,13 @@ function initEventTypeSelector() {
 function initContactForm() {
   const form = $('contactForm');
   if (!form) return;
-  const successBox = $('formSuccess');
-  const submitBtn  = $('contactSubmitBtn');
+  const successBox  = $('formSuccess');
+  const successText = $('formSuccessText');
+  const submitBtn   = $('contactSubmitBtn');
+
+  // Applique le message de succès configuré depuis /admin/ (content/settings/contact.yml)
+  const CI = getContactInfo();
+  if (successText && CI.success_message) successText.textContent = CI.success_message;
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -660,6 +740,110 @@ function initContactForm() {
       } else { form.submit(); }
     } catch { form.submit(); }
   });
+}
+
+/* ══ NOS KÜRTÖS — PROCESSUS EN 5 ÉTAPES ══════════════════════════════════════
+   Migré depuis le <script> inline de nos-kurtos.html.
+   window.setStep reste exposé globalement car le HTML utilise encore des
+   attributs onclick="setStep(i)" sur chaque étape — c'est volontaire (cf.
+   passation : centraliser dans main.js sans réécrire toute la page HTML). ══ */
+
+const TL_DATA = [
+  {
+    tag: 'Étape 1 sur 5',
+    title: 'La pâte est enroulée autour du cylindre',
+    desc: "Pâte moelleuse, qui est enroulée à la main en petites bandes autour d'un rouleau de bois ou d'inox.",
+    ph: 'assets/images/kurtos-pate-enroulee.webp',
+    alt: 'Pâte kürtős enroulée à la main sur un rouleau de bois'
+  },
+  {
+    tag: 'Étape 2 sur 5',
+    title: 'Le kürtős tourne lentement à la broche',
+    desc: "Recouverte de sucre pour la version sucrée, elle est ensuite cuite au-dessus du grill.",
+    ph: 'assets/images/kurtos-cuisson-broche.webp',
+    alt: 'Kürtős artisanal qui tourne à la broche au-dessus du grill'
+  },
+  {
+    tag: 'Étape 3 sur 5',
+    title: "Moelleux à l'intérieur",
+    desc: "Lors de sa cuisson, le sucre se caramélise à l'extérieur pour former un film croustillant tout en laissant place à une pâte tendre à l'intérieur.",
+    ph: 'assets/images/kurtos-sucre-cannelle.webp',
+    alt: 'Sucre caramélisé sur un chimney cake gâteau cheminée'
+  },
+  {
+    tag: 'Étape 4 sur 5',
+    title: 'Gourmandise au choix',
+    desc: "Choisis ton extérieur : sucre, sucre-cannelle ou amandes grillées, puis ton tartinage à l'intérieur.",
+    ph: 'assets/images/kurtos-nutella.webp',
+    alt: 'Kürtős servi chaud avec garniture au choix'
+  },
+  {
+    tag: 'Étape 5 sur 5',
+    title: 'Version salée',
+    desc: "Pour le salé, la pâte neutre est roulée dans du Gruyère ou des olives & Gruyère, puis grillée pour obtenir de délicieux petits pains salés bien gratinés.",
+    ph: 'assets/images/uploads/saveur-gruyere.webp',
+    alt: 'Kürtős salé au Gruyère gratiné Zia Kürtös'
+  }
+];
+
+function initProcessusTimeline() {
+  const steps = document.querySelectorAll('.tl-step');
+  if (!steps.length) return;
+
+  window.setStep = function setStep(i) {
+    document.querySelectorAll('.tl-step').forEach((s, j) => {
+      s.classList.toggle('active', j === i);
+      s.setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    const d = TL_DATA[i];
+    if (!d) return;
+    const tag   = $('tl-detail-tag');
+    const title = $('tl-detail-title');
+    const desc  = $('tl-detail-desc');
+    const photo = $('tl-detail-photo');
+    const img   = $('tl-detail-img');
+    if (tag)   tag.textContent   = d.tag;
+    if (title) title.textContent = d.title;
+    if (desc)  desc.textContent  = d.desc;
+    if (photo) { photo.src = d.ph; photo.alt = d.alt; }
+    if (img)   img.setAttribute('aria-label', d.alt);
+  };
+}
+
+/* ══ FAQ ══════════════════════════════════════════════════════════════════════
+   Migré depuis le <script> inline de faq.html.
+   window.toggleFaq reste exposé globalement car le HTML utilise encore des
+   attributs onclick="toggleFaq(this)" sur chaque question. ═══════════════════ */
+
+function initFaqAccordion() {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+
+  window.toggleFaq = function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    if (!item) return;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      const q = i.querySelector('.faq-q');
+      if (q) q.setAttribute('aria-expanded','false');
+    });
+    if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+  };
+}
+
+function initFaqCatScroll() {
+  const groupIds = ['produit','evenements-faq','pratique'];
+  const groups   = {};
+  groupIds.forEach(id => { const el = $(id); if (el) groups[id] = el; });
+  const pills = document.querySelectorAll('.cat-pill');
+  if (!Object.keys(groups).length || !pills.length) return;
+
+  window.addEventListener('scroll', () => {
+    let active = groupIds[0];
+    Object.entries(groups).forEach(([k, el]) => { if (el.getBoundingClientRect().top < 200) active = k; });
+    pills.forEach(p => p.classList.toggle('active', p.getAttribute('href') === '#' + active));
+  }, { passive: true });
 }
 
 /* ══ INIT ════════════════════════════════════════════════════════════════════ */
@@ -688,5 +872,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Page-specific — guards intégrés, s'activent uniquement si l'élément existe
   initProcessusTimeline();
+  initFaqAccordion();
   initFaqCatScroll();
 });
